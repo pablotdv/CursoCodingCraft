@@ -8,5 +8,9 @@ namespace GaveteiroLanches.Dominio
 {
     public class Class1
     {
+        public Class1()
+        {
+            
+        }
     }
 }
