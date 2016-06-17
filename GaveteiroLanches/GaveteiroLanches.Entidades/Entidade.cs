@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace GaveteiroLanches.Entidades
 {
-    public class Class1
+    public class Entidade : IEntidade
     {
+        public DateTime DataHoraCad { get; set; }
+
+        public string UsuarioCad { get; set; }
     }
 }

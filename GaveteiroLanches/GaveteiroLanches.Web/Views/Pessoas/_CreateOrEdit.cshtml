@@ -1,0 +1,36 @@
+@model GaveteiroLanches.Entidades.Pessoa
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.DataHoraCad)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.DataHoraCad)
+    @Html.ValidationMessageFor(model => model.DataHoraCad)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UsuarioCad)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UsuarioCad)
+    @Html.ValidationMessageFor(model => model.UsuarioCad)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Nome)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Nome)
+    @Html.ValidationMessageFor(model => model.Nome)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Email)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Email)
+    @Html.ValidationMessageFor(model => model.Email)
+</div>
+
