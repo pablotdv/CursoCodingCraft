@@ -14,6 +14,6 @@ namespace GaveteiroLanches.Entidades
 
         public decimal Valor { get; set; }
 
-        
+        public string Categoria { get; set; }
     }
 }
