@@ -198,13 +198,18 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PessoasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Auditoria.cs" />
+    <Compile Include="Models\Entidade.cs" />
+    <Compile Include="Models\GaveteiroLanchesContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IEntidade.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Pessoa.cs" />
+    <Compile Include="Models\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -268,15 +273,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Pessoas\Create.cshtml" />
-    <Content Include="Views\Pessoas\Edit.cshtml" />
-    <Content Include="Views\Pessoas\Delete.cshtml" />
-    <Content Include="Views\Pessoas\Details.cshtml" />
-    <Content Include="Views\Pessoas\Index.cshtml" />
-    <Content Include="Views\Pessoas\_CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -285,16 +285,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GaveteiroLanches.Dominio\GaveteiroLanches.Dominio.csproj">
-      <Project>{c682f0cf-570c-4795-9061-489517ef70a6}</Project>
-      <Name>GaveteiroLanches.Dominio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GaveteiroLanches.Entidades\GaveteiroLanches.Entidades.csproj">
-      <Project>{93fd6b9a-941c-4a6f-82cc-c7a1023abea1}</Project>
-      <Name>GaveteiroLanches.Entidades</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

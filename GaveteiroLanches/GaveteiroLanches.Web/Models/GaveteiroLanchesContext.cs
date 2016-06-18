@@ -1,4 +1,4 @@
-﻿using GaveteiroLanches.Entidades;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,17 +13,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace GaveteiroLanches.Dominio
+namespace GaveteiroLanches.Web.Models
 {
-    public class GaveteiroLanchesContext : DbContext
+    public class GaveteiroLanchesContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Auditoria> Auditoria { get; set; }
 
-        public DbSet<Pessoa> Pessoa { get; set; }
-
         public GaveteiroLanchesContext()
+            : base("GaveteiroLanchesContext", throwIfV1Schema: false)
         {
+        }
 
+        public static GaveteiroLanchesContext Create()
+        {
+            return new GaveteiroLanchesContext();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -45,11 +48,7 @@ namespace GaveteiroLanches.Dominio
             //define que todas as colunas string terão 100 caracteres
             modelBuilder.Properties<string>()
                   .Configure(p => p.HasMaxLength(100));
-
-            //adiciona os mapeamentos
-            modelBuilder.Configurations.Add(new Mapeamento.AuditoriaMap());
-            modelBuilder.Configurations.Add(new Mapeamento.PessoaMap());
-
+                        
             base.OnModelCreating(modelBuilder);
         }
 
