@@ -56,7 +56,7 @@ namespace GaveteiroLanches.Dominio
         public override int SaveChanges()
         {
             try
-            {                
+            {
                 var states = new List<EntityState>() { EntityState.Added, EntityState.Deleted, EntityState.Modified };
 
                 var entidades = ChangeTracker.Entries().Where(e => e.Entity != null && states.Contains(e.State) && typeof(IEntidade).IsAssignableFrom(e.Entity.GetType()));
@@ -95,93 +95,95 @@ namespace GaveteiroLanches.Dominio
             }
         }
 
-        private List<Auditoria> GetAuditRecordsForChangeEntity(DbEntityEntry entry)
+        private string GetKeyValue(DbEntityEntry entry)
         {
+            string recordId = "";
+
+            var key = entry.Entity.GetType().GetProperties().Where(p => p.Name == entry.Entity.GetType().Name + "Id").FirstOrDefault();
+
+            if (key != null)
+            {
+                if (entry.State == EntityState.Modified || entry.State == EntityState.Deleted)
+                    recordId += key.Name + "=" + entry.CurrentValues[key.Name];
+            }
+
+            return recordId;
+        }
+
+        private List<Auditoria> GetAuditRecordsForChangeEntity(DbEntityEntry entry)
+        {            
+            var keyValue = GetKeyValue(entry);
+
+            if (keyValue == null)
+                return null;
+            
             var currentTime = DateTime.Now;
 
             List<Auditoria> result = new List<Auditoria>();
-
-            TableAttribute tableAttr = entry.Entity.GetType().GetCustomAttributes(typeof(TableAttribute), false).SingleOrDefault() as TableAttribute;
-
-            string tableName = ObjectContext.GetObjectType(entry.Entity.GetType()).Name;
-            
-            if (entry.Entity.GetType().GetProperties().FirstOrDefault(p => p.GetCustomAttributes(typeof(KeyAttribute), false).Count() > 0) != null)
+                        
+            if (entry.State == EntityState.Deleted)
             {
-                var keys = entry.Entity.GetType().GetProperties().Where(p => p.GetCustomAttributes(typeof(KeyAttribute), false).Count() > 0);
-                string recordId = "";
-
-                foreach (var keyValue in keys)
+                foreach (var propertyName in entry.OriginalValues.PropertyNames)
                 {
-                    if (recordId != "")
-                        recordId += "|";
-                    if (entry.State == EntityState.Added)
-                        recordId += keyValue.Name + "=" + entry.CurrentValues[keyValue.Name];
-                    else recordId += keyValue.Name + "=" + entry.OriginalValues[keyValue.Name];
-                }
-
-                if (entry.State == EntityState.Deleted)
-                {
-                    foreach (var propertyName in entry.OriginalValues.PropertyNames)
+                    string originalValue = "";
+                    string columnName = "";
+                    try
                     {
-                        string originalValue = "";
-                        string columnName = "";
-                        try
-                        {
-                            originalValue = entry.OriginalValues[propertyName] != null ? entry.OriginalValues[propertyName].ToString() : "";
-                            columnName = propertyName;
-                        }
-                        catch
-                        { }
+                        originalValue = entry.OriginalValues[propertyName] != null ? entry.OriginalValues[propertyName].ToString() : "";
+                        columnName = propertyName;
+                    }
+                    catch
+                    { }
 
-                        if (!String.IsNullOrWhiteSpace(originalValue) && !columnName.Equals("DataHoraCad"))
+                    if (!String.IsNullOrWhiteSpace(originalValue) && !columnName.Equals("DataHoraCad"))
+                    {
+                        result.Add(new Auditoria()
+                        {
+                            Usuario = entry.OriginalValues["UsuarioCad"].ToString(),
+                            DataHora = currentTime,
+                            Tipo = "Deleted",    // Deleted
+                            Entidade = entry.GetType().Name,
+                            EntidadeId = keyValue,
+                            Propriedade = propertyName,
+                            ValorOriginal = originalValue,
+                            ValorNovo = ""
+                        });
+                    }
+                }
+            }
+            else if (entry.State == EntityState.Modified)
+            {
+                DbPropertyValues dbPropertyValues = entry.GetDatabaseValues();
+
+                foreach (string propertyName in entry.OriginalValues.PropertyNames)
+                {
+                    if (!propertyName.Equals("TimeStamp") && dbPropertyValues[propertyName] != null)
+                        entry.OriginalValues[propertyName] = dbPropertyValues[propertyName];
+
+                    var originalValues = entry.OriginalValues[propertyName];
+
+                    var currentValues = entry.CurrentValues[propertyName];
+
+                    if (!object.Equals(originalValues, currentValues))
+                    {
+                        if (!propertyName.Equals("DataHoraCad"))
                         {
                             result.Add(new Auditoria()
                             {
-                                Usuario = entry.OriginalValues["UsuarioCad"].ToString(),
+                                Usuario = entry.CurrentValues["UsuarioCad"].ToString(),
                                 DataHora = currentTime,
-                                Tipo = "Deleted",    // Deleted
-                                Entidade = tableName,
-                                EntidadeId = recordId,
+                                Tipo = "Modified",    // Modified
+                                Entidade = entry.GetType().Name,
+                                EntidadeId = keyValue,
                                 Propriedade = propertyName,
-                                ValorOriginal = originalValue,
-                                ValorNovo = ""
+                                ValorOriginal = entry.OriginalValues[propertyName] == null ? null : entry.OriginalValues[propertyName].ToString(),
+                                ValorNovo = entry.CurrentValues[propertyName] == null ? null : entry.CurrentValues[propertyName].ToString()
                             });
                         }
                     }
                 }
-                else if (entry.State == EntityState.Modified)
-                {
-                    DbPropertyValues dbPropertyValues = entry.GetDatabaseValues();
-
-                    foreach (string propertyName in entry.OriginalValues.PropertyNames)
-                    {
-                        if (!propertyName.Equals("TimeStamp") && dbPropertyValues[propertyName] != null)
-                            entry.OriginalValues[propertyName] = dbPropertyValues[propertyName];
-
-                        var originalValues = entry.OriginalValues[propertyName];
-
-                        var currentValues = entry.CurrentValues[propertyName];
-
-                        if (!object.Equals(originalValues, currentValues))
-                        {
-                            if (!propertyName.Equals("DataHoraCad"))
-                            {
-                                result.Add(new Auditoria()
-                                {
-                                    Usuario = entry.CurrentValues["UsuarioCad"].ToString(),
-                                    DataHora = currentTime,
-                                    Tipo = "Modified",    // Modified
-                                    Entidade = tableName,
-                                    EntidadeId = recordId,
-                                    Propriedade = propertyName,
-                                    ValorOriginal = entry.OriginalValues[propertyName] == null ? null : entry.OriginalValues[propertyName].ToString(),
-                                    ValorNovo = entry.CurrentValues[propertyName] == null ? null : entry.CurrentValues[propertyName].ToString()
-                                });
-                            }
-                        }
-                    }
-                }
             }
+
             return result;
         }
 
