@@ -17,7 +17,7 @@ namespace GaveteiroLanches.Web.Models
 {
     public class GaveteiroLanchesContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Auditoria> Auditoria { get; set; }
+        
 
         public GaveteiroLanchesContext()
             : base("GaveteiroLanchesContext", throwIfV1Schema: false)
@@ -31,6 +31,8 @@ namespace GaveteiroLanches.Web.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<GaveteiroLanchesContext>(new CreateDatabaseIfNotExists<GaveteiroLanchesContext>());
+
             //remove a pluralização das tabelas
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             //remove a deleção em cascata
@@ -42,9 +44,11 @@ namespace GaveteiroLanches.Web.Models
             modelBuilder.Properties()
                    .Where(p => p.Name == p.ReflectedType.Name + "Id")
                    .Configure(p => p.IsKey());
+
             //define que todas as colunas string serão varchar
             modelBuilder.Properties<string>()
                    .Configure(p => p.HasColumnType("varchar"));
+
             //define que todas as colunas string terão 100 caracteres
             modelBuilder.Properties<string>()
                   .Configure(p => p.HasMaxLength(100));
@@ -186,5 +190,8 @@ namespace GaveteiroLanches.Web.Models
             return result;
         }
 
+        public DbSet<Pessoa> Pessoas { get; set; }
+
+        public DbSet<Auditoria> Auditoria { get; set; }
     }
 }

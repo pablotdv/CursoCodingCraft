@@ -11,9 +11,11 @@ namespace GaveteiroLanches.Web.Models
         public int ProdutoId { get; set; }
 
         public string Descricao { get; set; }
-
+        
         public decimal Valor { get; set; }
 
         public string Categoria { get; set; }
+
+        public int Quantidade { get; set; }
     }
 }
