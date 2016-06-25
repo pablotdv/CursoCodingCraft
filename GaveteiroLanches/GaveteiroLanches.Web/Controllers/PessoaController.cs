@@ -17,7 +17,7 @@ namespace GaveteiroLanches.Web.Controllers
         // GET: Pessoa
         public ActionResult Index()
         {
-            return View(db.Pessoas.ToList());
+            return View(db.Pessoa.ToList());
         }
 
         // GET: Pessoa/Details/5
@@ -27,7 +27,7 @@ namespace GaveteiroLanches.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            Fornecedor pessoa = db.Pessoa.Find(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -46,11 +46,11 @@ namespace GaveteiroLanches.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PessoaId,Nome,Email,DataHoraCad,UsuarioCad")] Pessoa pessoa)
+        public ActionResult Create([Bind(Include = "PessoaId,Nome,Email,DataHoraCad,UsuarioCad")] Fornecedor pessoa)
         {
             if (ModelState.IsValid)
             {
-                db.Pessoas.Add(pessoa);
+                db.Pessoa.Add(pessoa);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace GaveteiroLanches.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            Fornecedor pessoa = db.Pessoa.Find(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace GaveteiroLanches.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PessoaId,Nome,Email,DataHoraCad,UsuarioCad")] Pessoa pessoa)
+        public ActionResult Edit([Bind(Include = "PessoaId,Nome,Email,DataHoraCad,UsuarioCad")] Fornecedor pessoa)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace GaveteiroLanches.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pessoa pessoa = db.Pessoas.Find(id);
+            Fornecedor pessoa = db.Pessoa.Find(id);
             if (pessoa == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace GaveteiroLanches.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Pessoa pessoa = db.Pessoas.Find(id);
-            db.Pessoas.Remove(pessoa);
+            Fornecedor pessoa = db.Pessoa.Find(id);
+            db.Pessoa.Remove(pessoa);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -196,28 +196,31 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EntradaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606222348175_Init.cs" />
-    <Compile Include="Migrations\201606222348175_Init.Designer.cs">
-      <DependentUpon>201606222348175_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201606251517481_Init.cs" />
+    <Compile Include="Migrations\201606251517481_Init.Designer.cs">
+      <DependentUpon>201606251517481_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\MovimentacaoEntrada.cs" />
+    <Compile Include="Models\MovimentacaoSaida.cs" />
+    <Compile Include="ViewModels\Account\AccountViewModels.cs" />
     <Compile Include="Models\Auditoria.cs" />
     <Compile Include="Models\Entidade.cs" />
     <Compile Include="Models\GaveteiroLanchesContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IEntidade.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="ViewModels\Entrada\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Manage\ManageViewModels.cs" />
     <Compile Include="Models\Movimentacao.cs" />
     <Compile Include="Models\MovimentacaoProduto.cs" />
-    <Compile Include="Models\MovimentacaoTipo.cs" />
-    <Compile Include="Models\Pessoa.cs" />
+    <Compile Include="Models\Fornecedor.cs" />
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -292,7 +295,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="Views\Entrada\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -303,8 +306,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606222348175_Init.resx">
-      <DependentUpon>201606222348175_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606251517481_Init.resx">
+      <DependentUpon>201606251517481_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

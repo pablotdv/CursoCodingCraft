@@ -17,7 +17,7 @@ namespace GaveteiroLanches.Web.Models
 {
     public class GaveteiroLanchesContext : IdentityDbContext<ApplicationUser>
     {
-        
+
 
         public GaveteiroLanchesContext()
             : base("GaveteiroLanchesContext", throwIfV1Schema: false)
@@ -52,7 +52,7 @@ namespace GaveteiroLanches.Web.Models
             //define que todas as colunas string terão 100 caracteres
             modelBuilder.Properties<string>()
                   .Configure(p => p.HasMaxLength(100));
-                        
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -114,16 +114,16 @@ namespace GaveteiroLanches.Web.Models
         }
 
         private List<Auditoria> GetAuditRecordsForChangeEntity(DbEntityEntry entry)
-        {            
+        {
             var keyValue = GetKeyValue(entry);
 
             if (keyValue == null)
                 return null;
-            
+
             var currentTime = DateTime.Now;
 
             List<Auditoria> result = new List<Auditoria>();
-                        
+
             if (entry.State == EntityState.Deleted)
             {
                 foreach (var propertyName in entry.OriginalValues.PropertyNames)
@@ -190,8 +190,12 @@ namespace GaveteiroLanches.Web.Models
             return result;
         }
 
-        public DbSet<Pessoa> Pessoas { get; set; }
 
         public DbSet<Auditoria> Auditoria { get; set; }
+        public DbSet<MovimentacaoEntrada> MovimentacaoEntrada { get; set; }
+        public DbSet<MovimentacaoSaida> MovimentacaoSaida { get; set; }
+        public DbSet<MovimentacaoProduto> MovimentacaoProduto { get; set; }
+        public DbSet<Fornecedor> Pessoa { get; set; }
+        public DbSet<Produto> Produto { get; set; }
     }
 }

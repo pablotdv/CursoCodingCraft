@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace GaveteiroLanches.Web.Models
 {
-    public class Pessoa : Entidade
+    public class Fornecedor : Entidade
     {
-        public int PessoaId { get; set; }
+        public int FornecedorId { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
+
+        public ICollection<MovimentacaoEntrada> MovimentacaoEntrada { get; set; }
     }
 }

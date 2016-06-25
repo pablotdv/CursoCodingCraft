@@ -17,5 +17,7 @@ namespace GaveteiroLanches.Web.Models
         public string Categoria { get; set; }
 
         public int Quantidade { get; set; }
+
+        public ICollection<MovimentacaoProduto> MovimentacaoProduto { get; set; }
     }
 }

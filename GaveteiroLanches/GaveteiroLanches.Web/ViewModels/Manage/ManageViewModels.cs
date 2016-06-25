@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace GaveteiroLanches.Web.Models
+namespace GaveteiroLanches.Web.ViewModels.Manage
 {
     public class IndexViewModel
     {

@@ -24,16 +24,63 @@ namespace GaveteiroLanches.Web.Migrations
                 .PrimaryKey(t => t.AuditoriaId);
             
             CreateTable(
-                "dbo.Pessoa",
+                "dbo.Movimentacao",
                 c => new
                     {
-                        PessoaId = c.Int(nullable: false, identity: true),
+                        MovimentacaoId = c.Int(nullable: false, identity: true),
+                        Valor = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        DataHora = c.DateTime(nullable: false),
+                        DataHoraCad = c.DateTime(nullable: false),
+                        UsuarioCad = c.String(maxLength: 100, unicode: false),
+                        FornecedorId = c.Int(),
+                        Usuario = c.String(maxLength: 100, unicode: false),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.MovimentacaoId)
+                .ForeignKey("dbo.Fornecedor", t => t.FornecedorId)
+                .Index(t => t.FornecedorId);
+            
+            CreateTable(
+                "dbo.Fornecedor",
+                c => new
+                    {
+                        FornecedorId = c.Int(nullable: false, identity: true),
                         Nome = c.String(maxLength: 100, unicode: false),
                         Email = c.String(maxLength: 100, unicode: false),
                         DataHoraCad = c.DateTime(nullable: false),
                         UsuarioCad = c.String(maxLength: 100, unicode: false),
                     })
-                .PrimaryKey(t => t.PessoaId);
+                .PrimaryKey(t => t.FornecedorId);
+            
+            CreateTable(
+                "dbo.MovimentacaoProduto",
+                c => new
+                    {
+                        MovimentacaoProdutoId = c.Int(nullable: false, identity: true),
+                        MovimentacaoId = c.Int(nullable: false),
+                        ProdutoId = c.Int(nullable: false),
+                        Quantidade = c.Int(nullable: false),
+                        ValorUnitario = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    })
+                .PrimaryKey(t => t.MovimentacaoProdutoId)
+                .ForeignKey("dbo.Movimentacao", t => t.MovimentacaoId)
+                .ForeignKey("dbo.Produto", t => t.ProdutoId)
+                .Index(t => t.MovimentacaoId)
+                .Index(t => t.ProdutoId);
+            
+            CreateTable(
+                "dbo.Produto",
+                c => new
+                    {
+                        ProdutoId = c.Int(nullable: false, identity: true),
+                        Descricao = c.String(maxLength: 100, unicode: false),
+                        Valor = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Categoria = c.String(maxLength: 100, unicode: false),
+                        Quantidade = c.Int(nullable: false),
+                        DataHoraCad = c.DateTime(nullable: false),
+                        UsuarioCad = c.String(maxLength: 100, unicode: false),
+                    })
+                .PrimaryKey(t => t.ProdutoId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -111,18 +158,27 @@ namespace GaveteiroLanches.Web.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.MovimentacaoProduto", "ProdutoId", "dbo.Produto");
+            DropForeignKey("dbo.MovimentacaoProduto", "MovimentacaoId", "dbo.Movimentacao");
+            DropForeignKey("dbo.Movimentacao", "FornecedorId", "dbo.Fornecedor");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.MovimentacaoProduto", new[] { "ProdutoId" });
+            DropIndex("dbo.MovimentacaoProduto", new[] { "MovimentacaoId" });
+            DropIndex("dbo.Movimentacao", new[] { "FornecedorId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Pessoa");
+            DropTable("dbo.Produto");
+            DropTable("dbo.MovimentacaoProduto");
+            DropTable("dbo.Fornecedor");
+            DropTable("dbo.Movimentacao");
             DropTable("dbo.Auditoria");
         }
     }

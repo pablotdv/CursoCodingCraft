@@ -5,9 +5,8 @@ using System.Web;
 
 namespace GaveteiroLanches.Web.Models
 {
-    public enum MovimentacaoTipo
+    public class MovimentacaoSaida : Movimentacao
     {
-        Entrada,
-        Saida
+        public string Usuario { get; set; }
     }
 }

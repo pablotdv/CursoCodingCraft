@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GaveteiroLanches.Web.Models;
+using GaveteiroLanches.Web.ViewModels;
+using GaveteiroLanches.Web.ViewModels.Account;
 
 namespace GaveteiroLanches.Web.Controllers
 {
