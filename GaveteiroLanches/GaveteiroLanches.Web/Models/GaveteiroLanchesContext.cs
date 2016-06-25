@@ -56,45 +56,74 @@ namespace GaveteiroLanches.Web.Models
             base.OnModelCreating(modelBuilder);
         }
 
+        public override Task<int> SaveChangesAsync()
+        {
+            try
+            {
+                Auditar();
+
+                return base.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                string exceptionsMessage = ErrosValidacao(ex);
+
+                throw new DbEntityValidationException(exceptionsMessage, ex.EntityValidationErrors);
+            }
+
+        }
+
+        private string ErrosValidacao(DbEntityValidationException ex)
+        {
+            var errorMessages = ex.EntityValidationErrors
+                                .SelectMany(x => x.ValidationErrors)
+                                .Select(x => x.ErrorMessage);
+
+            var fullErrorMessage = string.Join("; ", errorMessages);
+
+            var exceptionsMessage = string.Concat(ex.Message, "Os erros de validações são: ", fullErrorMessage);
+
+            return exceptionsMessage;
+        }
+
         public override int SaveChanges()
         {
             try
             {
-                var states = new List<EntityState>() { EntityState.Added, EntityState.Deleted, EntityState.Modified };
-
-                var entidades = ChangeTracker.Entries().Where(e => e.Entity != null && states.Contains(e.State) && typeof(IEntidade).IsAssignableFrom(e.Entity.GetType()));
-
-                foreach (var entry in entidades)
-                {
-                    var currentTime = DateTime.Now;
-
-                    if (entry.Property("DataHoraCad") != null)
-                    {
-                        entry.Property("DataHoraCad").CurrentValue = currentTime;
-                    }
-                    if (entry.Property("UsuarioCad") != null)
-                    {
-                        entry.Property("UsuarioCad").CurrentValue = HttpContext.Current != null ? HttpContext.Current.User.Identity.Name : "Usuario";
-                    }
-
-                    var auditorias = GetAuditRecordsForChangeEntity(entry);
-
-                    this.Auditoria.AddRange(auditorias);
-                }
+                Auditar();
 
                 return base.SaveChanges();
             }
             catch (DbEntityValidationException ex)
             {
-                var errorMessages = ex.EntityValidationErrors
-                    .SelectMany(x => x.ValidationErrors)
-                    .Select(x => x.ErrorMessage);
-
-                var fullErrorMessage = string.Join("; ", errorMessages);
-
-                var exceptionsMessage = string.Concat(ex.Message, "Os erros de validações são: ", fullErrorMessage);
+                string exceptionsMessage = ErrosValidacao(ex);
 
                 throw new DbEntityValidationException(exceptionsMessage, ex.EntityValidationErrors);
+            }
+        }
+
+        private void Auditar()
+        {
+            var states = new List<EntityState>() { EntityState.Added, EntityState.Deleted, EntityState.Modified };
+
+            var entidades = ChangeTracker.Entries().Where(e => e.Entity != null && states.Contains(e.State) && typeof(IEntidade).IsAssignableFrom(e.Entity.GetType()));
+
+            foreach (var entry in entidades)
+            {
+                var currentTime = DateTime.Now;
+
+                if (entry.Property("DataHoraCad") != null)
+                {
+                    entry.Property("DataHoraCad").CurrentValue = currentTime;
+                }
+                if (entry.Property("UsuarioCad") != null)
+                {
+                    entry.Property("UsuarioCad").CurrentValue = HttpContext.Current != null ? HttpContext.Current.User.Identity.Name : "Usuario";
+                }
+
+                var auditorias = GetAuditRecordsForChangeEntity(entry);
+
+                this.Auditoria.AddRange(auditorias);
             }
         }
 
@@ -195,7 +224,7 @@ namespace GaveteiroLanches.Web.Models
         public DbSet<MovimentacaoEntrada> MovimentacaoEntrada { get; set; }
         public DbSet<MovimentacaoSaida> MovimentacaoSaida { get; set; }
         public DbSet<MovimentacaoProduto> MovimentacaoProduto { get; set; }
-        public DbSet<Fornecedor> Pessoa { get; set; }
+        public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Produto> Produto { get; set; }
     }
 }

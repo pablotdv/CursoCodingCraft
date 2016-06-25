@@ -197,9 +197,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EntradaController.cs" />
+    <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PessoaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +217,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IEntidade.cs" />
     <Compile Include="ViewModels\Entrada\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Fornecedor\FornecedorViewModel.cs" />
+    <Compile Include="ViewModels\Fornecedor\IndexViewModel.cs" />
     <Compile Include="ViewModels\Manage\ManageViewModels.cs" />
     <Compile Include="Models\Movimentacao.cs" />
     <Compile Include="Models\MovimentacaoProduto.cs" />
@@ -287,15 +289,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Pessoa\Create.cshtml" />
-    <Content Include="Views\Pessoa\Delete.cshtml" />
-    <Content Include="Views\Pessoa\Details.cshtml" />
-    <Content Include="Views\Pessoa\Edit.cshtml" />
-    <Content Include="Views\Pessoa\Index.cshtml" />
+    <Content Include="Views\Entrada\Index.cshtml" />
+    <Content Include="Views\Fornecedor\Index.cshtml" />
+    <Content Include="Views\Fornecedor\Fornecedor.cshtml" />
+    <Content Include="Views\Fornecedor\_Fornecedor.cshtml" />
+    <Content Include="Views\Fornecedor\Delete.cshtml" />
+    <Content Include="Views\Fornecedor\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Entrada\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

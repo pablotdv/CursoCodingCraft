@@ -45,6 +45,16 @@ namespace GaveteiroLanches.Web.Migrations
                 manager.AddToRole(user.Id, "Admin");
             }
 
+            if (!context.Users.Any(u => u.UserName == "cliente@cliente.com.br"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "cliente@cliente.com.br", Email = "cliente@cliente.com.br", EmailConfirmed = true };
+
+                manager.Create(user, "cliente");
+                manager.AddToRole(user.Id, "Cliente");
+            }
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

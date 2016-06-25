@@ -1,0 +1,50 @@
+﻿@model GaveteiroLanches.Web.ViewModels.Fornecedor.FornecedorViewModel
+
+@{
+    if (Model.FornecedorId > 0)
+    {
+        ViewBag.Title = "Edição de fornecedor";
+    }
+    else
+    {
+        ViewBag.Title = "Cadastro de fornecedor";
+    }
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @if (Model.FornecedorId > 0)
+                {
+                    <label>Edição do fornecedor - @Model.Nome</label>
+                }
+                else
+                {
+                    <label>Cadastro de fornecedor</label>
+                }
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(actionName: "Salvar", controllerName: "Fornecedor"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    @Html.Partial("_Fornecedor")
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-arrow-left fa-fw"></i> Voltar</a>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Salvar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

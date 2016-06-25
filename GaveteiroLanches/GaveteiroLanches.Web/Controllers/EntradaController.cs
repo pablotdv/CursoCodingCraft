@@ -1,4 +1,5 @@
 ﻿using GaveteiroLanches.Web.Models;
+using GaveteiroLanches.Web.ViewModels.Entrada;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,14 @@ namespace GaveteiroLanches.Web.Controllers
         // GET: Entrada
         public ActionResult Index()
         {
-            return View();
+            var entradas = context.MovimentacaoEntrada.Select(a => new IndexViewModel()
+            {
+                MovimentacaoId = a.MovimentacaoId,
+                Fornecedor = a.Fornecedor.Nome,
+                DataHora = a.DataHora
+            }).ToList();
+
+            return View(entradas);
         }
 
         protected override void Dispose(bool disposing)
