@@ -13,6 +13,8 @@ namespace GaveteiroLanches.Web.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(GaveteiroLanches.Web.Models.GaveteiroLanchesContext context)
