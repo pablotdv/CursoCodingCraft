@@ -135,8 +135,10 @@ namespace GaveteiroLanches.Web.Models
 
             if (key != null)
             {
-                if (entry.State == EntityState.Modified || entry.State == EntityState.Deleted)
+                if (entry.State == EntityState.Modified)
                     recordId += key.Name + "=" + entry.CurrentValues[key.Name];
+                else if (entry.State == EntityState.Deleted)
+                    recordId += key.Name + "=" + entry.OriginalValues[key.Name];
             }
 
             return recordId;
