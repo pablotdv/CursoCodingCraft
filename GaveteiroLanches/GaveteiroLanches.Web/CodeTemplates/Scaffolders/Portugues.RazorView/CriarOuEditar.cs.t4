@@ -12,6 +12,9 @@
 <#@ import namespace="System.Data.Objects.DataClasses" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
+
+<#@ parameter type="System.String" name="Controller" #>
+
 <# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
 <# ModelProperty property = null;
 

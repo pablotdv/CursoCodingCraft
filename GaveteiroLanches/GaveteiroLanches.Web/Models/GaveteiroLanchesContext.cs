@@ -228,5 +228,7 @@ namespace GaveteiroLanches.Web.Models
         public DbSet<MovimentacaoProduto> MovimentacaoProduto { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Produto> Produto { get; set; }
+
+        public DbSet<GaveteiroLanches.Web.Models.Produto> Produtoes { get; set; }
     }
 }

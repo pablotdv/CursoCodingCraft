@@ -1,0 +1,65 @@
+@model IEnumerable<GaveteiroLanches.Web.Models.Fornecedor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            DataHoraCad
+        </th>
+        <th>
+            UsuarioCad
+        </th>
+        <th>
+            Nome
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Telefone
+        </th>
+        <th>
+            MovimentacaoEntrada
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FornecedorId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FornecedorId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FornecedorId })
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DataHoraCad)
+        </td>
+        <td>
+			@item.UsuarioCad
+        </td>
+        <td>
+			@item.Nome
+        </td>
+        <td>
+			@item.Email
+        </td>
+        <td>
+			@item.Telefone
+        </td>
+        <td>
+			@(item.MovimentacaoEntrada == null ? "None" : item.MovimentacaoEntrada.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

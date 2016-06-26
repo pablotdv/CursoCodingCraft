@@ -1,0 +1,35 @@
+@model GaveteiroLanches.Web.Models.Fornecedor
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<fieldset>
+    <legend>Fornecedor</legend>
+
+    <div class="display-label">DataHoraCad</div>
+    <div class="display-field">@String.Format("{0:g}", Model.DataHoraCad)</div>
+
+    <div class="display-label">UsuarioCad</div>
+    <div class="display-field">@Model.UsuarioCad</div>
+
+    <div class="display-label">Nome</div>
+    <div class="display-field">@Model.Nome</div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">@Model.Email</div>
+
+    <div class="display-label">Telefone</div>
+    <div class="display-field">@Model.Telefone</div>
+
+    <div class="display-label">MovimentacaoEntrada</div>
+    <div class="display-field">@(Model.MovimentacaoEntrada == null ? "None" : Model.MovimentacaoEntrada.Count.ToString())</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.FornecedorId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
