@@ -1,0 +1,25 @@
+@model GaveteiroLanches.Web.ViewModels.Fornecedor.FornecedorViewModel
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Editar</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>FornecedorViewModel</legend>
+
+        @Html.HiddenFor(model => model.FornecedorId)
+		@Html.Partial("_CreateOrEdit", Model)
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

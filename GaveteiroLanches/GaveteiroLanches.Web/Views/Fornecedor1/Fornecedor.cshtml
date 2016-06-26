@@ -3,7 +3,7 @@
 @{
     if (Model.FornecedorId > 0)
     {
-        ViewBag.Title = "Edição de fornecedor";
+        ViewBag.Title = "Edição de fornecedor - " + Model.Nome;
     }
     else
     {
@@ -15,14 +15,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                @if (Model.FornecedorId > 0)
-                {
-                    <label>Edição do fornecedor - @Model.Nome</label>
-                }
-                else
-                {
-                    <label>Cadastro de fornecedor</label>
-                }
+                @ViewBag.Title
             </div>
             <div class="panel-body">
                 @using (Html.BeginForm(actionName: "Salvar", controllerName: "Fornecedor"))

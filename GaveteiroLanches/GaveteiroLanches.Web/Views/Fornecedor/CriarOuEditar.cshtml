@@ -1,0 +1,38 @@
+
+@model GaveteiroLanches.Web.ViewModels.Fornecedor.FornecedorViewModel
+
+
+@{
+
+    if (Model.FornecedorId > 0)
+    {
+        ViewBag.Title = "Edição de FornecedorViewModel - " + Model.Nome;
+    }
+    else
+    {
+        ViewBag.Title = "Cadastro de FornecedorViewModel";
+    }
+
+}
+
+<h2>CriarOuEditar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>FornecedorViewModel</legend>
+
+        @Html.Partial("_CreateOrEdit", Model)
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
