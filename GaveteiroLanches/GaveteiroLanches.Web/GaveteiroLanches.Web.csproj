@@ -323,6 +323,26 @@
     <Content Include="CodeTemplates\ApiControllerWithActions\Controller.cs.t4" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.vb.t4" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.cs.t4" />
+    <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.Controller\ControllerWithContext.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.Controller\ControllerWithContext.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.Controller\ControllerWithRepository.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.Controller\ControllerWithRepository.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Create.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Create.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Delete.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Delete.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Details.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Details.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Edit.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Edit.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Empty.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Empty.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Index.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\Index.vb.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\_CreateOrEdit.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\MvcScaffolding.RazorView\_CreateOrEdit.vb.t4" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
@@ -385,6 +405,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="CodeTemplates\ODataControllerWithActions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
