@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201606251517481_Init.Designer.cs">
       <DependentUpon>201606251517481_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606261455231_FornecedorTelefone.cs" />
+    <Compile Include="Migrations\201606261455231_FornecedorTelefone.Designer.cs">
+      <DependentUpon>201606261455231_FornecedorTelefone.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MovimentacaoEntrada.cs" />
     <Compile Include="Models\MovimentacaoSaida.cs" />
@@ -398,6 +402,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201606251517481_Init.resx">
       <DependentUpon>201606251517481_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606261455231_FornecedorTelefone.resx">
+      <DependentUpon>201606261455231_FornecedorTelefone.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

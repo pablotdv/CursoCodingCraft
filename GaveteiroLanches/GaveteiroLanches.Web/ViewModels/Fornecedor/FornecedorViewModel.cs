@@ -9,7 +9,14 @@ namespace GaveteiroLanches.Web.ViewModels.Fornecedor
     public class FornecedorViewModel
     {
         public int FornecedorId { get; set; }
+
+        [Display(Name = "Email")]
+        [EmailAddress(ErrorMessage = "Informe um email válido")]
         public string Email { get; set; }
+
+        [Required]
         public string Nome { get; set; }
+
+        public string Telefone { get; set; }
     }
 }

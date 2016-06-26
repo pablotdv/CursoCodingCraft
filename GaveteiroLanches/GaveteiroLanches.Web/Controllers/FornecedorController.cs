@@ -25,7 +25,9 @@ namespace GaveteiroLanches.Web.Controllers
             var fornecedores = context.Fornecedor.Select(a => new IndexViewModel()
             {
                 FornecedorId = a.FornecedorId,
-                Nome = a.Nome
+                Nome = a.Nome,
+                Email = a.Email,
+                Telefone = a.Telefone
             }).OrderBy(a => a.Nome).ToList();
 
             return View(fornecedores);
@@ -47,7 +49,8 @@ namespace GaveteiroLanches.Web.Controllers
             {
                 FornecedorId = fornecedor.FornecedorId,
                 Nome = fornecedor.Nome,
-                Email = fornecedor.Email
+                Email = fornecedor.Email,
+                Telefone = fornecedor.Telefone,
             };
 
             return View(view, model);
@@ -97,6 +100,7 @@ namespace GaveteiroLanches.Web.Controllers
 
                 fornecedor.Nome = model.Nome;
                 fornecedor.Email = model.Email;
+                fornecedor.Telefone = model.Telefone;
 
                 if (novo)
                     context.Fornecedor.Add(fornecedor);
