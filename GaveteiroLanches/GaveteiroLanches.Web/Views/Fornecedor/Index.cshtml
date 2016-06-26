@@ -1,4 +1,4 @@
-@model IEnumerable<GaveteiroLanches.Web.ViewModels.Fornecedor.FornecedorViewModel>
+﻿@model IEnumerable<GaveteiroLanches.Web.ViewModels.Fornecedor.IndexViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -9,33 +9,32 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table>
+<table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FornecedorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
         <th></th>
-        <th>
-            Email
-        </th>
-        <th>
-            Nome
-        </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-        <td>
-			@item.Email
-        </td>
-        <td>
-			@item.Nome
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FornecedorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.FornecedorId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.FornecedorId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.FornecedorId })
+            </td>
+        </tr>
+    }
 
 </table>
-
-

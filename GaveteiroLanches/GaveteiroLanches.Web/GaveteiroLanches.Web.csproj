@@ -201,6 +201,8 @@
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,6 +229,9 @@
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\RolesAdmin\ApplicationRoleManager.cs" />
+    <Compile Include="ViewModels\RolesAdmin\RoleViewModel.cs" />
+    <Compile Include="ViewModels\UserAdmin\EditUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.css" />
@@ -364,18 +369,21 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Entrada\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
-    <Content Include="Views\Fornecedor\Criar.cshtml" />
-    <Content Include="Views\Fornecedor\Editar.cshtml" />
-    <Content Include="Views\Fornecedor\Excluir.cshtml" />
-    <Content Include="Views\Fornecedor\Detalhes.cshtml" />
+    <Content Include="Views\Fornecedor\Delete.cshtml" />
+    <Content Include="Views\Fornecedor\Details.cshtml" />
+    <Content Include="Views\Fornecedor\Fornecedor.cshtml" />
     <Content Include="Views\Fornecedor\Index.cshtml" />
-    <Content Include="Views\Fornecedor\_CriarOuEditar.cshtml" />
-    <Content Include="Views\Fornecedor\CriarOuEditar.cshtml" />
-    <Content Include="Views\Fornecedor1\Delete.cshtml" />
-    <Content Include="Views\Fornecedor1\Details.cshtml" />
-    <Content Include="Views\Fornecedor1\Fornecedor.cshtml" />
-    <Content Include="Views\Fornecedor1\Index.cshtml" />
-    <Content Include="Views\Fornecedor1\_Fornecedor.cshtml" />
+    <Content Include="Views\Fornecedor\_Fornecedor.cshtml" />
+    <Content Include="Views\RolesAdmin\Create.cshtml" />
+    <Content Include="Views\RolesAdmin\Delete.cshtml" />
+    <Content Include="Views\RolesAdmin\Details.cshtml" />
+    <Content Include="Views\RolesAdmin\Edit.cshtml" />
+    <Content Include="Views\RolesAdmin\Index.cshtml" />
+    <Content Include="Views\UsersAdmin\Create.cshtml" />
+    <Content Include="Views\UsersAdmin\Delete.cshtml" />
+    <Content Include="Views\UsersAdmin\Details.cshtml" />
+    <Content Include="Views\UsersAdmin\Edit.cshtml" />
+    <Content Include="Views\UsersAdmin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
