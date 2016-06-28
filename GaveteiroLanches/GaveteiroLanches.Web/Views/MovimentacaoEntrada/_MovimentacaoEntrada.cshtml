@@ -1,0 +1,21 @@
+﻿@using GaveteiroLanches.Web.ViewModels.MovimentacaoEntrada
+@model MovimentacaoEntradaViewModel
+
+@Html.HiddenFor(a => a.MovimentacaoId)
+
+<div class="row form-group">
+    <div class="col-md-10">
+        @Html.HiddenFor(a=>a.FornecedorId)
+        @Html.LabelFor(model => model.FornecedorNome, htmlAttributes: new { @class = "control-label" })
+        @Html.AutocompleteFor(model => model.FornecedorNome, model => model.FornecedorId, "GetFornecedores", "MovimentacaoEntrada", false)
+        @Html.ValidationMessageFor(model => model.FornecedorNome, "", new { @class = "text-danger" })
+
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col-md-12">
+
+        @Html.Partial("_Produtos", Model.Produtos ?? new List<MovimentacaoProdutoViewModel>())
+    </div>
+</div>

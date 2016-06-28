@@ -1,0 +1,17 @@
+﻿@model IEnumerable<GaveteiroLanches.Web.ViewModels.MovimentacaoEntrada.MovimentacaoProdutoViewModel>
+
+<div class="actions">
+    <a class="btn btn-default btn-sm" id="adicionar-novo-produto">
+        Novo produto
+    </a>    
+</div>
+
+<div id="area-produtos">
+    @if (Model != null)
+    {
+        foreach (var produto in Model)
+        {
+            @Html.Partial("_ProdutoLinha", produto);
+        }
+    }
+</div>

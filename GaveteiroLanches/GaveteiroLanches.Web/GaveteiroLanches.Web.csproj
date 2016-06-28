@@ -48,6 +48,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BeginCollectionItem, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BeginCollectionItem.1.2.1.0\lib\net35\BeginCollectionItem.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -146,6 +150,10 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
@@ -198,8 +206,10 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\EntradaController.cs" />
+    <Compile Include="Controllers\HtmlHelpers.cs" />
+    <Compile Include="Controllers\MovimentacaoEntradaController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -209,6 +219,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Migrations\201606251517481_Init.cs" />
     <Compile Include="Migrations\201606251517481_Init.Designer.cs">
       <DependentUpon>201606251517481_Init.cs</DependentUpon>
@@ -222,6 +233,7 @@
       <DependentUpon>201606272341345_ProdutoCamposObrigatorios.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Autocomplete.cs" />
     <Compile Include="Models\MovimentacaoEntrada.cs" />
     <Compile Include="Models\MovimentacaoSaida.cs" />
     <Compile Include="ViewModels\Account\AccountViewModels.cs" />
@@ -230,7 +242,7 @@
     <Compile Include="Models\GaveteiroLanchesContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IEntidade.cs" />
-    <Compile Include="ViewModels\Entrada\IndexViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\IndexViewModel.cs" />
     <Compile Include="ViewModels\Fornecedor\FornecedorViewModel.cs" />
     <Compile Include="ViewModels\Fornecedor\IndexViewModel.cs" />
     <Compile Include="ViewModels\Manage\ManageViewModels.cs" />
@@ -240,6 +252,9 @@
     <Compile Include="Models\Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\MovimentacaoEntradaViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\MovimentacaoProdutoViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\ProdutoListViewModel.cs" />
     <Compile Include="ViewModels\RolesAdmin\ApplicationRoleManager.cs" />
     <Compile Include="ViewModels\RolesAdmin\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserAdmin\EditUserViewModel.cs" />
@@ -253,12 +268,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -362,6 +380,11 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
+    <Content Include="Scripts\typeahead.mvc.model.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -399,7 +422,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Entrada\Index.cshtml" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
     <Content Include="Views\Fornecedor\Delete.cshtml" />
     <Content Include="Views\Fornecedor\Details.cshtml" />
@@ -416,12 +438,19 @@
     <Content Include="Views\UsersAdmin\Details.cshtml" />
     <Content Include="Views\UsersAdmin\Edit.cshtml" />
     <Content Include="Views\UsersAdmin\Index.cshtml" />
-    <Content Include="Views\Produtoes\Index.cshtml" />
     <Content Include="Views\Produto\_Produto.cshtml" />
     <Content Include="Views\Produto\Delete.cshtml" />
     <Content Include="Views\Produto\Details.cshtml" />
     <Content Include="Views\Produto\Produto.cshtml" />
     <Content Include="Views\Produto\Index.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\Index.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\_MovimentacaoEntrada.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\Delete.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\Details.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\MovimentacaoEntrada.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\_Produtos.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\_ProdutoLinha.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
