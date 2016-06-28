@@ -129,19 +129,17 @@ namespace GaveteiroLanches.Web.Models
 
         private string GetKeyValue(DbEntityEntry entry)
         {
-            string recordId = "";
-
             var key = entry.Entity.GetType().GetProperties().Where(p => p.Name == entry.Entity.GetType().Name + "Id").FirstOrDefault();
 
-            if (key != null)
-            {
-                if (entry.State == EntityState.Modified)
-                    recordId += key.Name + "=" + entry.CurrentValues[key.Name];
-                else if (entry.State == EntityState.Deleted)
-                    recordId += key.Name + "=" + entry.OriginalValues[key.Name];
-            }
+            if (key == null)
+                return null;
 
-            return recordId;
+            switch (entry.State)
+            {
+                case EntityState.Modified: return entry.CurrentValues[key.Name].ToString();
+                case EntityState.Deleted: return entry.OriginalValues[key.Name].ToString();
+                default: return "";
+            }
         }
 
         private List<Auditoria> GetAuditRecordsForChangeEntity(DbEntityEntry entry)
@@ -176,7 +174,7 @@ namespace GaveteiroLanches.Web.Models
                             Usuario = entry.OriginalValues["UsuarioCad"].ToString(),
                             DataHora = currentTime,
                             Tipo = "Deleted",    // Deleted
-                            Entidade = entry.GetType().Name,
+                            Entidade = ObjectContext.GetObjectType(entry.Entity.GetType()).Name,
                             EntidadeId = keyValue,
                             Propriedade = propertyName,
                             ValorOriginal = originalValue,
@@ -207,7 +205,7 @@ namespace GaveteiroLanches.Web.Models
                                 Usuario = entry.CurrentValues["UsuarioCad"].ToString(),
                                 DataHora = currentTime,
                                 Tipo = "Modified",    // Modified
-                                Entidade = entry.GetType().Name,
+                                Entidade = ObjectContext.GetObjectType(entry.Entity.GetType()).Name,
                                 EntidadeId = keyValue,
                                 Propriedade = propertyName,
                                 ValorOriginal = entry.OriginalValues[propertyName] == null ? null : entry.OriginalValues[propertyName].ToString(),
