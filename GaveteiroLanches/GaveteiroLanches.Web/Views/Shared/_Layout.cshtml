@@ -25,6 +25,7 @@
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
                         <li>@Html.ActionLink("Fornecedores", "Index", "Fornecedor")</li>
+                        <li>@Html.ActionLink("Produtos", "Index", "Produto")</li>
                         <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
                         <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
                     }
@@ -42,7 +43,11 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/globalize.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,43 @@
+﻿@model GaveteiroLanches.Web.ViewModels.Produto.ProdutoViewModel
+
+@{
+    if (Model.ProdutoId > 0)
+    {
+        ViewBag.Title = "Edição do produto - " + Model.Descricao;
+    }
+    else
+    {
+        ViewBag.Title = "Cadastro de produto";
+    }
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @ViewBag.Title
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm(actionName: "Salvar", controllerName: "Produto"))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    @Html.Partial("_Produto")
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-arrow-left fa-fw"></i> Voltar</a>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Salvar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

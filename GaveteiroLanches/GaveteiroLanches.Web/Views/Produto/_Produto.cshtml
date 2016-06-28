@@ -1,0 +1,25 @@
+﻿@model GaveteiroLanches.Web.ViewModels.Produto.ProdutoViewModel
+
+@Html.HiddenFor(a => a.ProdutoId)
+
+<div class="row form-group">   
+    <div class="col-md-10">
+        @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col-md-4">
+        @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="col-md-4">
+        @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+    </div>
+</div>

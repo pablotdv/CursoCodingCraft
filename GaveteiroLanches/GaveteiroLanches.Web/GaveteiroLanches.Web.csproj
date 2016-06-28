@@ -203,6 +203,7 @@
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -215,6 +216,10 @@
     <Compile Include="Migrations\201606261455231_FornecedorTelefone.cs" />
     <Compile Include="Migrations\201606261455231_FornecedorTelefone.Designer.cs">
       <DependentUpon>201606261455231_FornecedorTelefone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606272341345_ProdutoCamposObrigatorios.cs" />
+    <Compile Include="Migrations\201606272341345_ProdutoCamposObrigatorios.Designer.cs">
+      <DependentUpon>201606272341345_ProdutoCamposObrigatorios.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\MovimentacaoEntrada.cs" />
@@ -238,6 +243,8 @@
     <Compile Include="ViewModels\RolesAdmin\ApplicationRoleManager.cs" />
     <Compile Include="ViewModels\RolesAdmin\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserAdmin\EditUserViewModel.cs" />
+    <Compile Include="ViewModels\Produto\IndexViewModel.cs" />
+    <Compile Include="ViewModels\Produto\ProdutoViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeTemplates\MvcFullDependencyCodeGenerator\Site.css" />
@@ -329,9 +336,22 @@
     <Content Include="CodeTemplates\Scaffolders\T4Scaffolding.EFDbContext\DbContextEntityMember.vb.t4" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.globalize.js" />
+    <Content Include="Scripts\jquery.validate.globalize.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -397,6 +417,11 @@
     <Content Include="Views\UsersAdmin\Edit.cshtml" />
     <Content Include="Views\UsersAdmin\Index.cshtml" />
     <Content Include="Views\Produtoes\Index.cshtml" />
+    <Content Include="Views\Produto\_Produto.cshtml" />
+    <Content Include="Views\Produto\Delete.cshtml" />
+    <Content Include="Views\Produto\Details.cshtml" />
+    <Content Include="Views\Produto\Produto.cshtml" />
+    <Content Include="Views\Produto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -414,6 +439,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606261455231_FornecedorTelefone.resx">
       <DependentUpon>201606261455231_FornecedorTelefone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606272341345_ProdutoCamposObrigatorios.resx">
+      <DependentUpon>201606272341345_ProdutoCamposObrigatorios.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
