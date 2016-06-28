@@ -23,7 +23,7 @@ namespace GaveteiroLanches.Web.Controllers
         // GET: MovimentacaoEntrada
         public ActionResult Index()
         {
-            var movimentacaoEntradaes = context.MovimentacaoEntrada.Select(a => new IndexViewModel()
+            var movimentacaoEntradaes = context.MovimentacaoEntrada.Select(a => new MovimentacaoEntradaIndexViewModel()
             {
                 MovimentacaoId = a.MovimentacaoId,
                 Fornecedor = a.Fornecedor.Nome,
@@ -142,6 +142,7 @@ namespace GaveteiroLanches.Web.Controllers
                 foreach (var produto in model.Produtos)
                 {
                     var me = movimentacaoEntrada.MovimentacaoProduto.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
+
                     if (me != null)
                     {
                         me.ProdutoId = produto.ProdutoId;

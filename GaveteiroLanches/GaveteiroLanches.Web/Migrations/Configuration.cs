@@ -12,7 +12,7 @@ namespace GaveteiroLanches.Web.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
 
             AutomaticMigrationDataLossAllowed = true;
         }

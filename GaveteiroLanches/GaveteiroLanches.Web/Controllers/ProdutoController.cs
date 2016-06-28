@@ -22,7 +22,7 @@ namespace GaveteiroLanches.Web.Controllers
         // GET: Produto
         public ActionResult Index()
         {
-            var produtoes = context.Produto.Select(a => new IndexViewModel()
+            var produtoes = context.Produto.Select(a => new ProdutoIndexViewModel()
             {
                 ProdutoId = a.ProdutoId,
                 Descricao = a.Descricao,

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace GaveteiroLanches.Web.ViewModels.MovimentacaoEntrada
 {
-    public class IndexViewModel
+    public class MovimentacaoEntradaIndexViewModel
     {
         public DateTime DataHora { get; set; }
 
