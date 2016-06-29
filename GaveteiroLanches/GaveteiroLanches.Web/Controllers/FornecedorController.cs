@@ -107,14 +107,10 @@ namespace GaveteiroLanches.Web.Controllers
 
                 await context.SaveChangesAsync();
 
-                if (Request.IsAjaxRequest())
-                    return Json(fornecedor, JsonRequestBehavior.AllowGet);
-                else return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
-            if (Request.IsAjaxRequest())
-                return Json(model, JsonRequestBehavior.AllowGet);
-            else return View(model);
+            return View("Fornecedor", model);
         }
 
         protected override void Dispose(bool disposing)

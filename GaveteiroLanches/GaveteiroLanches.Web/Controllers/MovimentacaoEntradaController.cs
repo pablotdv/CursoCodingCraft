@@ -23,15 +23,15 @@ namespace GaveteiroLanches.Web.Controllers
         // GET: MovimentacaoEntrada
         public ActionResult Index()
         {
-            var movimentacaoEntradaes = context.MovimentacaoEntrada.Select(a => new MovimentacaoEntradaIndexViewModel()
+            var entradas = context.MovimentacaoEntrada.Select(a => new MovimentacaoEntradaIndexViewModel()
             {
                 MovimentacaoId = a.MovimentacaoId,
                 Fornecedor = a.Fornecedor.Nome,
                 DataHora = a.DataHora,
-                Valor = a.Valor
+                ValorTotal = a.ValorTotal
             }).OrderByDescending(a => a.DataHora).ToList();
 
-            return View(movimentacaoEntradaes);
+            return View(entradas);
         }
 
         private async Task<ActionResult> MovimentacaoEntradaView(string view, int? id)
@@ -40,23 +40,24 @@ namespace GaveteiroLanches.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
-            MovimentacaoEntrada movimentacaoEntrada = await context.MovimentacaoEntrada
-                .Include(a=>a.Produtos)
-                .Where(a=>a.MovimentacaoId == id)
+            MovimentacaoEntrada entrada = await context.MovimentacaoEntrada
+                .Include(a => a.Produtos)
+                .Where(a => a.MovimentacaoId == id)
                 .FirstOrDefaultAsync();
-            if (movimentacaoEntrada == null)
+            if (entrada == null)
             {
                 return RedirectToAction("Index");
             }
 
             MovimentacaoEntradaViewModel model = new MovimentacaoEntradaViewModel()
             {
-                MovimentacaoId = movimentacaoEntrada.MovimentacaoId,
-                FornecedorId = movimentacaoEntrada.FornecedorId,
-                FornecedorNome = movimentacaoEntrada.Fornecedor.Nome,
-                Valor = movimentacaoEntrada.Valor,
-                DataHora = movimentacaoEntrada.DataHora,
-                Produtos = movimentacaoEntrada.Produtos.Select(a=>new MovimentacaoProdutoViewModel() {
+                MovimentacaoId = entrada.MovimentacaoId,
+                FornecedorId = entrada.FornecedorId,
+                FornecedorNome = entrada.Fornecedor.Nome,
+                Valor = entrada.ValorTotal,
+                DataHora = entrada.DataHora,
+                Produtos = entrada.Produtos.Select(a => new MovimentacaoProdutoViewModel()
+                {
                     MovimentacaoId = a.MovimentacaoId,
                     MovimentacaoProdutoId = a.MovimentacaoProdutoId,
                     ProdutoId = a.ProdutoId,
@@ -95,8 +96,8 @@ namespace GaveteiroLanches.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            MovimentacaoEntrada movimentacaoEntrada = await context.MovimentacaoEntrada.FindAsync(id);
-            context.MovimentacaoEntrada.Remove(movimentacaoEntrada);
+            MovimentacaoEntrada entrada = await context.MovimentacaoEntrada.FindAsync(id);
+            context.MovimentacaoEntrada.Remove(entrada);
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -112,14 +113,14 @@ namespace GaveteiroLanches.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var movimentacaoEntrada = await context.MovimentacaoEntrada
+                var entrada = await context.MovimentacaoEntrada
                     .Include(a => a.Produtos)
                     .Where(a => a.MovimentacaoId == model.MovimentacaoId)
                     .FirstOrDefaultAsync();
 
-                bool novo = movimentacaoEntrada == null;
+                bool novo = entrada == null;
                 if (novo)
-                    movimentacaoEntrada = new MovimentacaoEntrada();
+                    entrada = new MovimentacaoEntrada();
 
                 var fornecedor = await context.Fornecedor.FindAsync(model.FornecedorId);
 
@@ -132,24 +133,24 @@ namespace GaveteiroLanches.Web.Controllers
                 }
 
                 if (fornecedor.FornecedorId > 0)
-                    movimentacaoEntrada.FornecedorId = fornecedor.FornecedorId;
-                else movimentacaoEntrada.Fornecedor = fornecedor;
+                    entrada.FornecedorId = fornecedor.FornecedorId;
+                else entrada.Fornecedor = fornecedor;
 
-                movimentacaoEntrada.DataHora = DateTime.Now;
-               
+                entrada.DataHora = DateTime.Now;
+
                 foreach (var produto in model.Produtos)
                 {
-                    var me = movimentacaoEntrada.Produtos.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
+                    var entradaProdutos = entrada.Produtos?.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
 
-                    if (me != null)
+                    if (entradaProdutos != null)
                     {
-                        me.ProdutoId = produto.ProdutoId;
-                        me.Quantidade = produto.Quantidade;
-                        me.ValorUnitario = produto.ValorUnitario;
+                        entradaProdutos.ProdutoId = produto.ProdutoId;
+                        entradaProdutos.Quantidade = produto.Quantidade;
+                        entradaProdutos.ValorUnitario = produto.ValorUnitario;
                     }
                     else
                     {
-                        movimentacaoEntrada.Produtos.Add(new MovimentacaoProduto()
+                        entrada.Produtos.Add(new MovimentacaoProduto()
                         {
                             ProdutoId = produto.ProdutoId,
                             Quantidade = produto.Quantidade,
@@ -158,19 +159,17 @@ namespace GaveteiroLanches.Web.Controllers
                     }
                 }
 
+                entrada.ValorTotal = entrada.Produtos?.Sum(a => a.ValorTotal) ?? 0;
+
                 if (novo)
-                    context.MovimentacaoEntrada.Add(movimentacaoEntrada);
+                    context.MovimentacaoEntrada.Add(entrada);
 
                 await context.SaveChangesAsync();
 
-                if (Request.IsAjaxRequest())
-                    return Json(movimentacaoEntrada, JsonRequestBehavior.AllowGet);
-                else return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
-            if (Request.IsAjaxRequest())
-                return Json(model, JsonRequestBehavior.AllowGet);
-            else return View(model);
+            return View("MovimentacaoEntrada", model);
         }
 
         public ActionResult MovimentacaoProdutoLinha()

@@ -9,6 +9,7 @@ namespace GaveteiroLanches.Web.Models
 {
     public class Fornecedor : Entidade
     {
+        [Key]
         public int FornecedorId { get; set; }
 
         [Required]

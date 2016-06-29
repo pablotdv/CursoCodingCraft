@@ -39,12 +39,7 @@ namespace GaveteiroLanches.Web.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             //remove a deleção em cascata
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-
-            //define como PK a coluna que tem o mesmo nome da tabela mais Id
-            modelBuilder.Properties()
-                   .Where(p => p.Name == p.ReflectedType.Name + "Id")
-                   .Configure(p => p.IsKey());
-
+            
             //define que todas as colunas string serão varchar
             modelBuilder.Properties<string>()
                    .Configure(p => p.HasColumnType("varchar"));
@@ -123,13 +118,18 @@ namespace GaveteiroLanches.Web.Models
 
                 var auditorias = GetAuditRecordsForChangeEntity(entry);
 
-                this.Auditoria.AddRange(auditorias);
+                if (auditorias != null)
+                    this.Auditoria.AddRange(auditorias);
             }
         }
 
         private string GetKeyValue(DbEntityEntry entry)
         {
-            var key = entry.Entity.GetType().GetProperties().Where(p => p.Name == entry.Entity.GetType().Name + "Id").FirstOrDefault();
+            var key = entry.Entity
+                .GetType()
+                .GetProperties()
+                .Where(p => p.GetCustomAttributes(typeof(KeyAttribute), false).Count() > 0)
+                .FirstOrDefault();
 
             if (key == null)
                 return null;

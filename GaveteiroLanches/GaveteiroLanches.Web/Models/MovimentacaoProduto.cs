@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace GaveteiroLanches.Web.Models
 {
     public class MovimentacaoProduto : Entidade
     {
+        [Key]
         public int MovimentacaoProdutoId { get; set; }
 
         public int MovimentacaoId { get; set; }

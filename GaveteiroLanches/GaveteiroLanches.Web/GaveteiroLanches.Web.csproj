@@ -208,7 +208,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\HtmlHelpers.cs" />
     <Compile Include="Controllers\MovimentacaoEntradaController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -236,6 +235,10 @@
     <Compile Include="Migrations\201606282333332_MovimentacaoValorNaoMapear.cs" />
     <Compile Include="Migrations\201606282333332_MovimentacaoValorNaoMapear.Designer.cs">
       <DependentUpon>201606282333332_MovimentacaoValorNaoMapear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606291442010_MovimentacaoValorTotal.cs" />
+    <Compile Include="Migrations\201606291442010_MovimentacaoValorTotal.Designer.cs">
+      <DependentUpon>201606291442010_MovimentacaoValorTotal.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Autocomplete.cs" />
@@ -493,6 +496,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606282333332_MovimentacaoValorNaoMapear.resx">
       <DependentUpon>201606282333332_MovimentacaoValorNaoMapear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606291442010_MovimentacaoValorTotal.resx">
+      <DependentUpon>201606291442010_MovimentacaoValorTotal.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

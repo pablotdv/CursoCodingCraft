@@ -24,15 +24,15 @@ namespace GaveteiroLanches.Web.Controllers
         // GET: MovimentacaoSaida
         public ActionResult Index()
         {
-            var movimentacaoSaidaes = context.MovimentacaoSaida.Select(a => new MovimentacaoSaidaIndexViewModel()
+            var saidas = context.MovimentacaoSaida.Select(a => new MovimentacaoSaidaIndexViewModel()
             {
                 MovimentacaoId = a.MovimentacaoId,
                 Usuario = a.Usuario,
                 DataHora = a.DataHora,
-                Valor = a.Valor
+                ValorTotal = a.ValorTotal
             }).OrderByDescending(a => a.DataHora).ToList();
 
-            return View(movimentacaoSaidaes);
+            return View(saidas);
         }
 
         private async Task<ActionResult> MovimentacaoSaidaView(string view, int? id)
@@ -41,22 +41,22 @@ namespace GaveteiroLanches.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
-            MovimentacaoSaida movimentacaoSaida = await context.MovimentacaoSaida
+            MovimentacaoSaida saida = await context.MovimentacaoSaida
                 .Include(a => a.Produtos)
                 .Where(a => a.MovimentacaoId == id)
                 .FirstOrDefaultAsync();
-            if (movimentacaoSaida == null)
+            if (saida == null)
             {
                 return RedirectToAction("Index");
             }
 
             MovimentacaoSaidaViewModel model = new MovimentacaoSaidaViewModel()
             {
-                MovimentacaoId = movimentacaoSaida.MovimentacaoId,
-                Usuario = movimentacaoSaida.Usuario,
-                Valor = movimentacaoSaida.Valor,
-                DataHora = movimentacaoSaida.DataHora,
-                Produtos = movimentacaoSaida.Produtos.Select(a => new MovimentacaoProdutoViewModel()
+                MovimentacaoId = saida.MovimentacaoId,
+                Usuario = saida.Usuario,
+                Valor = saida.ValorTotal,
+                DataHora = saida.DataHora,
+                Produtos = saida.Produtos.Select(a => new MovimentacaoProdutoViewModel()
                 {
                     MovimentacaoId = a.MovimentacaoId,
                     MovimentacaoProdutoId = a.MovimentacaoProdutoId,
@@ -96,8 +96,8 @@ namespace GaveteiroLanches.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            MovimentacaoSaida movimentacaoSaida = await context.MovimentacaoSaida.FindAsync(id);
-            context.MovimentacaoSaida.Remove(movimentacaoSaida);
+            MovimentacaoSaida saida = await context.MovimentacaoSaida.FindAsync(id);
+            context.MovimentacaoSaida.Remove(saida);
             await context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
@@ -113,31 +113,31 @@ namespace GaveteiroLanches.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var movimentacaoSaida = await context.MovimentacaoSaida
+                var saida = await context.MovimentacaoSaida
                     .Include(a => a.Produtos)
                     .Where(a => a.MovimentacaoId == model.MovimentacaoId)
                     .FirstOrDefaultAsync();
 
-                bool novo = movimentacaoSaida == null;
+                bool novo = saida == null;
                 if (novo)
-                    movimentacaoSaida = new MovimentacaoSaida();
+                    saida = new MovimentacaoSaida();
 
-                movimentacaoSaida.Usuario = User.Identity.GetUserName();
-                movimentacaoSaida.DataHora = DateTime.Now;
+                saida.Usuario = User.Identity.GetUserName();
+                saida.DataHora = DateTime.Now;
 
                 foreach (var produto in model.Produtos)
                 {
-                    var me = movimentacaoSaida.Produtos.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
+                    var saidaProdutos = saida.Produtos?.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
 
-                    if (me != null)
+                    if (saidaProdutos != null)
                     {
-                        me.ProdutoId = produto.ProdutoId;
-                        me.Quantidade = produto.Quantidade;
-                        me.ValorUnitario = produto.ValorUnitario;
+                        saidaProdutos.ProdutoId = produto.ProdutoId;
+                        saidaProdutos.Quantidade = produto.Quantidade;
+                        saidaProdutos.ValorUnitario = produto.ValorUnitario;
                     }
                     else
                     {
-                        movimentacaoSaida.Produtos.Add(new MovimentacaoProduto()
+                        saida.Produtos.Add(new MovimentacaoProduto()
                         {
                             ProdutoId = produto.ProdutoId,
                             Quantidade = produto.Quantidade,
@@ -146,13 +146,15 @@ namespace GaveteiroLanches.Web.Controllers
                     }
                 }
 
+                saida.ValorTotal = saida.Produtos?.Sum(a => a.ValorTotal) ?? 0;
+
                 if (novo)
-                    context.MovimentacaoSaida.Add(movimentacaoSaida);
+                    context.MovimentacaoSaida.Add(saida);
 
                 await context.SaveChangesAsync();
 
                 if (Request.IsAjaxRequest())
-                    return Json(movimentacaoSaida, JsonRequestBehavior.AllowGet);
+                    return Json(saida, JsonRequestBehavior.AllowGet);
                 else return RedirectToAction("Index");
             }
 
