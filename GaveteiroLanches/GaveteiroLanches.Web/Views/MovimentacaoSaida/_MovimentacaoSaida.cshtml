@@ -1,0 +1,17 @@
+﻿@using GaveteiroLanches.Web.ViewModels.MovimentacaoSaida
+@model MovimentacaoSaidaViewModel
+
+@Html.HiddenFor(a => a.MovimentacaoId)
+
+<div class="row form-group">
+    <div class="col-md-10">
+        
+    </div>
+</div>
+
+<div class="row form-group">
+    <div class="col-md-12">
+
+        @Html.Partial("_Produtos", Model.Produtos ?? new List<MovimentacaoProdutoViewModel>())
+    </div>
+</div>

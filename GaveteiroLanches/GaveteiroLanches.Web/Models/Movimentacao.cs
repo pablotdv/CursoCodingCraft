@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,14 +10,21 @@ namespace GaveteiroLanches.Web.Models
     {
         public Movimentacao()
         {
-            this.MovimentacaoProduto = new List<MovimentacaoProduto>();
+            this.Produtos = new List<MovimentacaoProduto>();
         }
         public int MovimentacaoId { get; set; }
 
-        public decimal Valor { get; set; }
+        [NotMapped]
+        public decimal? Valor
+        {
+            get
+            {
+                return this.Produtos?.Sum(a => a.ValorTotal);
+            }
+        }
 
         public DateTime DataHora { get; set; }
 
-        public ICollection<MovimentacaoProduto> MovimentacaoProduto { get; set; }
+        public ICollection<MovimentacaoProduto> Produtos { get; set; }
     }
 }

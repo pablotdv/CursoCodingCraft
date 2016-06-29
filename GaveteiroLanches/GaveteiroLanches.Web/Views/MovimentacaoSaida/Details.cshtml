@@ -1,0 +1,29 @@
+﻿@model GaveteiroLanches.Web.ViewModels.MovimentacaoSaida.MovimentacaoSaidaViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label>Detalhes da entrada - #@Model.MovimentacaoId</label>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("_MovimentacaoSaida")
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <a href="@Url.Action("Edit", new { id = Model.MovimentacaoId})" class="btn btn-default"><i class="fa fa-edit fa-fw"></i> Editar</a>
+        <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-arrow-left fa-fw"></i> Voltar</a>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input').attr('readonly', 'readonly');
+        });
+    </script>
+}

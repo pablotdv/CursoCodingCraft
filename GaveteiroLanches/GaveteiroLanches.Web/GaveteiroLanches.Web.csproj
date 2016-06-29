@@ -213,6 +213,7 @@
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovimentacaoSaidaController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
@@ -232,6 +233,10 @@
     <Compile Include="Migrations\201606272341345_ProdutoCamposObrigatorios.Designer.cs">
       <DependentUpon>201606272341345_ProdutoCamposObrigatorios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606282333332_MovimentacaoValorNaoMapear.cs" />
+    <Compile Include="Migrations\201606282333332_MovimentacaoValorNaoMapear.Designer.cs">
+      <DependentUpon>201606282333332_MovimentacaoValorNaoMapear.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Autocomplete.cs" />
     <Compile Include="Models\MovimentacaoEntrada.cs" />
@@ -242,6 +247,10 @@
     <Compile Include="Models\GaveteiroLanchesContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IEntidade.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaIndexViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoProdutoViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\ProdutoListViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoEntrada\MovimentacaoEntradaIndexViewModel.cs" />
     <Compile Include="ViewModels\Fornecedor\FornecedorViewModel.cs" />
     <Compile Include="ViewModels\Fornecedor\IndexViewModel.cs" />
@@ -454,6 +463,13 @@
     <Content Include="Views\MovimentacaoEntrada\_Produtos.cshtml" />
     <Content Include="Views\MovimentacaoEntrada\_ProdutoLinha.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\_MovimentacaoSaida.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\_ProdutoLinha.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\_Produtos.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\Delete.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\Details.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\Index.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\MovimentacaoSaida.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -474,6 +490,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606272341345_ProdutoCamposObrigatorios.resx">
       <DependentUpon>201606272341345_ProdutoCamposObrigatorios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606282333332_MovimentacaoValorNaoMapear.resx">
+      <DependentUpon>201606282333332_MovimentacaoValorNaoMapear.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

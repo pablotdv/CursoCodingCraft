@@ -1,0 +1,31 @@
+﻿@model GaveteiroLanches.Web.ViewModels.MovimentacaoSaida.MovimentacaoSaidaViewModel
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <label>Excluir a entrada - #@Model.MovimentacaoId?</label>
+            </div>
+            <div class="panel-body">
+                @Html.Partial("_MovimentacaoSaida")
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-arrow-left fa-fw"></i> Voltar</a>
+        <button type="submit" class="btn btn-default"><i class="fa fa-trash-o fa-fw"></i> Excluir</button>
+    </div>
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('input').attr('readonly', 'readonly');
+        });
+    </script>
+}

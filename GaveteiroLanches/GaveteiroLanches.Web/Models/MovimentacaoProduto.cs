@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GaveteiroLanches.Web.Models
 {
-    public class MovimentacaoProduto
+    public class MovimentacaoProduto : Entidade
     {
         public int MovimentacaoProdutoId { get; set; }
 
