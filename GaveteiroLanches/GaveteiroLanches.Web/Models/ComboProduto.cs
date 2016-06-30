@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace GaveteiroLanches.Web.Models
 {
-    public class ComboProduto: Entidade
+    public class ComboProduto : Entidade
     {
         [Key]
         public int ComboProdutoId { get; set; }
@@ -21,7 +22,8 @@ namespace GaveteiroLanches.Web.Models
 
         public decimal ValorUnitario { get; set; }
 
-        public decimal ValorTotal { get; set; }
+        [NotMapped]
+        public decimal ValorTotal { get { return this.ValorUnitario * this.Quantidade; } }
 
         public virtual Combo Combo { get; set; }
 

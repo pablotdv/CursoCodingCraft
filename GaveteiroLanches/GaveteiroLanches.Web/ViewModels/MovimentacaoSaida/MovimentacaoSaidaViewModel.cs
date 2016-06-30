@@ -10,6 +10,7 @@ namespace GaveteiroLanches.Web.ViewModels.MovimentacaoSaida
         public MovimentacaoSaidaViewModel()
         {
             this.Produtos = new List<MovimentacaoProdutoViewModel>();
+            this.Combos = new List<MovimentacaoComboViewModel>();
         }
         public DateTime DataHora { get; set; }
         public string Usuario { get; set; }
@@ -17,5 +18,7 @@ namespace GaveteiroLanches.Web.ViewModels.MovimentacaoSaida
         public decimal? Valor { get; set; }
 
         public ICollection<MovimentacaoProdutoViewModel> Produtos { get; set; }
+
+        public ICollection<MovimentacaoComboViewModel> Combos { get; set; }
     }
 }

@@ -47,23 +47,24 @@ namespace GaveteiroLanches.Web.Migrations
                         ComboId = c.Int(nullable: false),
                         Quantidade = c.Int(nullable: false),
                         ValorUnitario = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Produto_ProdutoId = c.Int(),
+                        DataHoraCad = c.DateTime(nullable: false),
+                        UsuarioCad = c.String(maxLength: 100, unicode: false),
                     })
                 .PrimaryKey(t => t.MovimentacaoComboId)
+                .ForeignKey("dbo.Combo", t => t.ComboId)
                 .ForeignKey("dbo.Movimentacao", t => t.MovimentacaoId)
-                .ForeignKey("dbo.Produto", t => t.Produto_ProdutoId)
                 .Index(t => t.MovimentacaoId)
-                .Index(t => t.Produto_ProdutoId);
+                .Index(t => t.ComboId);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.ComboProduto", "ProdutoId", "dbo.Produto");
-            DropForeignKey("dbo.MovimentacaoCombo", "Produto_ProdutoId", "dbo.Produto");
             DropForeignKey("dbo.MovimentacaoCombo", "MovimentacaoId", "dbo.Movimentacao");
+            DropForeignKey("dbo.MovimentacaoCombo", "ComboId", "dbo.Combo");
             DropForeignKey("dbo.ComboProduto", "ComboId", "dbo.Combo");
-            DropIndex("dbo.MovimentacaoCombo", new[] { "Produto_ProdutoId" });
+            DropIndex("dbo.MovimentacaoCombo", new[] { "ComboId" });
             DropIndex("dbo.MovimentacaoCombo", new[] { "MovimentacaoId" });
             DropIndex("dbo.ComboProduto", new[] { "ProdutoId" });
             DropIndex("dbo.ComboProduto", new[] { "ComboId" });

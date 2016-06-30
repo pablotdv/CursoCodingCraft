@@ -13,7 +13,7 @@ namespace GaveteiroLanches.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201606301146025_ComboMigration"; }
+            get { return "201606301257305_ComboMigration"; }
         }
         
         string IMigrationMetadata.Source

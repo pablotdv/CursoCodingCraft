@@ -66,5 +66,21 @@
 
             $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
         })
+
+
+        $("#adicionar-novo-combo").click(function () {
+            $.get('@Url.Action("MovimentacaoComboLinha")', function (template) {
+                $("#area-combos").append(template);
+            });
+        });
+
+        $("#area-combos").on('change', function () {
+            var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
+            var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
+
+            var valorTotal = valorUnitario * quantidade;
+
+            $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+        })
     </script>
 }

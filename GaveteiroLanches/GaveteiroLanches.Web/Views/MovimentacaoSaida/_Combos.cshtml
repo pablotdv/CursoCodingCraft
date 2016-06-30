@@ -1,0 +1,17 @@
+﻿@model IEnumerable<GaveteiroLanches.Web.ViewModels.MovimentacaoSaida.MovimentacaoComboViewModel>
+
+<div class="actions">
+    <a class="btn btn-default btn-sm" id="adicionar-novo-combo">
+        Novo combo
+    </a>    
+</div>
+
+<div id="area-combos">
+    @if (Model != null)
+    {
+        foreach (var combo in Model)
+        {
+            @Html.Partial("_ComboLinha", combo);
+        }
+    }
+</div>

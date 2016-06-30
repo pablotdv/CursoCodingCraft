@@ -13,3 +13,10 @@
         @Html.Partial("_Produtos", Model.Produtos ?? new List<MovimentacaoProdutoViewModel>())
     </div>
 </div>
+
+<div class="row form-group">
+    <div class="col-md-12">
+
+        @Html.Partial("_Combos", Model.Combos ?? new List<MovimentacaoComboViewModel>())
+    </div>
+</div>

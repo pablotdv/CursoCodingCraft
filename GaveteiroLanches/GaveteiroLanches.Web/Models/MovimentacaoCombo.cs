@@ -6,7 +6,7 @@ using System.Web;
 
 namespace GaveteiroLanches.Web.Models
 {
-    public class MovimentacaoCombo : IMovimentacaoItem
+    public class MovimentacaoCombo : Entidade
     {
         public int MovimentacaoComboId { get; set; }
 
@@ -20,7 +20,7 @@ namespace GaveteiroLanches.Web.Models
 
         public virtual Movimentacao Movimentacao { get; set; }
 
-        public virtual Produto Produto { get; set; }
+        public virtual Combo Combo { get; set; }
 
         [NotMapped]
         public decimal ValorTotal

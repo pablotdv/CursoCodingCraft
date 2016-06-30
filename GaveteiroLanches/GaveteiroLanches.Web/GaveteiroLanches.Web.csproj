@@ -245,9 +245,13 @@
     <Compile Include="Migrations\201606300107319_MovimentacaoDataFinalizacao.Designer.cs">
       <DependentUpon>201606300107319_MovimentacaoDataFinalizacao.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606301146025_ComboMigration.cs" />
-    <Compile Include="Migrations\201606301146025_ComboMigration.Designer.cs">
-      <DependentUpon>201606301146025_ComboMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201606301257305_ComboMigration.cs" />
+    <Compile Include="Migrations\201606301257305_ComboMigration.Designer.cs">
+      <DependentUpon>201606301257305_ComboMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201606301300131_ComboProdutoValorTotalNaoMapearMigration.cs" />
+    <Compile Include="Migrations\201606301300131_ComboProdutoValorTotalNaoMapearMigration.Designer.cs">
+      <DependentUpon>201606301300131_ComboProdutoValorTotalNaoMapearMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Autocomplete.cs" />
@@ -267,9 +271,11 @@
     <Compile Include="ViewModels\Combo\ComboViewModel.cs" />
     <Compile Include="ViewModels\Combo\ComboProdutoViewModel.cs" />
     <Compile Include="ViewModels\Combo\ProdutoListViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoComboViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaIndexViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoProdutoViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\ComboListViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoSaida\ProdutoListViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoEntrada\MovimentacaoEntradaIndexViewModel.cs" />
     <Compile Include="ViewModels\Fornecedor\FornecedorViewModel.cs" />
@@ -505,6 +511,8 @@
     <Content Include="Views\Combo\Finalizar.cshtml" />
     <Content Include="Views\Combo\Index.cshtml" />
     <Content Include="Views\Combo\Combo.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\_ComboLinha.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\_Combos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -535,8 +543,11 @@
     <EmbeddedResource Include="Migrations\201606300107319_MovimentacaoDataFinalizacao.resx">
       <DependentUpon>201606300107319_MovimentacaoDataFinalizacao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606301146025_ComboMigration.resx">
-      <DependentUpon>201606301146025_ComboMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606301257305_ComboMigration.resx">
+      <DependentUpon>201606301257305_ComboMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606301300131_ComboProdutoValorTotalNaoMapearMigration.resx">
+      <DependentUpon>201606301300131_ComboProdutoValorTotalNaoMapearMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

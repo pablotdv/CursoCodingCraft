@@ -224,6 +224,7 @@ namespace GaveteiroLanches.Web.Models
         public DbSet<MovimentacaoEntrada> MovimentacaoEntrada { get; set; }
         public DbSet<MovimentacaoSaida> MovimentacaoSaida { get; set; }
         public DbSet<MovimentacaoProduto> MovimentacaoProduto { get; set; }
+        public DbSet<MovimentacaoCombo> MovimentacaoCombo { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
         public DbSet<Produto> Produto { get; set; }
         public DbSet<Combo> Combo { get; set; }

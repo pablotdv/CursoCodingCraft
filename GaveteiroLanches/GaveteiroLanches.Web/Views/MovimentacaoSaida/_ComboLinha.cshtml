@@ -1,0 +1,25 @@
+﻿@model GaveteiroLanches.Web.ViewModels.MovimentacaoSaida.MovimentacaoComboViewModel
+@using (Html.BeginCollectionItem("Combos"))
+{
+    <div class="row form-group">
+        @Html.HiddenFor(model => model.MovimentacaoComboId)
+        @Html.HiddenFor(model => model.MovimentacaoId)
+
+        <div class="col-md-4">
+            @Html.DropDownListFor(x => x.ComboId, (SelectList)ViewBag.Combos, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ComboId, "", new { @class = "text-danger" })
+        </div>
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control quantidade", @autofocus = "" } })
+        </div>
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.ValorUnitario, new { htmlAttributes = new { @class = "form-control valorUnitario", @autofocus = "" } })
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control valorTotal" value="@Model.ValorTotal" readonly="readonly"/>
+        </div>
+        <div class="col-md-2">
+            <a class="btn red" onclick="$(this).parent().parent().remove();">Excluir</a>
+        </div>
+    </div>
+}

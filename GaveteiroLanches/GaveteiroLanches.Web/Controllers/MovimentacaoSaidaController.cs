@@ -44,6 +44,7 @@ namespace GaveteiroLanches.Web.Controllers
             }
             MovimentacaoSaida saida = await context.MovimentacaoSaida
                 .Include(a => a.Produtos)
+                .Include(a => a.Combos)
                 .Where(a => a.MovimentacaoId == id)
                 .FirstOrDefaultAsync();
             if (saida == null)
@@ -64,6 +65,14 @@ namespace GaveteiroLanches.Web.Controllers
                     ProdutoId = a.ProdutoId,
                     Quantidade = a.Quantidade,
                     ValorUnitario = a.ValorUnitario
+                }).ToList(),
+                Combos = saida.Combos.Select(a => new MovimentacaoComboViewModel()
+                {
+                    MovimentacaoId = a.MovimentacaoId,
+                    MovimentacaoComboId = a.MovimentacaoComboId,
+                    ComboId = a.ComboId,
+                    Quantidade = a.Quantidade,
+                    ValorUnitario = a.ValorUnitario
                 }).ToList()
             };
 
@@ -74,6 +83,14 @@ namespace GaveteiroLanches.Web.Controllers
                     Descricao = a.Descricao
                 })
                 .ToList(), "ProdutoId", "Descricao");
+
+            ViewBag.Combos = new SelectList(context.Combo
+                .Select(a => new ComboListViewModel()
+                {
+                    ComboId = a.ComboId,
+                    Descricao = a.Descricao
+                })
+                .ToList(), "ComboId", "Descricao");
 
             return View(view, model);
         }
@@ -119,6 +136,7 @@ namespace GaveteiroLanches.Web.Controllers
         {
             MovimentacaoSaida saida = await context.MovimentacaoSaida
                 .Include(a => a.Produtos)
+                .Include(a => a.Combos)
                 .Where(a => a.MovimentacaoId == id)
                 .FirstOrDefaultAsync();
 
@@ -129,12 +147,34 @@ namespace GaveteiroLanches.Web.Controllers
             {
                 saida.DataFinalizacao = DateTime.Now;
 
-                var produtos = saida.Produtos.ToList();
-                foreach (var produtoSaida in produtos)
+                var produtos = (from mp in context.MovimentacaoProduto
+                                where mp.MovimentacaoId == saida.MovimentacaoId
+                                select new
+                                {
+                                    ProdutoId = mp.ProdutoId,
+                                    Quantidade = mp.Quantidade,
+                                }).Union((from c in context.MovimentacaoCombo
+                                          from p in c.Combo.Produtos
+                                          select new
+                                          {
+                                              ProdutoId = p.ProdutoId,
+                                              Quantidade = p.Quantidade
+                                          }));
+
+                var prods = (from p in produtos
+                             group new { p.Quantidade } by new { p.ProdutoId } into g
+                             select new
+                             {
+                                 ProdutoId = g.Key.ProdutoId,
+                                 Quantidade = g.Sum(a => a.Quantidade)
+                             }).ToList();
+
+                foreach (var prod in prods)
                 {
-                    var produto = saida.Produtos.Where(a => a.ProdutoId == produtoSaida.ProdutoId);
-                    produtoSaida.Produto.Quantidade -= produto.Sum(a => a.Quantidade);                    
+                    var produto = context.Produto.Find(prod.ProdutoId);
+                    produto.Quantidade -= prod.Quantidade;
                 }
+
 
                 await context.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -183,7 +223,32 @@ namespace GaveteiroLanches.Web.Controllers
                     }
                 }
 
-                saida.ValorTotal = saida.Produtos?.Sum(a => a.ValorTotal) ?? 0;
+                foreach (var combo in model.Combos)
+                {
+                    var saidaCombos = saida.Combos?.FirstOrDefault(a => a.MovimentacaoComboId == combo.MovimentacaoComboId);
+
+                    if (saidaCombos != null)
+                    {
+                        saidaCombos.ComboId = combo.ComboId;
+                        saidaCombos.Quantidade = combo.Quantidade;
+                        saidaCombos.ValorUnitario = combo.ValorUnitario;
+                    }
+                    else
+                    {
+                        saida.Combos.Add(new MovimentacaoCombo()
+                        {
+                            ComboId = combo.ComboId,
+                            Quantidade = combo.Quantidade,
+                            ValorUnitario = combo.ValorUnitario,
+                        });
+                    }
+                }
+
+                decimal valorProdutos = saida.Produtos?.Sum(a => a.ValorTotal) ?? 0;
+                decimal valorCombos = saida.Combos?.Sum(a => a.ValorTotal) ?? 0;
+
+                saida.ValorTotal = valorProdutos + valorCombos;
+
 
                 if (novo)
                     context.MovimentacaoSaida.Add(saida);
@@ -207,6 +272,19 @@ namespace GaveteiroLanches.Web.Controllers
                 .ToList(), "ProdutoId", "Descricao");
 
             return PartialView("_ProdutoLinha", new MovimentacaoProdutoViewModel() { MovimentacaoProdutoId = 0 });
+        }
+
+        public ActionResult MovimentacaoComboLinha()
+        {
+            ViewBag.Combos = new SelectList(context.Combo
+                .Select(a => new ComboListViewModel()
+                {
+                    ComboId = a.ComboId,
+                    Descricao = a.Descricao
+                })
+                .ToList(), "ComboId", "Descricao");
+
+            return PartialView("_ComboLinha", new MovimentacaoComboViewModel() { MovimentacaoComboId = 0 });
         }
 
         public ActionResult GetFornecedores(string query)
