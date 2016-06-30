@@ -474,14 +474,15 @@
     <Content Include="Views\MovimentacaoEntrada\_Produtos.cshtml" />
     <Content Include="Views\MovimentacaoEntrada\_ProdutoLinha.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
+    <Content Include="Views\MovimentacaoEntrada\Finalizar.cshtml" />
     <Content Include="Views\MovimentacaoSaida\_MovimentacaoSaida.cshtml" />
     <Content Include="Views\MovimentacaoSaida\_ProdutoLinha.cshtml" />
     <Content Include="Views\MovimentacaoSaida\_Produtos.cshtml" />
     <Content Include="Views\MovimentacaoSaida\Delete.cshtml" />
     <Content Include="Views\MovimentacaoSaida\Details.cshtml" />
+    <Content Include="Views\MovimentacaoSaida\Finalizar.cshtml" />
     <Content Include="Views\MovimentacaoSaida\Index.cshtml" />
     <Content Include="Views\MovimentacaoSaida\MovimentacaoSaida.cshtml" />
-    <Content Include="Views\MovimentacaoEntrada\Finalizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,16 +9,15 @@
             @Html.DropDownListFor(x => x.ProdutoId, (SelectList)ViewBag.Produtos, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.ProdutoId, "", new { @class = "text-danger" })
         </div>
-        <div class="col-md-3">
-            @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control quantidade", @autofocus = "" } })
         </div>
-        <div class="col-md-3">
-            @Html.EditorFor(model => model.ValorUnitario, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        <div class="col-md-2">
+            @Html.EditorFor(model => model.ValorUnitario, new { htmlAttributes = new { @class = "form-control valorUnitario", @autofocus = "" } })
         </div>
-        <div class="col-md-3">
-            @Html.EditorFor(model => model.ValorTotal, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        <div class="col-md-2">
+            <input type="text" class="form-control valorTotal" value="@Model.ValorTotal" readonly="readonly"/>
         </div>
-
         <div class="col-md-2">
             <a class="btn red" onclick="$(this).parent().parent().remove();">Excluir</a>
         </div>

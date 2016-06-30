@@ -13,12 +13,9 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.MovimentacaoId)
-        </th>
+        </th>        
         <th>
-            @Html.DisplayNameFor(model => model.Fornecedor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Valor)
+            @Html.DisplayNameFor(model => model.ValorTotal)
         </th>
         <th></th>
     </tr>
@@ -28,17 +25,18 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.MovimentacaoId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fornecedor)
             </td>            
             <td>
-                @Html.DisplayFor(modelItem => item.Valor)
+                @Html.DisplayFor(modelItem => item.ValorTotal)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MovimentacaoId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.MovimentacaoId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MovimentacaoId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.MovimentacaoId }) |
+                @if (!item.DataFinalizacao.HasValue)
+                {
+                    @Html.ActionLink("Finalizar", "Finalizar", new { id = item.MovimentacaoId })
+                }
             </td>
         </tr>
     }
