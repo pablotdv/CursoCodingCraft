@@ -40,10 +40,10 @@
 
 @section styles {
     <link href="~/Content/typeahead.css" rel="stylesheet" />
-<link href="~/Content/typeahead.fixe.css" rel="stylesheet" />
+    <link href="~/Content/typeahead.fixe.css" rel="stylesheet" />
 
     <style type="text/css">
-        
+
     </style>
 }
 
@@ -62,13 +62,17 @@
             });
         });
 
-        $("#area-produtos").on('change', function () {
-            var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
-            var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
+        $("#area-produtos div input").on('blur', function () {
+            alert('blur');
+            if ($(this).find(".valorUnitario").val() != undefined &&
+                $(this).find(".quantidade").val() != undefined) {
+                var valorUnitario = parseFloat($(this).find(".valorUnitario").val().toString().replace(",", "."));
+                var quantidade = parseFloat($(this).find(".quantidade").val().toString().replace(",", "."));
 
-            var valorTotal = valorUnitario * quantidade;
+                var valorTotal = valorUnitario * quantidade;
 
-            $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+                $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+            }
         })
     </script>
 }

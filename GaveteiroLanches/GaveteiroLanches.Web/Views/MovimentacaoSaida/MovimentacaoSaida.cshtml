@@ -58,13 +58,16 @@
             });
         });
 
-        $("#area-produtos").on('change', function () {
-            var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
-            var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
+        $("#area-produtos div").on('change', function () {
+            if ($(this).find(".valorUnitario").val() != undefined &&
+                $(this).find(".quantidade").val() != undefined) {
+                var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
+                var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
 
-            var valorTotal = valorUnitario * quantidade;
+                var valorTotal = valorUnitario * quantidade;
 
-            $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+                $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+            }
         })
 
 
@@ -74,13 +77,16 @@
             });
         });
 
-        $("#area-combos").on('change', function () {
-            var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
-            var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
+        $("#area-combos div").on('change', function () {
+            if ($(this).find(".valorUnitario").val() != undefined &&
+                $(this).find(".quantidade").val() != undefined) {
+                var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
+                var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
 
-            var valorTotal = valorUnitario * quantidade;
+                var valorTotal = valorUnitario * quantidade;
 
-            $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+                $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+            }
         })
     </script>
 }
