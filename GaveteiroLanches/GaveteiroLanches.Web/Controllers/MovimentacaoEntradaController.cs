@@ -28,7 +28,8 @@ namespace GaveteiroLanches.Web.Controllers
                 MovimentacaoId = a.MovimentacaoId,
                 Fornecedor = a.Fornecedor.Nome,
                 DataHora = a.DataHora,
-                ValorTotal = a.ValorTotal
+                ValorTotal = a.ValorTotal,
+                DataFinalizacao = a.DataFinalizacao
             }).OrderByDescending(a => a.DataHora).ToList();
 
             return View(entradas);
@@ -105,6 +106,42 @@ namespace GaveteiroLanches.Web.Controllers
         public async Task<ActionResult> Details(int? id)
         {
             return await MovimentacaoEntradaView("Details", id);
+        }
+
+        public async Task<ActionResult> Finalizar(int? id)
+        {
+            return await MovimentacaoEntradaView("Finalizar", id);
+        }
+
+        [HttpPost, ActionName("Finalizar")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> FinalizarConfirmacao(int id)
+        {
+            MovimentacaoEntrada entrada = await context.MovimentacaoEntrada
+                .Include(a => a.Produtos)
+                .Where(a => a.MovimentacaoId == id)
+                .FirstOrDefaultAsync();
+
+            if (entrada.DataFinalizacao.HasValue)
+                ModelState.AddModelError("", "Entrada já finalizada!");
+
+            if (ModelState.IsValid)
+            {
+                entrada.DataFinalizacao = DateTime.Now;
+
+                var produtos = entrada.Produtos.ToList();
+                foreach (var produtoEntrada in produtos)
+                {
+                    var produto = entrada.Produtos.Where(a => a.ProdutoId == produtoEntrada.ProdutoId);
+                    produtoEntrada.Produto.Quantidade += produto.Sum(a => a.Quantidade);
+                    produtoEntrada.Produto.Valor = produto.FirstOrDefault().ValorUnitario;
+                }
+
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return await MovimentacaoEntradaView("Finalizar", id);
         }
 
         [HttpPost]

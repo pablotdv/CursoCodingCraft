@@ -11,5 +11,6 @@ namespace GaveteiroLanches.Web.Models
         public int FornecedorId { get; set; }
                         
         public virtual Fornecedor Fornecedor { get; set; }
+        
     }
 }

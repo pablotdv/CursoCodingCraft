@@ -3,11 +3,11 @@
 @{
     if (Model.MovimentacaoId > 0)
     {
-        ViewBag.Title = "Entrada - #" + Model.MovimentacaoId;
+        ViewBag.Title = "Saida - #" + Model.MovimentacaoId;
     }
     else
     {
-        ViewBag.Title = "Entrada";
+        ViewBag.Title = "Saida";
     }
 }
 
@@ -40,12 +40,15 @@
 
 @section styles {
     <link href="~/Content/typeahead.css" rel="stylesheet" />
+    <link href="~/Content/typeahead.fixe.css" rel="stylesheet" />
 }
 
 @section Scripts {
+
+    @Scripts.Render("~/bundles/typeahead")
+    <script type="text/javascript" src="~/Scripts/typeahead.mvc.model.js"></script>
+
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/typeahead.bundle.js"></script>
-    <script src="~/Scripts/typeahead.mvc.model.js"></script>
 
 
     <script type="text/javascript">
@@ -54,5 +57,14 @@
                 $("#area-produtos").append(template);
             });
         });
+
+        $("#area-produtos").on('change', function () {
+            var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
+            var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
+
+            var valorTotal = valorUnitario * quantidade;
+
+            $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+        })
     </script>
 }

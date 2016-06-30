@@ -31,14 +31,18 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Fornecedor)
-            </td>            
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ValorTotal)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MovimentacaoId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.MovimentacaoId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MovimentacaoId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.MovimentacaoId }) |
+                @if (!item.DataFinalizacao.HasValue)
+                {
+                    @Html.ActionLink("Finalizar", "Finalizar", new { id = item.MovimentacaoId })
+                }
             </td>
         </tr>
     }

@@ -22,6 +22,8 @@ namespace GaveteiroLanches.Web.Models
         
         public virtual Movimentacao Movimentacao { get; set; }
 
+        public virtual Produto Produto { get; set; }
+
         [NotMapped]
         public decimal ValorTotal
         {

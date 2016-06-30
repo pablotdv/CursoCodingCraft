@@ -29,7 +29,8 @@ namespace GaveteiroLanches.Web.Controllers
                 MovimentacaoId = a.MovimentacaoId,
                 Usuario = a.Usuario,
                 DataHora = a.DataHora,
-                ValorTotal = a.ValorTotal
+                ValorTotal = a.ValorTotal,
+                DataFinalizacao = a.DataFinalizacao
             }).OrderByDescending(a => a.DataHora).ToList();
 
             return View(saidas);
@@ -107,6 +108,41 @@ namespace GaveteiroLanches.Web.Controllers
             return await MovimentacaoSaidaView("Details", id);
         }
 
+        public async Task<ActionResult> Finalizar(int? id)
+        {
+            return await MovimentacaoSaidaView("Finalizar", id);
+        }
+
+        [HttpPost, ActionName("Finalizar")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> FinalizarConfirmacao(int id)
+        {
+            MovimentacaoSaida saida = await context.MovimentacaoSaida
+                .Include(a => a.Produtos)
+                .Where(a => a.MovimentacaoId == id)
+                .FirstOrDefaultAsync();
+
+            if (saida.DataFinalizacao.HasValue)
+                ModelState.AddModelError("", "Saida já finalizada!");
+
+            if (ModelState.IsValid)
+            {
+                saida.DataFinalizacao = DateTime.Now;
+
+                var produtos = saida.Produtos.ToList();
+                foreach (var produtoSaida in produtos)
+                {
+                    var produto = saida.Produtos.Where(a => a.ProdutoId == produtoSaida.ProdutoId);
+                    produtoSaida.Produto.Quantidade -= produto.Sum(a => a.Quantidade);                    
+                }
+
+                await context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            return await MovimentacaoSaidaView("Finalizar", id);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Salvar(MovimentacaoSaidaViewModel model)
@@ -123,6 +159,7 @@ namespace GaveteiroLanches.Web.Controllers
                     saida = new MovimentacaoSaida();
 
                 saida.Usuario = User.Identity.GetUserName();
+
                 saida.DataHora = DateTime.Now;
 
                 foreach (var produto in model.Produtos)
@@ -153,14 +190,10 @@ namespace GaveteiroLanches.Web.Controllers
 
                 await context.SaveChangesAsync();
 
-                if (Request.IsAjaxRequest())
-                    return Json(saida, JsonRequestBehavior.AllowGet);
-                else return RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
 
-            if (Request.IsAjaxRequest())
-                return Json(model, JsonRequestBehavior.AllowGet);
-            else return View(model);
+            return View("MovimentacaoSaida", model);
         }
 
         public ActionResult MovimentacaoProdutoLinha()

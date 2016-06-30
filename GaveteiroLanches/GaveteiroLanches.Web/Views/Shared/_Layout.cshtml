@@ -6,11 +6,12 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
 
+        @Scripts.Render("~/bundles/modernizr")
+
     @RenderSection("styles", required: false)
 
-    @Scripts.Render("~/bundles/modernizr")
 
-
+    <link href="~/Content/Site.css" rel="stylesheet" />
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,12 +29,30 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                     {
-                        <li>@Html.ActionLink("Fornecedores", "Index", "Fornecedor")</li>
-                        <li>@Html.ActionLink("Produtos", "Index", "Produto")</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastros <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Fornecedores", "Index", "Fornecedor")</li>
+                                <li>@Html.ActionLink("Produtos", "Index", "Produto")</li>
+
+                            </ul>
+                        </li>
+
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
+                                <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+                            </ul>
+                        </li>
+
                         <li>@Html.ActionLink("Entrada", "Index", "MovimentacaoEntrada")</li>
-                        <li>@Html.ActionLink("RolesAdmin", "Index", "RolesAdmin")</li>
-                        <li>@Html.ActionLink("UsersAdmin", "Index", "UsersAdmin")</li>
+
+
                     }
+
+                    <li>@Html.ActionLink("Saída", "Index", "MovimentacaoSaida")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -50,6 +69,10 @@
     @Scripts.Render("~/bundles/jquery")
 
     @Scripts.Render("~/bundles/bootstrap")
+
+    <script src="~/Scripts/jquery.maskedinput.js"></script>
+
+    <script src="~/Scripts/gaveteiro.js"></script>
 
 
     <script src="~/Scripts/globalize.js"></script>
