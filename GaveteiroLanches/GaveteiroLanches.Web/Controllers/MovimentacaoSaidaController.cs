@@ -29,7 +29,8 @@ namespace GaveteiroLanches.Web.Controllers
                 MovimentacaoId = a.MovimentacaoId,
                 Usuario = a.Usuario,
                 DataHora = a.DataHora,
-                ValorTotal = a.ValorTotal
+                ValorTotal = a.ValorTotal,
+                DataFinalizacao = a.DataFinalizacao
             }).OrderByDescending(a => a.DataHora).ToList();
 
             return View(saidas);

@@ -7,6 +7,7 @@ namespace GaveteiroLanches.Web.ViewModels.MovimentacaoEntrada
 {
     public class MovimentacaoEntradaIndexViewModel
     {
+        public DateTime? DataFinalizacao { get; set; }
         public DateTime DataHora { get; set; }
 
         public string Fornecedor { get; set; }

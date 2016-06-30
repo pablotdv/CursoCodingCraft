@@ -21,6 +21,8 @@ namespace GaveteiroLanches.Web.Models
 
         public DateTime DataHora { get; set; }
 
+        public DateTime? DataFinalizacao { get; set; }
+
         public ICollection<MovimentacaoProduto> Produtos { get; set; }
     }
 }

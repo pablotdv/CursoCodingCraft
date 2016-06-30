@@ -14,5 +14,6 @@ namespace GaveteiroLanches.Web.ViewModels.MovimentacaoSaida
         public int MovimentacaoId { get; set; }
 
         public decimal ValorTotal { get; set; }
+        public DateTime? DataFinalizacao { get; internal set; }
     }
 }
