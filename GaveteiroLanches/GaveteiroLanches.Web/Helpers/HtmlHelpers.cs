@@ -44,7 +44,7 @@ namespace GaveteiroLanches.Web.Helpers
                 idFieldString += string.Format("_{0}_", index);
             }
 
-            return CreateTextBoxForFromAutocompleteFor<TModel, TProperty1, TProperty2>(html, valueExpression, actionName, controllerName, requestFocus, idFieldString, new object { });;
+            return CreateTextBoxForFromAutocompleteFor<TModel, TProperty1, TProperty2>(html, valueExpression, actionName, controllerName, requestFocus, idFieldString, new object { }); ;
         }
 
         private static MvcHtmlString CreateTextBoxForFromAutocompleteFor<TModel, TProperty1, TProperty2>(
@@ -85,7 +85,7 @@ namespace GaveteiroLanches.Web.Helpers
 
                         var htmlAttributesPropertyNamesAndValues = pair.Value.GetType()
                             .GetProperties()
-                            .Where(pi => pi.PropertyType == typeof (string) && pi.GetGetMethod() != null)
+                            .Where(pi => pi.PropertyType == typeof(string) && pi.GetGetMethod() != null)
                             .Select(pi => new
                             {
                                 Name = pi.Name,
@@ -93,19 +93,19 @@ namespace GaveteiroLanches.Web.Helpers
                             });
                         foreach (var pair2 in htmlAttributesPropertyNamesAndValues)
                         {
-                            ((IDictionary<string, object>) htmlAttributes).Add(pair2.Name, pair2.Value);
+                            ((IDictionary<string, object>)htmlAttributes).Add(pair2.Name, pair2.Value);
                         }
                     }
                 }
             }
             // add @class if it is not there yet
-            if (!((IDictionary<string, object>) htmlAttributes).ContainsKey("@class"))
+            if (!((IDictionary<string, object>)htmlAttributes).ContainsKey("@class"))
             {
                 htmlAttributes.@class = "";
             }
 
-            string @class = (!((string) htmlAttributes.@class).Contains("typeahead") ? "typeahead" : "");
-            ((IDictionary<string, object>) htmlAttributes).Add("data-autocomplete-url", autocompleteUrl);
+            string @class = (!((string)htmlAttributes.@class).Contains("typeahead") ? "typeahead" : "");
+            ((IDictionary<string, object>)htmlAttributes).Add("data-autocomplete-url", autocompleteUrl);
             ((IDictionary<string, object>)htmlAttributes).Add("data-autocomplete-id-field", autocompleteIdField);
             htmlAttributes.data_autocomplete_url = autocompleteUrl;
             htmlAttributes.@class += (!string.IsNullOrEmpty(htmlAttributes.@class) ? " " : "") + @class;
