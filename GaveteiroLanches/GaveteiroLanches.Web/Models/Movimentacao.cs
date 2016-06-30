@@ -12,6 +12,7 @@ namespace GaveteiroLanches.Web.Models
         public Movimentacao()
         {
             this.Produtos = new List<MovimentacaoProduto>();
+            this.Combos = new List<MovimentacaoCombo>();
         }
 
         [Key]
@@ -22,7 +23,9 @@ namespace GaveteiroLanches.Web.Models
         public DateTime DataHora { get; set; }
 
         public DateTime? DataFinalizacao { get; set; }
-
+        
         public ICollection<MovimentacaoProduto> Produtos { get; set; }
+
+        public ICollection<MovimentacaoCombo> Combos { get; set; }
     }
 }

@@ -17,6 +17,12 @@ namespace GaveteiroLanches.Web.Models
         [Required]
         public int ProdutoId { get; set; }
 
+        public int Quantidade { get; set; }
+
+        public decimal ValorUnitario { get; set; }
+
+        public decimal ValorTotal { get; set; }
+
         public virtual Combo Combo { get; set; }
 
         public virtual Produto Produto { get; set; }

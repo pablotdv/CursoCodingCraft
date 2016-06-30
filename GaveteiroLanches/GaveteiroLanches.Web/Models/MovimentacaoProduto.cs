@@ -7,7 +7,7 @@ using System.Web;
 
 namespace GaveteiroLanches.Web.Models
 {
-    public class MovimentacaoProduto : Entidade
+    public class MovimentacaoProduto : Entidade, IMovimentacaoItem
     {
         [Key]
         public int MovimentacaoProdutoId { get; set; }
@@ -19,7 +19,7 @@ namespace GaveteiroLanches.Web.Models
         public int Quantidade { get; set; }
 
         public decimal ValorUnitario { get; set; }
-        
+
         public virtual Movimentacao Movimentacao { get; set; }
 
         public virtual Produto Produto { get; set; }

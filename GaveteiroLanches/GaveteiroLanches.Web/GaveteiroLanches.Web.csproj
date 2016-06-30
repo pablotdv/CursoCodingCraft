@@ -208,6 +208,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\TypeaheadBundleConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ComboController.cs" />
     <Compile Include="Controllers\MovimentacaoEntradaController.cs" />
     <Compile Include="Controllers\FornecedorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -244,10 +245,15 @@
     <Compile Include="Migrations\201606300107319_MovimentacaoDataFinalizacao.Designer.cs">
       <DependentUpon>201606300107319_MovimentacaoDataFinalizacao.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606301146025_ComboMigration.cs" />
+    <Compile Include="Migrations\201606301146025_ComboMigration.Designer.cs">
+      <DependentUpon>201606301146025_ComboMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Autocomplete.cs" />
     <Compile Include="Models\Combo.cs" />
     <Compile Include="Models\ComboProduto.cs" />
+    <Compile Include="Models\IMovimentacaoItem.cs" />
     <Compile Include="Models\MovimentacaoCombo.cs" />
     <Compile Include="Models\MovimentacaoEntrada.cs" />
     <Compile Include="Models\MovimentacaoSaida.cs" />
@@ -257,6 +263,10 @@
     <Compile Include="Models\GaveteiroLanchesContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IEntidade.cs" />
+    <Compile Include="ViewModels\Combo\ComboIndexViewModel.cs" />
+    <Compile Include="ViewModels\Combo\ComboViewModel.cs" />
+    <Compile Include="ViewModels\Combo\ComboProdutoViewModel.cs" />
+    <Compile Include="ViewModels\Combo\ProdutoListViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaIndexViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaViewModel.cs" />
     <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoProdutoViewModel.cs" />
@@ -487,6 +497,14 @@
     <Content Include="Views\MovimentacaoSaida\Finalizar.cshtml" />
     <Content Include="Views\MovimentacaoSaida\Index.cshtml" />
     <Content Include="Views\MovimentacaoSaida\MovimentacaoSaida.cshtml" />
+    <Content Include="Views\Combo\_Combo.cshtml" />
+    <Content Include="Views\Combo\_ProdutoLinha.cshtml" />
+    <Content Include="Views\Combo\_Produtos.cshtml" />
+    <Content Include="Views\Combo\Delete.cshtml" />
+    <Content Include="Views\Combo\Details.cshtml" />
+    <Content Include="Views\Combo\Finalizar.cshtml" />
+    <Content Include="Views\Combo\Index.cshtml" />
+    <Content Include="Views\Combo\Combo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -516,6 +534,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606300107319_MovimentacaoDataFinalizacao.resx">
       <DependentUpon>201606300107319_MovimentacaoDataFinalizacao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606301146025_ComboMigration.resx">
+      <DependentUpon>201606301146025_ComboMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

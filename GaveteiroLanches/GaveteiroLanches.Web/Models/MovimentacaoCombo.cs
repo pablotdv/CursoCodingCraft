@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
 namespace GaveteiroLanches.Web.Models
 {
-    public class MovimentacaoCombo
+    public class MovimentacaoCombo : IMovimentacaoItem
     {
         public int MovimentacaoComboId { get; set; }
 
@@ -18,5 +19,16 @@ namespace GaveteiroLanches.Web.Models
         public decimal ValorUnitario { get; set; }
 
         public virtual Movimentacao Movimentacao { get; set; }
+
+        public virtual Produto Produto { get; set; }
+
+        [NotMapped]
+        public decimal ValorTotal
+        {
+            get
+            {
+                return this.ValorUnitario * this.Quantidade;
+            }
+        }
     }
 }
