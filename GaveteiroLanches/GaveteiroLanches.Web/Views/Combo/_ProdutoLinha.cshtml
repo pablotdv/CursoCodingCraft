@@ -1,7 +1,7 @@
 ﻿@model GaveteiroLanches.Web.ViewModels.Combo.ComboProdutoViewModel
 @using (Html.BeginCollectionItem("Produtos"))
 {
-    <div class="row form-group">
+    <div class="row form-group item">
         @Html.HiddenFor(model => model.ComboProdutoId)
         @Html.HiddenFor(model => model.ComboId)
 

@@ -40,10 +40,10 @@
 
 @section styles {
     <link href="~/Content/typeahead.css" rel="stylesheet" />
-<link href="~/Content/typeahead.fixe.css" rel="stylesheet" />
+    <link href="~/Content/typeahead.fixe.css" rel="stylesheet" />
 
     <style type="text/css">
-        
+
     </style>
 }
 
@@ -56,22 +56,26 @@
 
 
     <script type="text/javascript">
-        $("#adicionar-novo-produto").click(function () {
-            $.get('@Url.Action("MovimentacaoProdutoLinha")', function (template) {
-                $("#area-produtos").append(template);
-            });
-        });
-
-        $("#area-produtos div").on('change', function () {
-            if ($(this).find(".valorUnitario").val() != undefined &&
-                $(this).find(".quantidade").val() != undefined) {
-                var valorUnitario = parseFloat($(this).find(".valorUnitario").val().replace(",", "."));
-                var quantidade = parseFloat($(this).find(".quantidade").val().replace(",", "."));
+        function CalcularValorProduto() {
+            $("#area-produtos div input").on('blur', function () {
+                var valorUnitario = parseFloat($(this).parent().parent().find(".valorUnitario").val().replace(",", "."));
+                var quantidade = parseFloat($(this).parent().parent().find(".quantidade").val().replace(",", "."));
 
                 var valorTotal = valorUnitario * quantidade;
 
-                $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
-            }
-        })
+                $(this).parent().parent().find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+            });
+        }
+
+        $("#adicionar-novo-produto").click(function () {
+            $.get('@Url.Action("MovimentacaoProdutoLinha")', function (template) {
+                $("#area-produtos").append(template);
+                CalcularValorProduto();
+            });
+        });
+
+        $(document).ready(function () {
+            CalcularValorProduto();
+        });
     </script>
 }

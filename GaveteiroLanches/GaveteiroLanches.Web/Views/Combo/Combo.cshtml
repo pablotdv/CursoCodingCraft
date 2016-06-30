@@ -43,7 +43,6 @@
     <link href="~/Content/typeahead.fixe.css" rel="stylesheet" />
 
     <style type="text/css">
-
     </style>
 }
 
@@ -56,23 +55,28 @@
 
 
     <script type="text/javascript">
-        $("#adicionar-novo-produto").click(function () {
-            $.get('@Url.Action("ComboProdutoLinha")', function (template) {
-                $("#area-produtos").append(template);
-            });
-        });
-
-        $("#area-produtos div input").on('blur', function () {
-            alert('blur');
-            if ($(this).find(".valorUnitario").val() != undefined &&
-                $(this).find(".quantidade").val() != undefined) {
-                var valorUnitario = parseFloat($(this).find(".valorUnitario").val().toString().replace(",", "."));
-                var quantidade = parseFloat($(this).find(".quantidade").val().toString().replace(",", "."));
+        function CalcularValores() {
+            $("#area-produtos div input").on('blur', function () {
+                var valorUnitario = parseFloat($(this).parent().parent().find(".valorUnitario").val().toString().replace(",", "."));
+                var quantidade = parseFloat($(this).parent().parent().find(".quantidade").val().toString().replace(",", "."));
 
                 var valorTotal = valorUnitario * quantidade;
 
-                $(this).find(".valorTotal").val(valorTotal.toString().replace(".", ","));
-            }
-        })
+                $(this).parent().parent().find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+            });
+        }
+
+        $("#adicionar-novo-produto").click(function () {
+            $.get('@Url.Action("ComboProdutoLinha")', function (template) {
+                $("#area-produtos").append(template);
+                CalcularValores();
+            });
+        });
+
+
+
+        $(document).ready(function () {
+            CalcularValores();
+        });
     </script>
 }
