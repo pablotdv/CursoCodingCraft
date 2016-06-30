@@ -242,6 +242,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Autocomplete.cs" />
+    <Compile Include="Models\Combo.cs" />
+    <Compile Include="Models\ComboProduto.cs" />
+    <Compile Include="Models\MovimentacaoCombo.cs" />
     <Compile Include="Models\MovimentacaoEntrada.cs" />
     <Compile Include="Models\MovimentacaoSaida.cs" />
     <Compile Include="ViewModels\Account\AccountViewModels.cs" />
