@@ -7,7 +7,7 @@ namespace GaveteiroLanches.Web.ViewModels.Combo
 {
     public class ComboProdutoViewModel
     {
-        public int ComboProdutoId { get; set; }
+        public Guid ComboProdutoId { get; set; }
         public int ComboId { get; set; }
         public int ProdutoId { get; set; }        
         public int Quantidade { get; set; }

@@ -10,7 +10,7 @@ namespace GaveteiroLanches.Web.Models
     public class ComboProduto : Entidade
     {
         [Key]
-        public int ComboProdutoId { get; set; }
+        public Guid ComboProdutoId { get; set; }
 
         [Required]
         public int ComboId { get; set; }

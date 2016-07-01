@@ -47,14 +47,42 @@
 }
 
 @section Scripts {
-
     @Scripts.Render("~/bundles/typeahead")
+
     <script type="text/javascript" src="~/Scripts/typeahead.mvc.model.js"></script>
 
     @Scripts.Render("~/bundles/jqueryval")
 
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script src="~/Scripts/produto/produto.extend.js"></script>
 
     <script type="text/javascript">
+        function pesquisarProduto() {
+            $("#area-produtos .listaProdutos").on('blur', function () {
+                var produtoId = $(this).val();
+
+                var $that = $(this);
+
+                $.get('@Url.Action("PesquisarPorId","Produto")?produtoId=' + produtoId, function (produto) {
+
+                    var valorUnitario = 0;
+
+                    if (produto != null) {
+                        valorUnitario = produto.Valor;
+                        
+                        $that.parent().parent().find(".valorUnitario").val(valorUnitario.toString().replace(".", ","));
+
+                        $that.parent().parent().find(".quantidade").val(1);
+
+                        var valorTotal = valorUnitario;
+
+                        $that.parent().parent().find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+                    }
+                });
+            });
+        }
+
         function CalcularValores() {
             $("#area-produtos div input").on('blur', function () {
                 var valorUnitario = parseFloat($(this).parent().parent().find(".valorUnitario").val().toString().replace(",", "."));
@@ -70,6 +98,7 @@
             $.get('@Url.Action("ComboProdutoLinha")', function (template) {
                 $("#area-produtos").append(template);
                 CalcularValores();
+                pesquisarProduto();
             });
         });
 
@@ -77,6 +106,10 @@
 
         $(document).ready(function () {
             CalcularValores();
+            pesquisarProduto();
         });
+
+
+
     </script>
 }

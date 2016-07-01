@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace GaveteiroLanches.Web.Controllers
 {
@@ -112,6 +113,29 @@ namespace GaveteiroLanches.Web.Controllers
 
             return View("Produto", model);
         }
+
+        [OutputCache(Location = OutputCacheLocation.None)]
+        public ActionResult PesquisarPorDescricao(string descricao)
+        {
+            var descricoes = descricao != null ? descricao.Trim().Split(' ') : new string[0];
+
+            var produtos = context.Produto.Where(a => descricoes.All(b => a.Descricao.Contains(b.Trim())))
+                .OrderBy(a => a.Descricao)
+                .Select(a => new { ProdutoId = a.ProdutoId, Descricao = a.Descricao, ValorUnitario = a.Valor })
+                .ToList();
+
+            return Json(produtos, JsonRequestBehavior.AllowGet);
+        }
+
+        [OutputCache(Location = OutputCacheLocation.None)]
+        public ActionResult PesquisarPorId(int produtoId)
+        {
+            var produto = context.Produto.Find(produtoId);
+
+            return Json(produto, JsonRequestBehavior.AllowGet);
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

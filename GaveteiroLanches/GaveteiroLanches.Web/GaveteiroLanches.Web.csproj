@@ -221,6 +221,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Helpers\ProdutoHelpers.cs" />
     <Compile Include="Migrations\201606251517481_Init.cs" />
     <Compile Include="Migrations\201606251517481_Init.Designer.cs">
       <DependentUpon>201606251517481_Init.cs</DependentUpon>
@@ -252,6 +253,10 @@
     <Compile Include="Migrations\201606301300131_ComboProdutoValorTotalNaoMapearMigration.cs" />
     <Compile Include="Migrations\201606301300131_ComboProdutoValorTotalNaoMapearMigration.Designer.cs">
       <DependentUpon>201606301300131_ComboProdutoValorTotalNaoMapearMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607010101521_ComboProdutoIdGuid.cs" />
+    <Compile Include="Migrations\201607010101521_ComboProdutoIdGuid.Designer.cs">
+      <DependentUpon>201607010101521_ComboProdutoIdGuid.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Autocomplete.cs" />
@@ -419,6 +424,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\produto\produto.extend.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
@@ -548,6 +554,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606301300131_ComboProdutoValorTotalNaoMapearMigration.resx">
       <DependentUpon>201606301300131_ComboProdutoValorTotalNaoMapearMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607010101521_ComboProdutoIdGuid.resx">
+      <DependentUpon>201607010101521_ComboProdutoIdGuid.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Web.UI;
 
 namespace GaveteiroLanches.Web.Controllers
 {
@@ -26,8 +27,8 @@ namespace GaveteiroLanches.Web.Controllers
             var combos = context.Combo.Select(a => new ComboIndexViewModel()
             {
                 ComboId = a.ComboId,
-                Descricao = a.Descricao,                
-                ValorTotal = a.ValorTotal,                
+                Descricao = a.Descricao,
+                ValorTotal = a.ValorTotal,
             }).OrderByDescending(a => a.Descricao).ToList();
 
             return View(combos);
@@ -53,14 +54,14 @@ namespace GaveteiroLanches.Web.Controllers
                 ComboId = combo.ComboId,
                 Descricao = combo.Descricao,
                 ValorTotal = combo.ValorTotal,
-                                
+
                 Produtos = combo.Produtos.Select(a => new ComboProdutoViewModel()
                 {
                     ComboId = a.ComboId,
                     ComboProdutoId = a.ComboProdutoId,
                     ProdutoId = a.ProdutoId,
                     Quantidade = a.Quantidade,
-                    ValorUnitario = a.ValorUnitario                    
+                    ValorUnitario = a.ValorUnitario
                 }).ToList()
             };
 
@@ -124,10 +125,13 @@ namespace GaveteiroLanches.Web.Controllers
 
                 foreach (var produto in model.Produtos)
                 {
-                    var comboProdutos = combo.Produtos?.FirstOrDefault(a => a.ComboProdutoId == produto.ComboProdutoId);
+                    ComboProduto comboProdutos = null;
+
+                    comboProdutos = combo.Produtos?.FirstOrDefault(a => a.ComboProdutoId == produto.ComboProdutoId);
 
                     if (comboProdutos != null)
                     {
+
                         comboProdutos.ProdutoId = produto.ProdutoId;
                         comboProdutos.Quantidade = produto.Quantidade;
                         comboProdutos.ValorUnitario = produto.ValorUnitario;
@@ -136,6 +140,7 @@ namespace GaveteiroLanches.Web.Controllers
                     {
                         combo.Produtos.Add(new ComboProduto()
                         {
+                            ComboProdutoId = produto.ComboProdutoId,
                             ProdutoId = produto.ProdutoId,
                             Quantidade = produto.Quantidade,
                             ValorUnitario = produto.ValorUnitario,
@@ -156,7 +161,8 @@ namespace GaveteiroLanches.Web.Controllers
             return View("Combo", model);
         }
 
-        public ActionResult ComboProdutoLinha()
+        [OutputCache(Location = OutputCacheLocation.None)]
+        public ActionResult ComboProdutoLinha(Guid? ComboProdutoId = null)
         {
             ViewBag.Produtos = new SelectList(context.Produto
                 .Select(a => new ProdutoListViewModel()
@@ -166,7 +172,7 @@ namespace GaveteiroLanches.Web.Controllers
                 })
                 .ToList(), "ProdutoId", "Descricao");
 
-            return PartialView("_ProdutoLinha", new ComboProdutoViewModel() { ComboProdutoId = 0 });
+            return PartialView("_ProdutoLinha", new ComboProdutoViewModel() { ComboProdutoId = Guid.NewGuid() });
         }
 
         public ActionResult GetFornecedores(string query)
@@ -179,6 +185,15 @@ namespace GaveteiroLanches.Web.Controllers
                 })
                 .ToList(), JsonRequestBehavior.AllowGet);
         }
+
+        [OutputCache(Location = OutputCacheLocation.None)]
+        public ActionResult PesquisarPorId(int comboId)
+        {
+            var combo = context.Combo.Find(comboId);
+
+            return Json(combo, JsonRequestBehavior.AllowGet);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

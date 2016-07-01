@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
+using System.Web.UI;
 
 namespace GaveteiroLanches.Web.Controllers
 {
@@ -204,7 +205,10 @@ namespace GaveteiroLanches.Web.Controllers
 
                 foreach (var produto in model.Produtos)
                 {
-                    var saidaProdutos = saida.Produtos?.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
+                    MovimentacaoProduto saidaProdutos = null;
+
+                    if (produto.MovimentacaoProdutoId != 0)
+                        saidaProdutos = saida.Produtos?.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
 
                     if (saidaProdutos != null)
                     {
@@ -225,7 +229,10 @@ namespace GaveteiroLanches.Web.Controllers
 
                 foreach (var combo in model.Combos)
                 {
-                    var saidaCombos = saida.Combos?.FirstOrDefault(a => a.MovimentacaoComboId == combo.MovimentacaoComboId);
+                    MovimentacaoCombo saidaCombos = null;
+
+                    if (combo.MovimentacaoComboId != 0)
+                        saidaCombos = saida.Combos?.FirstOrDefault(a => a.MovimentacaoComboId == combo.MovimentacaoComboId);
 
                     if (saidaCombos != null)
                     {
@@ -261,6 +268,7 @@ namespace GaveteiroLanches.Web.Controllers
             return View("MovimentacaoSaida", model);
         }
 
+        [OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult MovimentacaoProdutoLinha()
         {
             ViewBag.Produtos = new SelectList(context.Produto
@@ -274,6 +282,7 @@ namespace GaveteiroLanches.Web.Controllers
             return PartialView("_ProdutoLinha", new MovimentacaoProdutoViewModel() { MovimentacaoProdutoId = 0 });
         }
 
+        [OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult MovimentacaoComboLinha()
         {
             ViewBag.Combos = new SelectList(context.Combo

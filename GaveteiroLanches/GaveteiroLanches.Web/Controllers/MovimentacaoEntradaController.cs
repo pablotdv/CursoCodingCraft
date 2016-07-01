@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Web.UI;
 
 namespace GaveteiroLanches.Web.Controllers
 {
@@ -177,7 +178,9 @@ namespace GaveteiroLanches.Web.Controllers
 
                 foreach (var produto in model.Produtos)
                 {
-                    var entradaProdutos = entrada.Produtos?.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId);
+                    MovimentacaoProduto entradaProdutos = null;
+                    if (produto.MovimentacaoProdutoId != 0)
+                        entradaProdutos = entrada.Produtos?.FirstOrDefault(a => a.MovimentacaoProdutoId == produto.MovimentacaoProdutoId && produto.MovimentacaoProdutoId != 0);
 
                     if (entradaProdutos != null)
                     {
@@ -209,6 +212,7 @@ namespace GaveteiroLanches.Web.Controllers
             return View("MovimentacaoEntrada", model);
         }
 
+        [OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult MovimentacaoProdutoLinha()
         {
             ViewBag.Produtos = new SelectList(context.Produto

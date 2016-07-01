@@ -52,6 +52,56 @@
 
 
     <script type="text/javascript">
+        function pesquisarProduto() {
+            $("#area-produtos .listaProdutos").on('blur', function () {
+                var produtoId = $(this).val();
+
+                var $that = $(this);
+
+                $.get('@Url.Action("PesquisarPorId","Produto")?produtoId=' + produtoId, function (produto) {
+
+                    var valorUnitario = 0;
+
+                    if (produto != null) {
+                        valorUnitario = produto.Valor;
+
+                        $that.parent().parent().find(".valorUnitario").val(valorUnitario.toString().replace(".", ","));
+
+                        $that.parent().parent().find(".quantidade").val(1);
+
+                        var valorTotal = valorUnitario;
+
+                        $that.parent().parent().find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+                    }
+                });
+            });
+        }
+
+        function pesquisarCombo() {
+            $("#area-combos .listaCombos").on('blur', function () {
+                var comboId = $(this).val();
+
+                var $that = $(this);
+
+                $.get('@Url.Action("PesquisarPorId","Combo")?comboId=' + comboId, function (combo) {
+
+                    var valorUnitario = 0;
+
+                    if (combo != null) {
+                        valorUnitario = combo.ValorTotal;
+
+                        $that.parent().parent().find(".valorUnitario").val(valorUnitario.toString().replace(".", ","));
+
+                        $that.parent().parent().find(".quantidade").val(1);
+
+                        var valorTotal = valorUnitario;
+
+                        $that.parent().parent().find(".valorTotal").val(valorTotal.toString().replace(".", ","));
+                    }
+                });
+            });
+        }
+
         function CalcularValorProduto() {
             $("#area-produtos div input").on('blur', function () {
                 var valorUnitario = parseFloat($(this).parent().parent().find(".valorUnitario").val().replace(",", "."));
@@ -77,7 +127,8 @@
         $("#adicionar-novo-produto").click(function () {
             $.get('@Url.Action("MovimentacaoProdutoLinha")', function (template) {
                 $("#area-produtos").append(template);
-                CalcularValorProduto();
+                CalcularValorProduto();                
+                pesquisarProduto();
             });
         });
 
@@ -85,12 +136,15 @@
             $.get('@Url.Action("MovimentacaoComboLinha")', function (template) {
                 $("#area-combos").append(template);
                 CalcularValorCombo();
+                pesquisarCombo();
             });
         });
 
         $(document).ready(function () {
             CalcularValorCombo();
             CalcularValorProduto();
+            pesquisarCombo();
+            pesquisarProduto();
         });
 
     </script>

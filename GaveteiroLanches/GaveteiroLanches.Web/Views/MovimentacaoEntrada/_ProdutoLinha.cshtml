@@ -6,7 +6,7 @@
         @Html.HiddenFor(model => model.MovimentacaoId)
 
         <div class="col-md-4">
-            @Html.DropDownListFor(x => x.ProdutoId, (SelectList)ViewBag.Produtos, new { @class = "form-control" })
+            @Html.DropDownListFor(x => x.ProdutoId, Html.Produtos(), new { @class = "form-control listaProdutos" })
             @Html.ValidationMessageFor(model => model.ProdutoId, "", new { @class = "text-danger" })
         </div>
         <div class="col-md-2">
