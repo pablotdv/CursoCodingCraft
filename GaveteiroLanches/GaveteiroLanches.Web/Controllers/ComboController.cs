@@ -186,6 +186,7 @@ namespace GaveteiroLanches.Web.Controllers
                 .ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize(Roles = "Admin,Cliente")]
         [OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult PesquisarPorId(int comboId)
         {

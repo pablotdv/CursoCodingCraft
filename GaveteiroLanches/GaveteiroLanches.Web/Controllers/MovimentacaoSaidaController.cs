@@ -12,7 +12,7 @@ using System.Web.UI;
 
 namespace GaveteiroLanches.Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class MovimentacaoSaidaController : Controller
     {
         private GaveteiroLanchesContext context;
@@ -25,6 +25,7 @@ namespace GaveteiroLanches.Web.Controllers
         // GET: MovimentacaoSaida
         public ActionResult Index()
         {
+
             var saidas = context.MovimentacaoSaida.Select(a => new MovimentacaoSaidaIndexViewModel()
             {
                 MovimentacaoId = a.MovimentacaoId,
@@ -33,6 +34,9 @@ namespace GaveteiroLanches.Web.Controllers
                 ValorTotal = a.ValorTotal,
                 DataFinalizacao = a.DataFinalizacao
             }).OrderByDescending(a => a.DataHora).ToList();
+
+            if (!User.IsInRole("Admin"))
+                saidas = saidas.Where(a => a.Usuario == User.Identity.GetUserName()).ToList();
 
             return View(saidas);
         }

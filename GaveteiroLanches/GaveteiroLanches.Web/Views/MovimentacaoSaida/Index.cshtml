@@ -1,4 +1,5 @@
-﻿@model IEnumerable<GaveteiroLanches.Web.ViewModels.MovimentacaoSaida.MovimentacaoSaidaIndexViewModel>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<GaveteiroLanches.Web.ViewModels.MovimentacaoSaida.MovimentacaoSaidaIndexViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -11,9 +12,13 @@
 </p>
 <table class="table">
     <tr>
+        @if (User.IsInRole("Admin"))
+        {
+            <th>Usuário</th>
+        }
         <th>
             @Html.DisplayNameFor(model => model.MovimentacaoId)
-        </th>        
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.ValorTotal)
         </th>
@@ -23,9 +28,15 @@
     @foreach (var item in Model)
     {
         <tr>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario)
+                </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.MovimentacaoId)
-            </td>            
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ValorTotal)
             </td>
