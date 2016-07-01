@@ -13,16 +13,32 @@
 
     @RenderSection("head", required: false)
     @Scripts.Render("~/bundles/modernizr")
+    
 </head>
 <body>
+    @Html.Partial("_SelectLayout")
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     @Scripts.Render("~/bundles/foundation")
     <script>
         $(document).foundation();
     </script>
     @*Use the Scripts section to define page specific scripts*@
     @RenderSection("scripts", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.trocar').click(function () {
+                var url = '@Url.Action("DefinirLayout", "Layout")';
+                var layout = $(this).val();
+
+                $.post(url, { layout: layout }, function (data) {
+                    location.reload();
+                });
+            });
+        });
+    </script>
 </body>
 </html>

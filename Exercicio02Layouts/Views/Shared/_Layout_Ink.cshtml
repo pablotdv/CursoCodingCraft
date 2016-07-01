@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+
+    <!-- Favicon.ico placeholder -->
+    <link rel="shortcut icon" href="@Url.Content("~/Content/imgs/ink-favicon.ico")" />
+
+    <!-- Apple icon placeholder -->
+    <link rel="apple-touch-icon-precomposed" href="@Url.Content("~/Content/imgs/touch-icon.57.png")" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@Url.Content("~/Content/imgs/touch-icon.72.png")" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@Url.Content("~/Content/imgs/touch-icon.114.png")" />
+
+    <!-- Apple splash screen placeholder -->
+    <link rel="apple-touch-startup-image" href="@Url.Content("~/Content/imgs/splash.320x460.png")" media="screen and (min-device-width: 200px) and (max-device-width: 320px) and (orientation:portrait)" />
+    <link rel="apple-touch-startup-image" href="@Url.Content("~/Content/imgs/splash.768x1004.png")" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)" />
+    <link rel="apple-touch-startup-image" href="@Url.Content("~/Content/imgs/splash.1024x748.png")" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)" />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/ink.css")" />
+
+    <!--[if IE]>
+        <link rel="stylesheet" href="@Url.Content("~/Content/css/ink-ie.css")" type="text/css" media="screen" />
+    <![endif]-->
+
+    <script type="text/javascript" src="http://js.sapo.pt/Bundles/Ink.js"></script>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.trocar').click(function () {
+                var url = '@Url.Action("DefinirLayout", "Layout")';
+                var layout = $(this).val();
+
+                $.post(url, { layout: layout }, function (data) {
+                    location.reload();
+                });
+            });
+        });
+    </script>
+
+</head>
+<body>
+    @Html.Partial("_SelectLayout")
+    <header class="ink-container ink-for-l">
+        <div class="ink-vspace">
+            <h1 class="">H1 heading</h1>
+            <p>Write some stuff here to let people know how great your site really is!</p>
+        </div>
+    </header>
+
+    <nav class="ink-container ink-navigation">
+        <ul class="horizontal menu orange">
+            <li class="active">
+                <a href="#">Menu item 1</a>
+            </li>
+            <li>
+                <a href="#">Menu item 2</a>
+            </li>
+            <li>
+                <a href="#">Menu item 3</a>
+            </li>
+            <li>
+                <a href="#">Menu item 4</a>
+            </li>
+        </ul>
+    </nav>
+
+    <header class="ink-container ink-for-m ink-for-s">
+        <div class="ink-vspace">
+            <h1 class="">H1 heading</h1>
+            <p>Write some stuff here to let people know how great your site really is!</p>
+        </div>
+    </header>
+
+    @RenderBody()
+
+    <footer>
+        <div class="ink-container">
+            <nav class="ink-navigation">
+                <ul class="ink-footer-nav">
+                    <li><a href="#">Footer item 1</a></li>
+                    <li><a href="#">Footer item 2</a></li>
+                    <li><a href="#">Footer item 3</a></li>
+                </ul>
+            </nav>
+            <p class="copyright">
+                All stuff reverved.<br>
+                Stuff is a trademark created at the Stuff that makes Stuff
+            </p>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
