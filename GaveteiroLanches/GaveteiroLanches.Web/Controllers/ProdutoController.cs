@@ -127,6 +127,7 @@ namespace GaveteiroLanches.Web.Controllers
             return Json(produtos, JsonRequestBehavior.AllowGet);
         }
 
+        [OverrideAuthorization]
         [Authorize(Roles = "Admin,Cliente")]
         [OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult PesquisarPorId(int produtoId)

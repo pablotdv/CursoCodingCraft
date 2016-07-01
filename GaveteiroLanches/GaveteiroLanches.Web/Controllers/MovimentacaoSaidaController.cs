@@ -12,7 +12,7 @@ using System.Web.UI;
 
 namespace GaveteiroLanches.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Cliente")]
     public class MovimentacaoSaidaController : Controller
     {
         private GaveteiroLanchesContext context;

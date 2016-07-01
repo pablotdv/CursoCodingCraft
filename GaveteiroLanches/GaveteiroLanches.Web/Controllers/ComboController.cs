@@ -186,6 +186,7 @@ namespace GaveteiroLanches.Web.Controllers
                 .ToList(), JsonRequestBehavior.AllowGet);
         }
 
+        [OverrideAuthorization]
         [Authorize(Roles = "Admin,Cliente")]
         [OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult PesquisarPorId(int comboId)
@@ -194,7 +195,6 @@ namespace GaveteiroLanches.Web.Controllers
 
             return Json(combo, JsonRequestBehavior.AllowGet);
         }
-
 
         protected override void Dispose(bool disposing)
         {

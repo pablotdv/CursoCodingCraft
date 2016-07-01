@@ -260,6 +260,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Autocomplete.cs" />
+    <Compile Include="Models\Caixa.cs" />
+    <Compile Include="Models\CaixaMovimentacao.cs" />
+    <Compile Include="Models\CaixaTipo.cs" />
     <Compile Include="Models\Combo.cs" />
     <Compile Include="Models\ComboProduto.cs" />
     <Compile Include="Models\IMovimentacaoItem.cs" />
