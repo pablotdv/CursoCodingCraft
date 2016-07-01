@@ -1,9 +1,13 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension="cs" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="BundleConfig" #>
 using System.Web;
 using System.Web.Optimization;
 
-namespace Exercicio02Layouts
+namespace <#= Namespace #>
 {
-    public class BundleConfig
+    public class <#= BundleConfig #>
     {
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
@@ -19,13 +23,13 @@ namespace Exercicio02Layouts
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            #region Foundation Bundles
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/bootstrap.js"));
 
-            bundles.Add(Foundation.Styles());
-
-            bundles.Add(Foundation.Scripts());
-
-            #endregion
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-responsive.css"));
         }
     }
 }
