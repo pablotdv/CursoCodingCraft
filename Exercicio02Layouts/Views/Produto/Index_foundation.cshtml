@@ -19,6 +19,9 @@
 			<th>
 				Valor
 			</th>
+			<th>
+				ProdutoGrupo
+			</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -35,6 +38,9 @@
 				</td>
 				<td>
 					@String.Format("{0:F}", item.Valor)
+				</td>
+				<td>
+					@Html.DisplayTextFor(_ => item.ProdutoGrupo).ToString()
 				</td>
 			</tr>
 }

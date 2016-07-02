@@ -18,3 +18,14 @@
     @Html.ValidationMessageFor(model => model.Valor)
 </div>
 
+<div class="editor-label">
+    ProdutoGrupo
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.ProdutoGrupoId, ((IEnumerable<Exercicio02Layouts.Models.ProdutoGrupo>)ViewBag.PossibleProdutoGrupoes).Select(option => new SelectListItem {
+        Text = Html.DisplayTextFor(_ => option).ToString(), 
+        Value = option.ProdutoGrupoId.ToString(),
+        Selected = (Model != null) && (option.ProdutoGrupoId == Model.ProdutoGrupoId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.ProdutoGrupoId)
+</div>
