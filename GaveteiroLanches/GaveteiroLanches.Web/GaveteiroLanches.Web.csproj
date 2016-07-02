@@ -215,6 +215,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MovimentacaoSaidaController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
+    <Compile Include="Controllers\ProdutoesController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
@@ -265,6 +266,7 @@
     <Compile Include="Models\CaixaTipo.cs" />
     <Compile Include="Models\Combo.cs" />
     <Compile Include="Models\ComboProduto.cs" />
+    <Compile Include="Models\GaveteiroLanchesWebContext.cs" />
     <Compile Include="Models\IMovimentacaoItem.cs" />
     <Compile Include="Models\MovimentacaoCombo.cs" />
     <Compile Include="Models\MovimentacaoEntrada.cs" />
@@ -522,6 +524,8 @@
     <Content Include="Views\Combo\Combo.cshtml" />
     <Content Include="Views\MovimentacaoSaida\_ComboLinha.cshtml" />
     <Content Include="Views\MovimentacaoSaida\_Combos.cshtml" />
+    <Content Include="Views\Produto2\Create.cshtml" />
+    <Content Include="Views\Produtoes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -29,5 +29,7 @@ namespace Exercicio02Layouts.Models
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Exercicio02Layouts.Models.Produto> Produtoes { get; set; }
     }
 }

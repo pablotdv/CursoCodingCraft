@@ -1,0 +1,41 @@
+@model IEnumerable<Exercicio02Layouts.Models.Produto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Criar")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Descricao
+        </th>
+        <th>
+            Valor
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.ProdutoId }) |
+            @Html.ActionLink("Detalhes", "Detalhes", new { id=item.ProdutoId }) |
+            @Html.ActionLink("Excluir", "Excluir", new { id=item.ProdutoId })
+        </td>
+        <td>
+			@item.Descricao
+        </td>
+        <td>
+			@String.Format("{0:F}", item.Valor)
+        </td>
+    </tr>
+}
+
+</table>
+
+
