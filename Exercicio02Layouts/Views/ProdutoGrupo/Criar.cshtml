@@ -1,0 +1,11 @@
+@model Exercicio02Layouts.Models.ProdutoGrupo
+
+@{
+    ViewBag.Title = "Criar";
+}
+
+<h2>Criar</h2>
+
+
+@Html.Partial("Criar_" + Html.Layout(), Model)
+

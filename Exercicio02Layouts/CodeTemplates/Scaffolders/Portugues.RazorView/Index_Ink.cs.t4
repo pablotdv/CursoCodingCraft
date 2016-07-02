@@ -26,7 +26,61 @@
 
 <h2><#= Model.ViewName #></h2>
 
-@Html.Partial("Index_" + Html.Layout())
+<p>
+    @Html.ActionLink("Novo", "Criar")
+</p>
+<table class="ink-table alternating bordered hover" >
+    <thead>
+		<tr>
+			<th></th>
+<#
+List<ModelProperty> properties = GetModelProperties(Model.ViewDataType, true);
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+			<th>
+				<#= property.Name #>
+			</th>
+<#
+    }
+}
+#>
+		</tr>
+	</thead>
+	<tbody>
+
+		@foreach (var item in Model) {
+			<tr>
+<# if (!String.IsNullOrEmpty(Model.PrimaryKeyName)) { #>
+				<td>
+					@Html.ActionLink("Editar", "Editar", new { id=item.<#= Model.PrimaryKeyName #> }) |
+					@Html.ActionLink("Detalhes", "Detalhes", new { id=item.<#= Model.PrimaryKeyName #> }) |
+					@Html.ActionLink("Excluir", "Excluir", new { id=item.<#= Model.PrimaryKeyName #> })
+				</td>
+<# } else { #>
+				<td>
+					@Html.ActionLink("Editar", "Editar", new { /* id=item.PrimaryKey */ }) |
+					@Html.ActionLink("Detalhes", "Detalhes", new { /* id=item.PrimaryKey */ }) |
+					@Html.ActionLink("Excluir", "Excluir", new { /* id=item.PrimaryKey */ })
+				</td>
+<# } #>
+<#  
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+				<td>
+					@<#= property.ValueExpression.Replace("Model.", "item.") #>
+				</td>
+<#
+    }
+}
+#>
+			</tr>
+}
+	</tbody>
+
+</table>
+
 
 <#+
 // Describes the information about a property on the model

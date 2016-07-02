@@ -10,7 +10,7 @@ namespace Exercicio02Layouts.Helpers
     {
         public static string Layout (this HtmlHelper html)
         {            
-            return HttpContext.Current.Request.Cookies["_layout"]?.Value ?? "default";
+            return HttpContext.Current.Request.Cookies["_layout"]?.Value ?? "bootstrap";
         }
     }
 }

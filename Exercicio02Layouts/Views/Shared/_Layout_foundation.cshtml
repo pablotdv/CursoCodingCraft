@@ -9,26 +9,30 @@
     <title>@ViewBag.Title - Welcome to Foundation</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-    @Styles.Render("~/Content/foundation/css")
+
+    <link href="~/Content/foundation/foundation.css" rel="stylesheet" />
 
     @RenderSection("head", required: false)
     @Scripts.Render("~/bundles/modernizr")
-    
+
 </head>
 <body>
-    @Html.Partial("_SelectLayout")
-    @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    @Scripts.Render("~/bundles/foundation")
-    <script>
-        $(document).foundation();
-    </script>
-    @*Use the Scripts section to define page specific scripts*@
-    @RenderSection("scripts", required: false)
+    <div class="row">
+        <div class="large-12 columns">
+            @Html.Partial("_SelectLayout")
+            @RenderBody()
+        </div>
+    </div>
 
+
+    <script src="~/Scripts/jquery-2.2.4.js"></script>
+
+    <script src="~/Scripts/foundation/foundation.js"></script>   
+    
     <script type="text/javascript">
+        $(document).foundation();
+
         $(document).ready(function () {
             $('.trocar').click(function () {
                 var url = '@Url.Action("DefinirLayout", "Layout")';
@@ -40,5 +44,10 @@
             });
         });
     </script>
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    @*Use the Scripts section to define page specific scripts*@
+    @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,26 @@
+@model Exercicio02Layouts.Models.ProdutoGrupo
+
+@{
+    ViewBag.Title = "Criar_Ink";
+}
+
+<h2>Criar_Ink</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>ProdutoGrupo</legend>
+
+		@Html.Partial("_CriarOuEditar", Model)
+
+        <p>
+            <input type="submit" value="Salvar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+

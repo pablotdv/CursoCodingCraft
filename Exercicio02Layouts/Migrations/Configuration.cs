@@ -9,7 +9,7 @@ namespace Exercicio02Layouts.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "Exercicio02Layouts.Models.ApplicationDbContext";
         }
 

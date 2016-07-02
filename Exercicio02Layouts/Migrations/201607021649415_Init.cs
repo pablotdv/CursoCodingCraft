@@ -3,10 +3,32 @@ namespace Exercicio02Layouts.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.Produtoes",
+                c => new
+                    {
+                        ProdutoId = c.Guid(nullable: false),
+                        Descricao = c.String(nullable: false),
+                        Valor = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        ProdutoGrupoId = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.ProdutoId)
+                .ForeignKey("dbo.ProdutoGrupoes", t => t.ProdutoGrupoId, cascadeDelete: true)
+                .Index(t => t.ProdutoGrupoId);
+            
+            CreateTable(
+                "dbo.ProdutoGrupoes",
+                c => new
+                    {
+                        ProdutoGrupoId = c.Guid(nullable: false),
+                        Descricao = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.ProdutoGrupoId);
+            
             CreateTable(
                 "dbo.AspNetRoles",
                 c => new
@@ -83,17 +105,21 @@ namespace Exercicio02Layouts.Migrations
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.Produtoes", "ProdutoGrupoId", "dbo.ProdutoGrupoes");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.Produtoes", new[] { "ProdutoGrupoId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.ProdutoGrupoes");
+            DropTable("dbo.Produtoes");
         }
     }
 }

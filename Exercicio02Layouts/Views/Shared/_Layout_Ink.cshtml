@@ -29,7 +29,10 @@
         <link rel="stylesheet" href="@Url.Content("~/Content/css/ink-ie.css")" type="text/css" media="screen" />
     <![endif]-->
 
-    <script type="text/javascript" src="http://js.sapo.pt/Bundles/Ink.js"></script>
+    <!-- Load the js files -->
+    <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/ink-all.js"></script>
+    <!-- Autoload is required for the examples on this page. Read more below. -->
+    <script type="text/javascript" src="http://fastly.ink.sapo.pt/3.1.10/js/autoload.js"></script>
 
     @Scripts.Render("~/bundles/jquery")
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
@@ -81,7 +84,9 @@
         </div>
     </header>
 
-    @RenderBody()
+    <div class="ink-container ink-vspace">
+        @RenderBody()
+    </div>
 
     <footer>
         <div class="ink-container">

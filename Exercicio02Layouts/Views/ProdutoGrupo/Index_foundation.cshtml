@@ -1,0 +1,44 @@
+@model IEnumerable<Exercicio02Layouts.Models.ProdutoGrupo>
+
+@{
+    ViewBag.Title = "Index_foundation";
+}
+
+<h2>Index_foundation</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Criar")
+</p>
+<table>	
+	<thead>
+		<tr>
+			<th></th>
+			<th>
+				Descricao
+			</th>
+			<th>
+				Produtos
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	
+		@foreach (var item in Model) {
+			<tr>
+				<td>
+					@Html.ActionLink("Editar", "Editar", new { id=item.ProdutoGrupoId }) |
+					@Html.ActionLink("Detalhes", "Detalhes", new { id=item.ProdutoGrupoId }) |
+					@Html.ActionLink("Excluir", "Excluir", new { id=item.ProdutoGrupoId })
+				</td>
+				<td>
+					@item.Descricao
+				</td>
+				<td>
+					@(item.Produtos == null ? "None" : item.Produtos.Count.ToString())
+				</td>
+			</tr>
+}
+	</tbody>
+</table>
+
+

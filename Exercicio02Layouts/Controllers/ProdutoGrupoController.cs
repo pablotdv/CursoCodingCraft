@@ -9,97 +9,93 @@ using Exercicio02Layouts.Models;
 
 namespace Exercicio02Layouts.Controllers
 {   
-    public class ProdutoController : Controller
+    public class ProdutoGrupoController : Controller
     {
         private ApplicationDbContext context = new ApplicationDbContext();
 
         //
-        // GET: /Produto/
+        // GET: /ProdutoGrupo/
 
         public ViewResult Index()
         {
-            return View(context.Produtoes.Include(produto => produto.ProdutoGrupo).ToList());
+            return View(context.ProdutoGrupoes.Include(produtogrupo => produtogrupo.Produtos).ToList());
         }
 
         //
-        // GET: /Produto/Detalhes/5
+        // GET: /ProdutoGrupo/Detalhes/5
 
         public ViewResult Detalhes(System.Guid id)
         {
-            Produto produto = context.Produtoes.Single(x => x.ProdutoId == id);
-            return View(produto);
+            ProdutoGrupo produtogrupo = context.ProdutoGrupoes.Single(x => x.ProdutoGrupoId == id);
+            return View(produtogrupo);
         }
 
         //
-        // GET: /Produto/Criar
+        // GET: /ProdutoGrupo/Criar
 
         public ActionResult Criar()
         {
-            ViewBag.PossibleProdutoGrupoes = context.ProdutoGrupoes;
             return View();
         } 
 
         //
-        // POST: /Produto/Criar
+        // POST: /ProdutoGrupo/Criar
 
         [HttpPost]
-        public ActionResult Criar(Produto produto)
+        public ActionResult Criar(ProdutoGrupo produtogrupo)
         {
             if (ModelState.IsValid)
             {
-                produto.ProdutoId = Guid.NewGuid();
-                context.Produtoes.Add(produto);
+                produtogrupo.ProdutoGrupoId = Guid.NewGuid();
+                context.ProdutoGrupoes.Add(produtogrupo);
                 context.SaveChanges();
                 return RedirectToAction("Index");  
             }
 
-            ViewBag.PossibleProdutoGrupoes = context.ProdutoGrupoes;
-            return View(produto);
+            return View(produtogrupo);
         }
         
         //
-        // GET: /Produto/Editar/5
+        // GET: /ProdutoGrupo/Editar/5
  
         public ActionResult Editar(System.Guid id)
         {
-            Produto produto = context.Produtoes.Single(x => x.ProdutoId == id);
-            ViewBag.PossibleProdutoGrupoes = context.ProdutoGrupoes;
-            return View(produto);
+            ProdutoGrupo produtogrupo = context.ProdutoGrupoes.Single(x => x.ProdutoGrupoId == id);
+            return View(produtogrupo);
         }
 
         //
-        // POST: /Produto/Editar/5
+        // POST: /ProdutoGrupo/Editar/5
 
         [HttpPost]
-        public ActionResult Editar(Produto produto)
+        public ActionResult Editar(ProdutoGrupo produtogrupo)
         {
             if (ModelState.IsValid)
             {
-                context.Entry(produto).State = EntityState.Modified;
+                context.Entry(produtogrupo).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.PossibleProdutoGrupoes = context.ProdutoGrupoes;
-            return View(produto);
+            return View(produtogrupo);
         }
 
         //
-        // GET: /Produto/Excluir/5
+        // GET: /ProdutoGrupo/Excluir/5
  
         public ActionResult Excluir(System.Guid id)
         {
-            Produto produto = context.Produtoes.Single(x => x.ProdutoId == id);
-            return View(produto);
+            ProdutoGrupo produtogrupo = context.ProdutoGrupoes.Single(x => x.ProdutoGrupoId == id);
+            return View(produtogrupo);
         }
 
         //
-        // POST: /Produto/Excluir/5
+        // POST: /ProdutoGrupo/Excluir/5
 
         [HttpPost, ActionName("Exluir")]
         public ActionResult ExcluirConfirmacao(System.Guid id)
         {
-            Produto produto = context.Produtoes.Single(x => x.ProdutoId == id);
-            context.Produtoes.Remove(produto);
+            ProdutoGrupo produtogrupo = context.ProdutoGrupoes.Single(x => x.ProdutoGrupoId == id);
+            context.ProdutoGrupoes.Remove(produtogrupo);
             context.SaveChanges();
             return RedirectToAction("Index");
         }

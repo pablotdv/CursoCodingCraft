@@ -1,0 +1,39 @@
+@model Exercicio02Layouts.Models.Produto
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+
+<div class="row form-group">
+
+    <div class="col-md-6">
+        @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+
+    </div>
+</div>
+
+
+<div class="row form-group">
+
+    <div class="col-md-6">
+        @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.Valor, "", new { @class = "text-danger" })
+
+    </div>
+</div>
+
+
+<div class="row form-group">
+
+    <div class="col-md-6">
+		@Html.LabelFor(model => model.ProdutoGrupoId, htmlAttributes: new { @class = "control-label" })
+		@Html.DropDownListFor(model => model.ProdutoGrupoId, ((IEnumerable<Exercicio02Layouts.Models.ProdutoGrupo>)ViewBag.PossibleProdutoGrupoes).Select(option => new SelectListItem {
+			Text = (option == null ? "None" : option.Descricao), 
+			Value = option.ProdutoGrupoId.ToString(),
+			Selected = (Model != null) && (option.ProdutoGrupoId == Model.ProdutoGrupoId)}), "Selecione...", new { @class = "form-control listaProdutos" })
+        @Html.ValidationMessageFor(model => model.ProdutoGrupoId, "", new { @class = "text-danger" })
+	</div>
+</div>
+

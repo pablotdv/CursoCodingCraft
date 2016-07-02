@@ -31,5 +31,7 @@ namespace Exercicio02Layouts.Models
         }
 
         public DbSet<Exercicio02Layouts.Models.Produto> Produtoes { get; set; }
+
+        public DbSet<Exercicio02Layouts.Models.ProdutoGrupo> ProdutoGrupoes { get; set; }
     }
 }

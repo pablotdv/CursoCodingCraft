@@ -14,20 +14,49 @@
 <#@ import namespace="System.Reflection" #>
 <# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
 <# if(viewDataType != null) { #>
-@model IEnumerable<<#= viewDataType.FullName #>>
+@model <#= viewDataType.FullName #>
 
 <# } #>
-@{
-    ViewBag.Title = "<#= Model.ViewName #>";
-<# if (!String.IsNullOrEmpty(Model.Layout)) { #>
-    Layout = "<#= Model.Layout #>";
-<# } #>
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<#
+foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, false)) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey && !property.IsReadOnly) {
+#>
+
+<div class="row form-group">
+
+    <div class="col-md-6">
+        @Html.LabelFor(model => model.<#= property.Name #>, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.<#= property.Name #>, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.<#= property.Name #>, "", new { @class = "text-danger" })
+
+    </div>
+</div>
+
+<#
+    }
 }
+#>
+<#
+foreach (RelatedEntityInfo relation in ParentRelations) {
+#>
 
-<h2><#= Model.ViewName #></h2>
+<div class="row form-group">
 
-@Html.Partial("Index_" + Html.Layout())
+    <div class="col-md-6">
+		@Html.LabelFor(model => model.<#= relation.RelationProperty.Name #>, htmlAttributes: new { @class = "control-label" })
+		@Html.DropDownListFor(model => model.<#= relation.RelationProperty.Name #>, ((IEnumerable<<#= relation.RelatedEntityType.FullName #>>)ViewBag.Possible<#= relation.RelationNamePlural #>).Select(option => new SelectListItem {
+			Text = <#= GetValueExpression("option", relation.RelatedEntityType) #>, 
+			Value = option.<#= relation.RelatedEntityPrimaryKeyName #>.ToString(),
+			Selected = (Model != null) && (option.<#= relation.RelatedEntityPrimaryKeyName #> == Model.<#= relation.RelationProperty.Name #>)}), "Selecione...", new { @class = "form-control listaProdutos" })
+        @Html.ValidationMessageFor(model => model.<#= relation.RelationProperty.Name #>, "", new { @class = "text-danger" })
+	</div>
+</div>
 
+<#
+}
+#>
 <#+
 // Describes the information about a property on the model
 class ModelProperty {
@@ -70,7 +99,7 @@ List<ModelProperty> GetModelProperties(EnvDTE.CodeType typeInfo, bool includeUnb
 }
 
 // Change this list to include the names of properties that should be selected to represent an entity as a single string
-static string[] displayPropertyNames = new[] { "Name", "Title", "LastName", "Surname", "Subject", "Count" };
+static string[] displayPropertyNames = new[] { "Name", "Title", "LastName", "Surname", "Subject", "Count", "Descricao" };
 
 string GetValueExpression(string propertyExpression, EnvDTE.CodeType propertyType) {
 	if (propertyType != null) {

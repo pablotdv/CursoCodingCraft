@@ -13,7 +13,7 @@ namespace Exercicio02Layouts.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201607012356599_Init"; }
+            get { return "201607021649415_Init"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,54 +1,47 @@
-[T4Scaffolding.ViewScaffolder("Razor", Description = "Adds an ASP.NET MVC view using the Razor view engine", IsRazorType = $true, LayoutPageFilter = "*.cshtml,*.vbhtml|*.cshtml,*.vbhtml")][CmdletBinding()]
+[T4Scaffolding.Scaffolder(Description = "Adds ASP.NET MVC views for Create/Read/Update/Delete/Index scenarios")][CmdletBinding()]
 param(        
 	[parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, Position = 0)][string]$Controller,
-	[parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, Position = 1)][string]$ViewName,
 	[string]$ModelType,
-	[string]$Template = "Empty",
 	[string]$Area,
-	[alias("MasterPage")]$Layout,	# If not set, we'll use the default layout
- 	[string[]]$SectionNames,
-	[string]$PrimarySectionName,
+	[string]$ViewName,
+	[string]$Template,
+	[alias("MasterPage")]$Layout = "",	# If not set, we'll use the default layout
+ 	[alias("ContentPlaceholderIDs")][string[]]$SectionNames,
+	[alias("PrimaryContentPlaceholderID")][string]$PrimarySectionName,
 	[switch]$ReferenceScriptLibraries = $false,
     [string]$Project,
 	[string]$CodeLanguage,
 	[string[]]$TemplateFolders,
+	[string]$ViewScaffolder = "View",
 	[switch]$Force = $false
 )
 
-# Ensure we have a controller name, plus a model type if specified
-if ($ModelType) {
-	$foundModelType = Get-ProjectType $ModelType -Project $Project
-	if (!$foundModelType) { return }
-	$primaryKeyName = [string](Get-PrimaryKey $foundModelType.FullName -Project $Project)
-}
-
-# Decide where to put the output
-$outputFolderName = Join-Path Views $Controller
-if ($Area) {
-	# We don't create areas here, so just ensure that if you specify one, it already exists
-	$areaPath = Join-Path Areas $Area
-	if (-not (Get-ProjectItem $areaPath -Project $Project)) {
-		Write-Error "Cannot find area '$Area'. Make sure it exists already."
-		return
+if($ViewName -eq "Index" -or !$ViewName) {
+	@("Index", "Index_bootstrap", "Index_foundation", "Index_Ink") | %{
+		Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
 	}
-	$outputFolderName = Join-Path $areaPath $outputFolderName
 }
 
+if($ViewName -eq "Criar" -or !$ViewName) {
+	@("Criar") | %{
+			Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
+		}
 
-if ($foundModelType) { $relatedEntities = [Array](Get-RelatedEntities $foundModelType.FullName -Project $project) }
-if (!$relatedEntities) { $relatedEntities = @() }
+	if ($Template -eq "bootstrap" -or !$Template) {
+		@("Criar_bootstrap", "_CriarOuEditar_bootstrap") | %{
+			Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
+		}
+	}
 
-# Render the T4 template, adding the output to the Visual Studio project
-$outputPath = Join-Path $outputFolderName $ViewName
-Add-ProjectItemViaTemplate $outputPath -Template $Template -Model @{
-	IsContentPage = [bool]$Layout;
-	Layout = $Layout;
-	SectionNames = $SectionNames;
-	PrimarySectionName = $PrimarySectionName;
-	ReferenceScriptLibraries = $ReferenceScriptLibraries.ToBool();
-	ViewName = $ViewName;
-	PrimaryKeyName = $primaryKeyName;
-	ViewDataType = [MarshalByRefObject]$foundModelType;
-	ViewDataTypeName = $foundModelType.Name;
-	RelatedEntities = $relatedEntities;
-} -SuccessMessage "Added $ViewName view at '{0}'" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force
+	if ($Template -eq "foundation" -or !$Template) {
+		@("Criar_foundation", "_CriarOuEditar_foundation") | %{
+			Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
+		}
+	}
+
+	if ($Template -eq "Ink" -or !$Template) {
+		@("Criar_Ink", "_CriarOuEditar_Ink") | %{
+			Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
+		}
+	}
+}
