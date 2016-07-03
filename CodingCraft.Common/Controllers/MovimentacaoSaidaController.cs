@@ -1,5 +1,5 @@
 ﻿using CodingCraft.Domain.Models;
-using CodingCraft.Domain.ViewModels.MovimentacaoSaida;
+using CodingCraft.Common.ViewModels.MovimentacaoSaida;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

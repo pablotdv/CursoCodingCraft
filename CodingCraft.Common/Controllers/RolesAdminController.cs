@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using CodingCraft.Domain.Models;
-using CodingCraft.Domain.ViewModels.RolesAdmin;
+using CodingCraft.Common.ViewModels.RolesAdmin;
 
 namespace CodingCraft.Common.Controllers
 {

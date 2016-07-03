@@ -129,6 +129,28 @@
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\AccountViewModels.cs" />
+    <Compile Include="ViewModels\Combo\ComboIndexViewModel.cs" />
+    <Compile Include="ViewModels\Combo\ComboProdutoViewModel.cs" />
+    <Compile Include="ViewModels\Combo\ComboViewModel.cs" />
+    <Compile Include="ViewModels\Combo\ProdutoListViewModel.cs" />
+    <Compile Include="ViewModels\Fornecedor\FornecedorIndexViewModel.cs" />
+    <Compile Include="ViewModels\Fornecedor\FornecedorViewModel.cs" />
+    <Compile Include="ViewModels\Manage\ManageViewModels.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\MovimentacaoEntradaIndexViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\MovimentacaoEntradaViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\MovimentacaoProdutoViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoEntrada\ProdutoListViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\ComboListViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoComboViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoProdutoViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaIndexViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\MovimentacaoSaidaViewModel.cs" />
+    <Compile Include="ViewModels\MovimentacaoSaida\ProdutoListViewModel.cs" />
+    <Compile Include="ViewModels\Produto\ProdutoIndexViewModel.cs" />
+    <Compile Include="ViewModels\Produto\ProdutoViewModel.cs" />
+    <Compile Include="ViewModels\RolesAdmin\RoleViewModel.cs" />
+    <Compile Include="ViewModels\UserAdmin\EditUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodingCraft.Domain\CodingCraft.Domain.csproj">

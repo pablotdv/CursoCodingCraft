@@ -1,5 +1,5 @@
 ﻿using CodingCraft.Domain.Models;
-using CodingCraft.Domain.ViewModels.Account;
+using CodingCraft.Common.ViewModels.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;

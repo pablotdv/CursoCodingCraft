@@ -1,5 +1,5 @@
 ﻿using CodingCraft.Domain.Models;
-using CodingCraft.Domain.ViewModels.Produto;
+using CodingCraft.Common.ViewModels.Produto;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;

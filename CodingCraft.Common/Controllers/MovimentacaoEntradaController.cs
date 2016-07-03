@@ -1,5 +1,5 @@
 ﻿using CodingCraft.Domain.Models;
-using CodingCraft.Domain.ViewModels.MovimentacaoEntrada;
+using CodingCraft.Common.ViewModels.MovimentacaoEntrada;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿using CodingCraft.Domain.ViewModels.Combo;
+﻿using CodingCraft.Common.ViewModels.Combo;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
