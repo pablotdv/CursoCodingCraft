@@ -1,6 +1,6 @@
 ﻿using Owin;
 
-namespace IdentitySample
+namespace Exercicio03Modularizacao
 {
     public partial class Startup
     {

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using CodingCraft.Domain.Models;
 
-namespace IdentitySample.Controllers
+namespace CodingCraft.Common.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller

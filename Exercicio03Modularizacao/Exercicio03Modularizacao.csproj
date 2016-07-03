@@ -270,7 +270,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Global.asax.cs">
@@ -298,6 +297,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CodingCraft.Common\CodingCraft.Common.csproj">
+      <Project>{acc679a3-83a0-4cb3-a457-1189c108490a}</Project>
+      <Name>CodingCraft.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodingCraft.Domain\CodingCraft.Domain.csproj">
       <Project>{84BC273D-B210-4223-8CAF-A92072B3EC6F}</Project>
       <Name>CodingCraft.Domain</Name>

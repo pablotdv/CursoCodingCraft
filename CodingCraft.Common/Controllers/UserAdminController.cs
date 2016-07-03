@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using CodingCraft.Domain.Models;
 
-namespace IdentitySample.Controllers
+namespace CodingCraft.Common.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UsersAdminController : Controller

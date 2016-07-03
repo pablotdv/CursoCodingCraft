@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace IdentitySample
+namespace Exercicio03Modularizacao
 {
     public class BundleConfig
     {
