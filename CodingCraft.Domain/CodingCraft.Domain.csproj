@@ -91,9 +91,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201607031815389_Init.cs" />
+    <Compile Include="Migrations\201607031815389_Init.Designer.cs">
+      <DependentUpon>201607031815389_Init.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AdminViewModel.cs" />
     <Compile Include="Models\CodingCraftDbContext.cs" />
     <Compile Include="Models\ApplicationDbInitializer.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
@@ -145,13 +147,17 @@
     <Compile Include="ViewModels\MovimentacaoSaida\ProdutoListViewModel.cs" />
     <Compile Include="ViewModels\Produto\ProdutoIndexViewModel.cs" />
     <Compile Include="ViewModels\Produto\ProdutoViewModel.cs" />
-    <Compile Include="ViewModels\RolesAdmin\ApplicationRoleManager.cs" />
     <Compile Include="ViewModels\RolesAdmin\RoleViewModel.cs" />
     <Compile Include="ViewModels\UserAdmin\EditUserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201607031815389_Init.resx">
+      <DependentUpon>201607031815389_Init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

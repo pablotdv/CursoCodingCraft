@@ -9,7 +9,7 @@ namespace CodingCraft.Domain.ViewModels.UserAdmin
 {
     public class EditUserViewModel
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Email")]

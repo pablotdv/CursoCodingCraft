@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using CodingCraft.Domain.Models;
+using CodingCraft.Domain.ViewModels.Account;
+using CodingCraft.Domain.ViewModels.UserAdmin;
 
 namespace CodingCraft.Common.Controllers
 {
