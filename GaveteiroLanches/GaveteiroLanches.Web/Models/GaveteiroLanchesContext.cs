@@ -13,25 +13,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace GaveteiroLanches.Web.Models
+namespace Exercicio01EF.Models
 {
-    public class GaveteiroLanchesContext : IdentityDbContext<ApplicationUser>
+    public class Exercicio01EFContext : IdentityDbContext<ApplicationUser>
     {
 
 
-        public GaveteiroLanchesContext()
-            : base("GaveteiroLanchesContext", throwIfV1Schema: false)
+        public Exercicio01EFContext()
+            : base("Exercicio01EFContext", throwIfV1Schema: false)
         {
         }
 
-        public static GaveteiroLanchesContext Create()
+        public static Exercicio01EFContext Create()
         {
-            return new GaveteiroLanchesContext();
+            return new Exercicio01EFContext();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            Database.SetInitializer<GaveteiroLanchesContext>(new CreateDatabaseIfNotExists<GaveteiroLanchesContext>());
+            Database.SetInitializer<Exercicio01EFContext>(new CreateDatabaseIfNotExists<Exercicio01EFContext>());
 
             //remove a pluralização das tabelas
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
@@ -39,7 +39,9 @@ namespace GaveteiroLanches.Web.Models
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             //remove a deleção em cascata
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            
+
+            modelBuilder.HasDefaultSchema("ex01");
+
             //define que todas as colunas string serão varchar
             modelBuilder.Properties<string>()
                    .Configure(p => p.HasColumnType("varchar"));

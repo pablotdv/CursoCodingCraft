@@ -4,13 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GaveteiroLanches.Web.Helpers
+namespace Exercicio01EF.Helpers
 {
     public static class ProdutoHelpers
     {
         public static SelectList Produtos(this HtmlHelper html)
         {
-            using (Models.GaveteiroLanchesContext context = new Models.GaveteiroLanchesContext())
+            using (Models.Exercicio01EFContext context = new Models.Exercicio01EFContext())
             { 
                 var produtosList = new SelectList(context.Produto
                     .Select(a => new

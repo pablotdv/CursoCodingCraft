@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace GaveteiroLanches.Web.Models
+namespace Exercicio01EF.Models
 {
     public class ComboProduto : Entidade
     {

@@ -1,5 +1,5 @@
-﻿using GaveteiroLanches.Web.Models;
-using GaveteiroLanches.Web.ViewModels.Produto;
+﻿using Exercicio01EF.Models;
+using Exercicio01EF.ViewModels.Produto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +8,16 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 
-namespace GaveteiroLanches.Web.Controllers
+namespace Exercicio01EF.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ProdutoController : Controller
     {
-        private GaveteiroLanchesContext context;
+        private Exercicio01EFContext context;
 
         public ProdutoController()
         {
-            context = new GaveteiroLanchesContext();
+            context = new Exercicio01EFContext();
         }
 
         // GET: Produto

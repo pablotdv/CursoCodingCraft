@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace Exercicio02Layouts.Models
+namespace Exercicio02ScaffoldLayouts.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
@@ -30,8 +30,15 @@ namespace Exercicio02Layouts.Models
             return new ApplicationDbContext();
         }
 
-        public DbSet<Exercicio02Layouts.Models.Produto> Produtoes { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("ex02");
 
-        public DbSet<Exercicio02Layouts.Models.ProdutoGrupo> ProdutoGrupoes { get; set; }
+            base.OnModelCreating(modelBuilder);
+        }
+
+        public DbSet<Exercicio02ScaffoldLayouts.Models.Produto> Produtoes { get; set; }
+
+        public DbSet<Exercicio02ScaffoldLayouts.Models.ProdutoGrupo> ProdutoGrupoes { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Optimization;
 
-namespace GaveteiroLanches.Web
+namespace Exercicio01EF
 {
     public class BundleConfig
     {

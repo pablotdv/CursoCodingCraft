@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using Exercicio02Layouts.Models;
+using Exercicio02ScaffoldLayouts.Models;
 
-namespace Exercicio02Layouts.Controllers
+namespace Exercicio02ScaffoldLayouts.Controllers
 {
     [Authorize]
     public class AccountController : Controller

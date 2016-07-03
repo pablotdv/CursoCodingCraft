@@ -1,4 +1,4 @@
-﻿using GaveteiroLanches.Web.Models;
+﻿using Exercicio01EF.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GaveteiroLanches.Web.ViewModels.RolesAdmin
+namespace Exercicio01EF.ViewModels.RolesAdmin
 {
     public class ApplicationRoleManager : RoleManager<IdentityRole>
     {
@@ -19,7 +19,7 @@ namespace GaveteiroLanches.Web.ViewModels.RolesAdmin
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<GaveteiroLanchesContext>()));
+            return new ApplicationRoleManager(new RoleStore<IdentityRole>(context.Get<Exercicio01EFContext>()));
         }
     }
 }

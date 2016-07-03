@@ -1,19 +1,19 @@
-namespace Exercicio02Layouts.Migrations
+namespace Exercicio02ScaffoldLayouts.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Exercicio02Layouts.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Exercicio02ScaffoldLayouts.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "Exercicio02Layouts.Models.ApplicationDbContext";
+            ContextKey = "Exercicio02ScaffoldLayouts.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(Exercicio02Layouts.Models.ApplicationDbContext context)
+        protected override void Seed(Exercicio02ScaffoldLayouts.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

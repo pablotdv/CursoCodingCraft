@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Exercicio02Layouts.Models
+namespace Exercicio02ScaffoldLayouts.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

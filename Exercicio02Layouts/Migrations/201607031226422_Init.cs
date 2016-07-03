@@ -1,4 +1,4 @@
-namespace Exercicio02Layouts.Migrations
+namespace Exercicio02ScaffoldLayouts.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -8,7 +8,7 @@ namespace Exercicio02Layouts.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Produtoes",
+                "ex02.Produtoes",
                 c => new
                     {
                         ProdutoId = c.Guid(nullable: false),
@@ -17,11 +17,11 @@ namespace Exercicio02Layouts.Migrations
                         ProdutoGrupoId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ProdutoId)
-                .ForeignKey("dbo.ProdutoGrupoes", t => t.ProdutoGrupoId, cascadeDelete: true)
+                .ForeignKey("ex02.ProdutoGrupoes", t => t.ProdutoGrupoId, cascadeDelete: true)
                 .Index(t => t.ProdutoGrupoId);
             
             CreateTable(
-                "dbo.ProdutoGrupoes",
+                "ex02.ProdutoGrupoes",
                 c => new
                     {
                         ProdutoGrupoId = c.Guid(nullable: false),
@@ -30,7 +30,7 @@ namespace Exercicio02Layouts.Migrations
                 .PrimaryKey(t => t.ProdutoGrupoId);
             
             CreateTable(
-                "dbo.AspNetRoles",
+                "ex02.AspNetRoles",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -40,20 +40,20 @@ namespace Exercicio02Layouts.Migrations
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
             CreateTable(
-                "dbo.AspNetUserRoles",
+                "ex02.AspNetUserRoles",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("ex02.AspNetRoles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("ex02.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
             CreateTable(
-                "dbo.AspNetUsers",
+                "ex02.AspNetUsers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -73,7 +73,7 @@ namespace Exercicio02Layouts.Migrations
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
-                "dbo.AspNetUserClaims",
+                "ex02.AspNetUserClaims",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -82,11 +82,11 @@ namespace Exercicio02Layouts.Migrations
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("ex02.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.AspNetUserLogins",
+                "ex02.AspNetUserLogins",
                 c => new
                     {
                         LoginProvider = c.String(nullable: false, maxLength: 128),
@@ -94,32 +94,32 @@ namespace Exercicio02Layouts.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("ex02.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Produtoes", "ProdutoGrupoId", "dbo.ProdutoGrupoes");
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
-            DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.Produtoes", new[] { "ProdutoGrupoId" });
-            DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetRoles");
-            DropTable("dbo.ProdutoGrupoes");
-            DropTable("dbo.Produtoes");
+            DropForeignKey("ex02.AspNetUserRoles", "UserId", "ex02.AspNetUsers");
+            DropForeignKey("ex02.AspNetUserLogins", "UserId", "ex02.AspNetUsers");
+            DropForeignKey("ex02.AspNetUserClaims", "UserId", "ex02.AspNetUsers");
+            DropForeignKey("ex02.AspNetUserRoles", "RoleId", "ex02.AspNetRoles");
+            DropForeignKey("ex02.Produtoes", "ProdutoGrupoId", "ex02.ProdutoGrupoes");
+            DropIndex("ex02.AspNetUserLogins", new[] { "UserId" });
+            DropIndex("ex02.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("ex02.AspNetUsers", "UserNameIndex");
+            DropIndex("ex02.AspNetUserRoles", new[] { "RoleId" });
+            DropIndex("ex02.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("ex02.AspNetRoles", "RoleNameIndex");
+            DropIndex("ex02.Produtoes", new[] { "ProdutoGrupoId" });
+            DropTable("ex02.AspNetUserLogins");
+            DropTable("ex02.AspNetUserClaims");
+            DropTable("ex02.AspNetUsers");
+            DropTable("ex02.AspNetUserRoles");
+            DropTable("ex02.AspNetRoles");
+            DropTable("ex02.ProdutoGrupoes");
+            DropTable("ex02.Produtoes");
         }
     }
 }

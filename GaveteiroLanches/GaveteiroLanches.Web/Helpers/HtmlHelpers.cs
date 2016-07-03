@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace GaveteiroLanches.Web.Helpers
+namespace Exercicio01EF.Helpers
 {
     public static class AutocompleteHelpers
     {

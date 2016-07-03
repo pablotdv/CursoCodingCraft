@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using Exercicio02Layouts.Models;
+using Exercicio02ScaffoldLayouts.Models;
 
-namespace Exercicio02Layouts
+namespace Exercicio02ScaffoldLayouts
 {
     public partial class Startup
     {

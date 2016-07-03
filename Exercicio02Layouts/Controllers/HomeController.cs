@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Exercicio02Layouts.Controllers
+namespace Exercicio02ScaffoldLayouts.Controllers
 {
     public class HomeController : Controller
     {

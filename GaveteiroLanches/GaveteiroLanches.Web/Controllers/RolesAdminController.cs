@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
-using GaveteiroLanches.Web.ViewModels.RolesAdmin;
-using GaveteiroLanches.Web.Models;
+using Exercicio01EF.ViewModels.RolesAdmin;
+using Exercicio01EF.Models;
 
-namespace GaveteiroLanches.Web.Controllers
+namespace Exercicio01EF.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller

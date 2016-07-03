@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace GaveteiroLanches.Web.ViewModels.Produto
+namespace Exercicio01EF.ViewModels.Produto
 {
     public class ProdutoIndexViewModel
     {

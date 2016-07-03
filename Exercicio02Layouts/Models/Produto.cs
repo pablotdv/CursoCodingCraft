@@ -5,14 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace Exercicio02Layouts.Models
+namespace Exercicio02ScaffoldLayouts.Models
 {
     /*
-     Scaffold Portugues.Controller Produto -ModelType:Exercicio02Layouts.Models.Produto -Verbose -Force -DbContextType:Exercicio02Layouts.Models.ApplicationDbContext
-     Scaffold Portugues.RazorView Produto -ModelType:Exercicio02Layouts.Models.Produto -Verbose -Force
+     Scaffold Portugues.Controller Produto -ModelType:Exercicio02ScaffoldLayouts.Models.Produto -Verbose -Force -DbContextType:Exercicio02ScaffoldLayouts.Models.ApplicationDbContext
+     Scaffold Portugues.RazorView Produto -ModelType:Exercicio02ScaffoldLayouts.Models.Produto -Verbose -Force
 
     --gera somente os criar do bootstrap
-     Scaffold Portugues.RazorView Produto -ViewName:Criar -Template:bootstrap -ModelType:Exercicio02Layouts.Models.Produto -Force
+     Scaffold Portugues.RazorView Produto -ViewName:Criar -Template:bootstrap -ModelType:Exercicio02ScaffoldLayouts.Models.Produto -Force
 
          */
     public class Produto

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Exercicio02Layouts.Startup))]
-namespace Exercicio02Layouts
+[assembly: OwinStartupAttribute(typeof(Exercicio02ScaffoldLayouts.Startup))]
+namespace Exercicio02ScaffoldLayouts
 {
     public partial class Startup
     {

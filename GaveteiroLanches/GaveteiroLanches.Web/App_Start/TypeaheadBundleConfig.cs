@@ -1,8 +1,8 @@
 using System.Web.Optimization;
 
-[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(GaveteiroLanches.Web.App_Start.TypeaheadBundleConfig), "RegisterBundles")]
+[assembly: WebActivatorEx.PostApplicationStartMethod(typeof(Exercicio01EF.App_Start.TypeaheadBundleConfig), "RegisterBundles")]
 
-namespace GaveteiroLanches.Web.App_Start
+namespace Exercicio01EF.App_Start
 {
 	public class TypeaheadBundleConfig
 	{

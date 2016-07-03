@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace GaveteiroLanches.Web.ViewModels.Fornecedor
+namespace Exercicio01EF.ViewModels.Fornecedor
 {
     public class FornecedorViewModel
     {

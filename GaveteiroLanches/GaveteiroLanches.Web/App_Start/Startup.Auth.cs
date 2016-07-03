@@ -5,10 +5,10 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using GaveteiroLanches.Web.Models;
-using GaveteiroLanches.Web.ViewModels.RolesAdmin;
+using Exercicio01EF.Models;
+using Exercicio01EF.ViewModels.RolesAdmin;
 
-namespace GaveteiroLanches.Web
+namespace Exercicio01EF
 {
     public partial class Startup
     {
@@ -16,7 +16,7 @@ namespace GaveteiroLanches.Web
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(GaveteiroLanchesContext.Create);
+            app.CreatePerOwinContext(Exercicio01EFContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);

@@ -1,4 +1,4 @@
-@model Exercicio02Layouts.Models.Produto
+@model Exercicio02ScaffoldLayouts.Models.Produto
 
 @* This partial view defines form fields that will appear when creating and editing entities *@
 
@@ -29,7 +29,7 @@
 
     <div class="col-md-6">
 		@Html.LabelFor(model => model.ProdutoGrupoId, htmlAttributes: new { @class = "control-label" })
-		@Html.DropDownListFor(model => model.ProdutoGrupoId, ((IEnumerable<Exercicio02Layouts.Models.ProdutoGrupo>)ViewBag.PossibleProdutoGrupoes).Select(option => new SelectListItem {
+		@Html.DropDownListFor(model => model.ProdutoGrupoId, ((IEnumerable<Exercicio02ScaffoldLayouts.Models.ProdutoGrupo>)ViewBag.PossibleProdutoGrupoes).Select(option => new SelectListItem {
 			Text = (option == null ? "None" : option.Descricao), 
 			Value = option.ProdutoGrupoId.ToString(),
 			Selected = (Model != null) && (option.ProdutoGrupoId == Model.ProdutoGrupoId)}), "Selecione...", new { @class = "form-control listaProdutos" })

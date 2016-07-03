@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.Entity;
 
 
-namespace GaveteiroLanches.Web.Models
+namespace Exercicio01EF.Models
 {
     public class Autocomplete
     {

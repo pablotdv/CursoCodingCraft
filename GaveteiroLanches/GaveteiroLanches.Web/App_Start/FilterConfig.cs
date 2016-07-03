@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace GaveteiroLanches.Web
+namespace Exercicio01EF
 {
     public class FilterConfig
     {

@@ -1,5 +1,5 @@
-﻿using GaveteiroLanches.Web.Models;
-using GaveteiroLanches.Web.ViewModels.MovimentacaoEntrada;
+﻿using Exercicio01EF.Models;
+using Exercicio01EF.ViewModels.MovimentacaoEntrada;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +9,16 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Web.UI;
 
-namespace GaveteiroLanches.Web.Controllers
+namespace Exercicio01EF.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class MovimentacaoEntradaController : Controller
     {
-        private GaveteiroLanchesContext context;
+        private Exercicio01EFContext context;
 
         public MovimentacaoEntradaController()
         {
-            context = new GaveteiroLanchesContext();
+            context = new Exercicio01EFContext();
         }
 
         // GET: MovimentacaoEntrada

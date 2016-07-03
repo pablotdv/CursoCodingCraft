@@ -10,9 +10,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using Exercicio02Layouts.Models;
+using Exercicio02ScaffoldLayouts.Models;
 
-namespace Exercicio02Layouts
+namespace Exercicio02ScaffoldLayouts
 {
     public class EmailService : IIdentityMessageService
     {

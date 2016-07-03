@@ -6,11 +6,11 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using GaveteiroLanches.Web.Models;
-using GaveteiroLanches.Web.ViewModels;
-using GaveteiroLanches.Web.ViewModels.Manage;
+using Exercicio01EF.Models;
+using Exercicio01EF.ViewModels;
+using Exercicio01EF.ViewModels.Manage;
 
-namespace GaveteiroLanches.Web.Controllers
+namespace Exercicio01EF.Controllers
 {
     [Authorize]
     public class ManageController : Controller

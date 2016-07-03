@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GaveteiroLanches.Web.ViewModels.UserAdmin
+namespace Exercicio01EF.ViewModels.UserAdmin
 {
     public class EditUserViewModel
     {

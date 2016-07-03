@@ -1,6 +1,6 @@
 using System.Web.Optimization;
 
-namespace Exercicio02Layouts
+namespace Exercicio02ScaffoldLayouts
 {
     public static class Foundation
     {

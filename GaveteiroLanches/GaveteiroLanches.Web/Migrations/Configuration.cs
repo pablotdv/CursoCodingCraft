@@ -1,4 +1,4 @@
-namespace GaveteiroLanches.Web.Migrations
+namespace Exercicio01EF.Migrations
 {
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
@@ -8,7 +8,7 @@ namespace GaveteiroLanches.Web.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<GaveteiroLanches.Web.Models.GaveteiroLanchesContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<Exercicio01EF.Models.Exercicio01EFContext>
     {
         public Configuration()
         {
@@ -17,7 +17,7 @@ namespace GaveteiroLanches.Web.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(GaveteiroLanches.Web.Models.GaveteiroLanchesContext context)
+        protected override void Seed(Exercicio01EF.Models.Exercicio01EFContext context)
         {
             if (!context.Roles.Any(r => r.Name == "Admin"))
             {

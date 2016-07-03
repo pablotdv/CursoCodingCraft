@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
-namespace Exercicio02Layouts.Models
+namespace Exercicio02ScaffoldLayouts.Models
 {
     public class IndexViewModel
     {

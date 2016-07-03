@@ -1,4 +1,4 @@
-﻿namespace GaveteiroLanches.Web.Models
+﻿namespace Exercicio01EF.Models
 {
     public interface IMovimentacaoItem
     {

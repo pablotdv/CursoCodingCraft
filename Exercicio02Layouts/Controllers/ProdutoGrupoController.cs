@@ -5,9 +5,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Exercicio02Layouts.Models;
+using Exercicio02ScaffoldLayouts.Models;
 
-namespace Exercicio02Layouts.Controllers
+namespace Exercicio02ScaffoldLayouts.Controllers
 {   
     public class ProdutoGrupoController : Controller
     {

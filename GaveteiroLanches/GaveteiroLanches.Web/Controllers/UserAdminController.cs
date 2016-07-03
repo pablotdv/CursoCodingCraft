@@ -9,12 +9,12 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using GaveteiroLanches.Web.ViewModels.RolesAdmin;
-using GaveteiroLanches.Web.ViewModels.Account;
-using GaveteiroLanches.Web.Models;
-using GaveteiroLanches.Web.ViewModels.UserAdmin;
+using Exercicio01EF.ViewModels.RolesAdmin;
+using Exercicio01EF.ViewModels.Account;
+using Exercicio01EF.Models;
+using Exercicio01EF.ViewModels.UserAdmin;
 
-namespace GaveteiroLanches.Web.Controllers
+namespace Exercicio01EF.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class UsersAdminController : Controller

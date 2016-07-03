@@ -1,5 +1,5 @@
-﻿using GaveteiroLanches.Web.Models;
-using GaveteiroLanches.Web.ViewModels.Fornecedor;
+﻿using Exercicio01EF.Models;
+using Exercicio01EF.ViewModels.Fornecedor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace GaveteiroLanches.Web.Controllers
+namespace Exercicio01EF.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class FornecedorController : Controller
     {
-        private GaveteiroLanchesContext context;
+        private Exercicio01EFContext context;
 
         public FornecedorController()
         {
-            context = new GaveteiroLanchesContext();
+            context = new Exercicio01EFContext();
         }
 
         // GET: Fornecedor
