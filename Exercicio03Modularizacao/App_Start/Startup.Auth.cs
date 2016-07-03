@@ -5,7 +5,7 @@ using Microsoft.Owin.Security.Cookies;
 using IdentitySample.Models;
 using Owin;
 using System;
-using Exercicio03Modularizacao.Models;
+using CodingCraft.Domain.Models;
 
 namespace IdentitySample
 {
