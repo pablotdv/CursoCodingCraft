@@ -10,16 +10,16 @@ using System.Web;
 
 namespace CodingCraft.Domain.Models
 {
-    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<CodingCraftDbContext>
     {
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(CodingCraftDbContext context)
         {
             InitializeIdentityForEF(context);
             base.Seed(context);
         }
 
         //Create User=Admin@Admin.com with password=Admin@123456 in the Admin role        
-        public static void InitializeIdentityForEF(ApplicationDbContext db)
+        public static void InitializeIdentityForEF(CodingCraftDbContext db)
         {
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();

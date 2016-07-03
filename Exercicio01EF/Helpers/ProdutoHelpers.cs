@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodingCraft.Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace Exercicio01EF.Helpers
     {
         public static SelectList Produtos(this HtmlHelper html)
         {
-            using (Models.Exercicio01EFContext context = new Models.Exercicio01EFContext())
+            using (CodingCraftDbContext context = new CodingCraftDbContext())
             { 
                 var produtosList = new SelectList(context.Produto
                     .Select(a => new

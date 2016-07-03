@@ -5,14 +5,14 @@ namespace CodingCraft.Domain.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CodingCraft.Domain.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<CodingCraft.Domain.Models.CodingCraftDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(CodingCraft.Domain.Models.ApplicationDbContext context)
+        protected override void Seed(CodingCraft.Domain.Models.CodingCraftDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

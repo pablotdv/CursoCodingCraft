@@ -1,12 +1,8 @@
-﻿using CodingCraft.Domain.Models;
-using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace CodingCraft.Domain.Models
 {
@@ -20,7 +16,7 @@ namespace CodingCraft.Domain.Models
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options,
             IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, Grupo, long, UsuarioLogin, UsuarioGrupo, UsuarioIdentidade>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, Grupo, long, UsuarioLogin, UsuarioGrupo, UsuarioIdentidade>(context.Get<CodingCraftDbContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser, long>(manager)
             {

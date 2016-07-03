@@ -19,7 +19,7 @@ namespace CodingCraft.Domain.Models
 
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
         {
-            return new ApplicationRoleManager(new RoleStore<Grupo, long, UsuarioGrupo>(context.Get<ApplicationDbContext>()));
+            return new ApplicationRoleManager(new RoleStore<Grupo, long, UsuarioGrupo>(context.Get<CodingCraftDbContext>()));
         }
     }
 }
