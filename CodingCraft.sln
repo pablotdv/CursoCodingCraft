@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio01EF", "Exercicio0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio02ScaffoldLayouts", "Exercicio02Layouts\Exercicio02ScaffoldLayouts.csproj", "{D3E72FD3-E26A-4252-A839-EA156E92BC03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio03Modularizacao", "Exercicio03Modularizacao\Exercicio03Modularizacao.csproj", "{353D3BE4-C1A8-47B5-BBCA-F3B5D12BD6F7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingCraft.Common", "CodingCraft.Common\CodingCraft.Common.csproj", "{ACC679A3-83A0-4CB3-A457-1189C108490A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingCraft.Domain", "CodingCraft.Domain\CodingCraft.Domain.csproj", "{84BC273D-B210-4223-8CAF-A92072B3EC6F}"
@@ -27,10 +25,6 @@ Global
 		{D3E72FD3-E26A-4252-A839-EA156E92BC03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3E72FD3-E26A-4252-A839-EA156E92BC03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3E72FD3-E26A-4252-A839-EA156E92BC03}.Release|Any CPU.Build.0 = Release|Any CPU
-		{353D3BE4-C1A8-47B5-BBCA-F3B5D12BD6F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{353D3BE4-C1A8-47B5-BBCA-F3B5D12BD6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{353D3BE4-C1A8-47B5-BBCA-F3B5D12BD6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{353D3BE4-C1A8-47B5-BBCA-F3B5D12BD6F7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ACC679A3-83A0-4CB3-A457-1189C108490A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ACC679A3-83A0-4CB3-A457-1189C108490A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACC679A3-83A0-4CB3-A457-1189C108490A}.Release|Any CPU.ActiveCfg = Release|Any CPU
