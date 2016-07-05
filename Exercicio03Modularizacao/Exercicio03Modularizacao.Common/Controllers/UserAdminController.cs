@@ -1,9 +1,4 @@
-﻿using IdentitySample.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.Owin;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -12,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Exercicio03Modularizacao.Common.ViewModels.Account;
 using Exercicio03Modularizacao.Common.ViewModels.Admin;
+using Exercicio03Modularizacao.Domain.Models;
 
 namespace IdentitySample.Controllers
 {
