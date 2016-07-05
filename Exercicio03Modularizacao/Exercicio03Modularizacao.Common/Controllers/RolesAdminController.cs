@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using Exercicio03Modularizacao.Common.ViewModels.Admin;
 
 namespace IdentitySample.Controllers
 {

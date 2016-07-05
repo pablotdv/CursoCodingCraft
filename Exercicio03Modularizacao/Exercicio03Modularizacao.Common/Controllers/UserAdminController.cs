@@ -10,6 +10,8 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Exercicio03Modularizacao.Common.ViewModels.Account;
+using Exercicio03Modularizacao.Common.ViewModels.Admin;
 
 namespace IdentitySample.Controllers
 {
