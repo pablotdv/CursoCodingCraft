@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
@@ -6,7 +7,7 @@ namespace Exercicio03Modularizacao.Common.ViewModels.Admin
 {
     public class EditUserViewModel
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [Display(Name = "Email")]

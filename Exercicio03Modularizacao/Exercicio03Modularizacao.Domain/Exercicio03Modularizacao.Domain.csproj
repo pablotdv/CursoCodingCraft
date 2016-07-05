@@ -97,6 +97,10 @@
     <Compile Include="Models\ApplicationSignInManager.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
+    <Compile Include="Models\Grupo.cs" />
+    <Compile Include="Models\UsuarioGrupo.cs" />
+    <Compile Include="Models\UsuarioIdentidade.cs" />
+    <Compile Include="Models\UsuarioLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EmailService.cs" />
     <Compile Include="Services\SmsService.cs" />

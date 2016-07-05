@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Exercicio03Modularizacao.Common.ViewModels.Account;
 using Exercicio03Modularizacao.Domain.Models;
+using System;
 
 namespace IdentitySample.Controllers
 {
@@ -167,7 +168,7 @@ namespace IdentitySample.Controllers
         //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public async Task<ActionResult> ConfirmEmail(Guid userId, string code)
         {
             if (userId == null || code == null)
             {
