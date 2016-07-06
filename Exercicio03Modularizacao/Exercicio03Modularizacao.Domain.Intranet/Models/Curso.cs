@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Exercicio03Modularizacao.Domain.Intranet.Models
 {
@@ -17,8 +18,10 @@ namespace Exercicio03Modularizacao.Domain.Intranet.Models
         [Required]
         public string Descricao { get; set; }
 
+        [AllowHtml]
         public string Sobre { get; set; }
 
+        [AllowHtml]
         public string ConteudoProgramatico { get; set; }
                 
         public ICollection<Curso> CursosRelacionados { get; set; }
