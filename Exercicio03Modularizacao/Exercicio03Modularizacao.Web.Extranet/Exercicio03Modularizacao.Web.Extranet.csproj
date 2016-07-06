@@ -305,6 +305,10 @@
       <Project>{2550e355-e0b3-4214-8d74-ce75b4b6f80b}</Project>
       <Name>Exercicio03Modularizacao.Domain.Extranet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Exercicio03Modularizacao.Domain.Intranet\Exercicio03Modularizacao.Domain.Intranet.csproj">
+      <Project>{10953088-a030-43ea-bc69-8d5f8624d65e}</Project>
+      <Name>Exercicio03Modularizacao.Domain.Intranet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Exercicio03Modularizacao.Domain\Exercicio03Modularizacao.Domain.csproj">
       <Project>{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79}</Project>
       <Name>Exercicio03Modularizacao.Domain</Name>

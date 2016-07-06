@@ -11,6 +11,12 @@ namespace Exercicio03Modularizacao.Domain.Models
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("ex03");
+            base.OnModelCreating(modelBuilder);
+        }
+
         static ApplicationDbContext()
         {
             // Set the database intializer which is run once during application start

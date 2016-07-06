@@ -1,0 +1,42 @@
+﻿@model Exercicio03Modularizacao.Domain.Intranet.Models.Curso
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Curso</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sobre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sobre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConteudoProgramatico)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConteudoProgramatico)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CursoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

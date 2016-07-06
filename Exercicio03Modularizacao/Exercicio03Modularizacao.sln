@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio03Modularizacao.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio03Modularizacao.Domain", "Exercicio03Modularizacao.Domain\Exercicio03Modularizacao.Domain.csproj", "{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio03Modularizacao.Common.Intranet", "Exercicio03Modularizacao.Common.Intranet\Exercicio03Modularizacao.Common.Intranet.csproj", "{577BEFDC-2912-4A84-913D-3F91AED7A935}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577BEFDC-2912-4A84-913D-3F91AED7A935}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577BEFDC-2912-4A84-913D-3F91AED7A935}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577BEFDC-2912-4A84-913D-3F91AED7A935}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577BEFDC-2912-4A84-913D-3F91AED7A935}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
