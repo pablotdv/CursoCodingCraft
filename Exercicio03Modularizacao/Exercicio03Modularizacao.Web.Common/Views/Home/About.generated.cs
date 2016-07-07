@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Exercicio03Modularizacao.Web.Common.Views
+namespace Exercicio03Modularizacao.Web.Common.Views.Home
 {
     using System;
     using System.Collections.Generic;
@@ -30,15 +30,17 @@ namespace Exercicio03Modularizacao.Web.Common.Views
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("RazorGenerator", "2.0.0.0")]
     [System.Web.WebPages.PageVirtualPathAttribute("~/Views/Home/About.cshtml")]
-    public partial class _Views_Home_About_cshtml : System.Web.Mvc.WebViewPage<dynamic>
+    public partial class About : System.Web.Mvc.WebViewPage<dynamic>
     {
-        public _Views_Home_About_cshtml()
+        public About()
         {
         }
         public override void Execute()
         {
+WriteLiteral("\r\n");
+
             
-            #line 1 "..\..\Views\Home\About.cshtml"
+            #line 2 "..\..\Views\Home\About.cshtml"
   
     ViewBag.Title = "About";
 
@@ -48,7 +50,7 @@ namespace Exercicio03Modularizacao.Web.Common.Views
 WriteLiteral("\r\n<hgroup>\r\n    <h2>");
 
             
-            #line 5 "..\..\Views\Home\About.cshtml"
+            #line 6 "..\..\Views\Home\About.cshtml"
    Write(ViewBag.Title);
 
             
@@ -57,7 +59,7 @@ WriteLiteral("\r\n<hgroup>\r\n    <h2>");
 WriteLiteral(".</h2>\r\n    <h3>");
 
             
-            #line 6 "..\..\Views\Home\About.cshtml"
+            #line 7 "..\..\Views\Home\About.cshtml"
    Write(ViewBag.Message);
 
             

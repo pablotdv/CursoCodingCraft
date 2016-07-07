@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Exercicio03Modularizacao.Web.Common.Views
+namespace ASP
 {
     using System;
     using System.Collections.Generic;

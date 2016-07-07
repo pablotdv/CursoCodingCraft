@@ -60,7 +60,18 @@ WriteLiteral(" href=\"http://www.asp.net/identity\"");
 
 WriteLiteral(" class=\"btn btn-primary btn-large\"");
 
-WriteLiteral(">Learn more &raquo;</a></p>\r\n</div>\r\n\r\n<div");
+WriteLiteral(">Learn more &raquo;</a></p>\r\n");
+
+WriteLiteral("    ");
+
+            
+            #line 9 "..\..\Views\Home\Index.cshtml"
+Write(Html.Editor("Teste"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\r\n</div>\r\n\r\n<div");
 
 WriteLiteral(" class=\"row\"");
 
@@ -126,7 +137,7 @@ WriteLiteral(">\r\n        <dl>\r\n            <dt>Register a user and login</dt
 "\r\n                Click ");
 
             
-            #line 56 "..\..\Views\Home\Index.cshtml"
+            #line 57 "..\..\Views\Home\Index.cshtml"
                  Write(Html.ActionLink("Register", "Register", "Account"));
 
             
@@ -136,7 +147,7 @@ WriteLiteral(" and see the code in AccountController.cs and Register Action.\r\n
 "lick ");
 
             
-            #line 57 "..\..\Views\Home\Index.cshtml"
+            #line 58 "..\..\Views\Home\Index.cshtml"
                  Write(Html.ActionLink("Log in", "Login", "Account"));
 
             
