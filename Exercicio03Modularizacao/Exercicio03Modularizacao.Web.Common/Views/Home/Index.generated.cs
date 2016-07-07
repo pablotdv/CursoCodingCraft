@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Exercicio03Modularizacao.Web.Common.Views
+namespace ASP
 {
     using System;
     using System.Collections.Generic;
@@ -49,7 +49,7 @@ WriteLiteral("\r\n\r\n<div");
 
 WriteLiteral(" class=\"jumbotron\"");
 
-WriteLiteral(">\r\n    <h1>ASP.NET Identity</h1>\r\n    <p");
+WriteLiteral(">\r\n    <h1>ASP.NET Identity - mesma Index</h1>\r\n    <p");
 
 WriteLiteral(" class=\"lead\"");
 

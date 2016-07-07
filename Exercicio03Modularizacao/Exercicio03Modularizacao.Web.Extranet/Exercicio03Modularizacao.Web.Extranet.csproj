@@ -268,9 +268,9 @@
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\_Home\Index.cshtml" />
+    <Content Include="Views\_Home\Contact.cshtml" />
+    <Content Include="Views\_Home\About.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
@@ -297,6 +297,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Exercicio03Modularizacao.Common.Intranet\Exercicio03Modularizacao.Common.Intranet.csproj">
+      <Project>{577befdc-2912-4a84-913d-3f91aed7a935}</Project>
+      <Name>Exercicio03Modularizacao.Common.Intranet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Exercicio03Modularizacao.Common\Exercicio03Modularizacao.Common.csproj">
       <Project>{716b2d48-a5bd-4ca7-a6d1-48d1c2703793}</Project>
       <Name>Exercicio03Modularizacao.Common</Name>
@@ -312,6 +316,10 @@
     <ProjectReference Include="..\Exercicio03Modularizacao.Domain\Exercicio03Modularizacao.Domain.csproj">
       <Project>{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79}</Project>
       <Name>Exercicio03Modularizacao.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Exercicio03Modularizacao.Web.Common\Exercicio03Modularizacao.Web.Common.csproj">
+      <Project>{96d3b770-c8f9-4274-b987-d1d7af6de4c5}</Project>
+      <Name>Exercicio03Modularizacao.Web.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
