@@ -24,7 +24,7 @@ namespace Exercicio03Modularizacao.Domain.Intranet.Models
                 
         [Required]
         [ForeignKey("UsuarioId")]
-        public virtual ApplicationUser Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
         public Guid UsuarioId { get; set; }
 
         [Required]

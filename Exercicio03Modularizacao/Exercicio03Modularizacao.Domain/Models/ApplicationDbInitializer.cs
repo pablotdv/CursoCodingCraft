@@ -20,6 +20,8 @@ namespace Exercicio03Modularizacao.Domain.Models
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
             var roleManager = HttpContext.Current.GetOwinContext().Get<ApplicationRoleManager>();
             const string name = "admin@example.com";
+            const string firstName = "Pablo";
+            const string lastName = "de Vargas";
             const string password = "Admin@123456";
             const string roleName = "Admin";
 
@@ -34,7 +36,7 @@ namespace Exercicio03Modularizacao.Domain.Models
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name };
+                user = new Usuario { UserName = name, Email = name, FirstName = firstName, LastName = lastName };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }

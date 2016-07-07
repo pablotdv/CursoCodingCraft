@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio03Modularizacao.Domain.Extranet", "Exercicio03Modularizacao.Domain.Extranet\Exercicio03Modularizacao.Domain.Extranet.csproj", "{2550E355-E0B3-4214-8D74-CE75B4B6F80B}"
 EndProject
@@ -16,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio03Modularizacao.Domain", "Exercicio03Modularizacao.Domain\Exercicio03Modularizacao.Domain.csproj", "{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercicio03Modularizacao.Common.Intranet", "Exercicio03Modularizacao.Common.Intranet\Exercicio03Modularizacao.Common.Intranet.csproj", "{577BEFDC-2912-4A84-913D-3F91AED7A935}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{6C7F4EE1-BED3-4382-911B-7E7C1E64EBFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{A061D1BB-32BC-4305-B633-D6CB7CC7F3D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,5 +58,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2550E355-E0B3-4214-8D74-CE75B4B6F80B} = {A061D1BB-32BC-4305-B633-D6CB7CC7F3D6}
+		{10953088-A030-43EA-BC69-8D5F8624D65E} = {A061D1BB-32BC-4305-B633-D6CB7CC7F3D6}
+		{716B2D48-A5BD-4CA7-A6D1-48D1C2703793} = {6C7F4EE1-BED3-4382-911B-7E7C1E64EBFA}
+		{A7E0DCB8-A019-4BB0-BE4D-47A3D088BD79} = {A061D1BB-32BC-4305-B633-D6CB7CC7F3D6}
+		{577BEFDC-2912-4A84-913D-3F91AED7A935} = {6C7F4EE1-BED3-4382-911B-7E7C1E64EBFA}
 	EndGlobalSection
 EndGlobal

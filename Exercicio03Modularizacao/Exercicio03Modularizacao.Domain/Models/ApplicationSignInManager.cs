@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Exercicio03Modularizacao.Domain.Models
 {
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, Guid>
+    public class ApplicationSignInManager : SignInManager<Usuario, Guid>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager) :
             base(userManager, authenticationManager)
         { }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(Usuario user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }

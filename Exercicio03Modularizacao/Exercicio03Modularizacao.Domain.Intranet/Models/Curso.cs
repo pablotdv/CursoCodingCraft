@@ -16,18 +16,23 @@ namespace Exercicio03Modularizacao.Domain.Intranet.Models
         public int CursoId { get; set; }
 
         [Required]
+        [Display(Name = "Descrição")]
         public string Descricao { get; set; }
 
         [AllowHtml]
         public string Sobre { get; set; }
 
         [AllowHtml]
+        [Display(Name = "Conteúdo programático")]
         public string ConteudoProgramatico { get; set; }
-                
+
+        [Display(Name = "Cursos relacionados")]
         public ICollection<Curso> CursosRelacionados { get; set; }
 
+        [Display(Name = "Situações")]
         public ICollection<CursoSituacao> Situacoes { get; set; }
 
+        [Display(Name = "Comentários")]
         public ICollection<Comentario> Comentarios { get; set; }
     }
 }

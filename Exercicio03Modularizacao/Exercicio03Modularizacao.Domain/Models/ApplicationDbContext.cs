@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace Exercicio03Modularizacao.Domain.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Grupo, Guid, UsuarioLogin, UsuarioGrupo, UsuarioIdentidade>
+    public class ApplicationDbContext : IdentityDbContext<Usuario, Grupo, Guid, UsuarioLogin, UsuarioGrupo, UsuarioIdentidade>
     {
         public ApplicationDbContext()
             : base("DefaultConnection")

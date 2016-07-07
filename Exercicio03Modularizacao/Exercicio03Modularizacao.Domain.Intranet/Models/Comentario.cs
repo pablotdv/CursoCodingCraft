@@ -15,7 +15,7 @@ namespace Exercicio03Modularizacao.Domain.Intranet.Models
         
         [Required]
         [ForeignKey("UsuarioId")]
-        public virtual ApplicationUser Usuario { get; set; }  
+        public virtual Usuario Usuario { get; set; }  
         public Guid UsuarioId { get; set; }   
         
         [Required]
@@ -28,7 +28,7 @@ namespace Exercicio03Modularizacao.Domain.Intranet.Models
         public DateTime? DataAprovacao { get; set; }
 
         [ForeignKey("UsuarioAprovacaoId")]
-        public virtual ApplicationUser UsuarioAprovacao { get; set; }
+        public virtual Usuario UsuarioAprovacao { get; set; }
         public Guid? UsuarioAprovacaoId { get; set; }
 
 
