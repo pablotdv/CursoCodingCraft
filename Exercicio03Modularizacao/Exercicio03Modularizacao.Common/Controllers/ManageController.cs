@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace IdentitySample.Controllers
+namespace Exercicio03Modularizacao.Common.Controllers
 {
     [Authorize]
     public class ManageController : Controller

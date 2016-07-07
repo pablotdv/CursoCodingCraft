@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
 
-namespace IdentitySample
+namespace Exercicio03Modularizacao.Web.Intranet
 {
     public partial class Startup
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace IdentitySample
+namespace Exercicio03Modularizacao.Web.Intranet
 {
     public class RouteConfig
     {
