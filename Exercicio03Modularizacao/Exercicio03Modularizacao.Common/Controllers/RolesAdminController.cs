@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using Exercicio03Modularizacao.Common.ViewModels.Admin;
 using Exercicio03Modularizacao.Domain.Models;
 
-namespace IdentitySample.Controllers
+namespace Exercicio03Modularizacao.Common.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller

@@ -2,7 +2,7 @@
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace IdentitySample
+namespace Exercicio03Modularizacao.Web.Extranet
 {
     // Note: For instructions on enabling IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=301868

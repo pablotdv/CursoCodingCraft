@@ -1,6 +1,6 @@
 ﻿using Owin;
 
-namespace IdentitySample
+namespace Exercicio03Modularizacao.Web.Extranet
 {
     public partial class Startup
     {
