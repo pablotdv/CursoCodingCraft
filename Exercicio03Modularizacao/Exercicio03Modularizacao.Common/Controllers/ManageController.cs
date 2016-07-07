@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace Exercicio03Modularizacao.Common.Controllers
 {
-    [Authorize]
+    [MyAuthorize]
     public class ManageController : Controller
     {
         public ManageController()

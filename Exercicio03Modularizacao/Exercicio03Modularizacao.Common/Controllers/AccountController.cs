@@ -11,7 +11,7 @@ using System;
 
 namespace Exercicio03Modularizacao.Common.Controllers
 {
-    [Authorize]
+    [MyAuthorize]
     public class AccountController : Controller
     {
         public AccountController()

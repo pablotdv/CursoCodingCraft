@@ -12,7 +12,7 @@ using Exercicio03Modularizacao.Domain.Models;
 
 namespace Exercicio03Modularizacao.Common.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [MyAuthorize(Roles = "Admin")]
     public class RolesAdminController : Controller
     {
         public RolesAdminController()
