@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using Exercicio03Modularizacao.Common.ViewModels.Admin;
 using Exercicio03Modularizacao.Domain.Models;
+using System;
 
 namespace Exercicio03Modularizacao.Common.Controllers
 {
@@ -61,7 +62,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
 
         //
         // GET: /Roles/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(Guid id)
         {
             if (id == null)
             {
@@ -99,7 +100,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
         {
             if (ModelState.IsValid)
             {
-                var role = new IdentityRole(roleViewModel.Name);
+                var role = new Grupo() { Name = roleViewModel.Name };
                 var roleresult = await RoleManager.CreateAsync(role);
                 if (!roleresult.Succeeded)
                 {
@@ -113,7 +114,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
 
         //
         // GET: /Roles/Edit/Admin
-        public async Task<ActionResult> Edit(string id)
+        public async Task<ActionResult> Edit(Guid id)
         {
             if (id == null)
             {
@@ -147,7 +148,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
 
         //
         // GET: /Roles/Delete/5
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             if (id == null)
             {
@@ -165,7 +166,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
         // POST: /Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id, string deleteUser)
+        public async Task<ActionResult> DeleteConfirmed(Guid id, string deleteUser)
         {
             if (ModelState.IsValid)
             {

@@ -9,7 +9,7 @@ namespace Exercicio03Modularizacao.Domain.Intranet.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(Exercicio03Modularizacao.Domain.Intranet.Models.IntranetContext context)

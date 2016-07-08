@@ -213,18 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Views\Home\About.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>About.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Home\Contact.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Contact.generated.cs</LastGenOutput>
-    </Content>
-    <Content Include="Views\Home\Index.cshtml">
-      <Generator>RazorGenerator</Generator>
-      <LastGenOutput>Index.generated.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\jquery-2.2.4.min.map" />
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +253,122 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>_ExternalLoginsListPartial.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ConfirmEmail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ConfirmEmail.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\DisplayEmail.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>DisplayEmail.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ExternalLoginConfirmation.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ExternalLoginFailure.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ForgotPassword.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ForgotPassword.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ForgotPasswordConfirmation.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Login.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Login.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\Register.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Register.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ResetPassword.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ResetPassword.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ResetPasswordConfirmation.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\SendCode.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SendCode.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Account\VerifyCode.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>VerifyCode.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>AddPhoneNumber.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Manage\ChangePassword.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ChangePassword.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Manage\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Manage\ManageLogins.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>ManageLogins.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Manage\SetPassword.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>SetPassword.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>VerifyPhoneNumber.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\RolesAdmin\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\RolesAdmin\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Delete.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\RolesAdmin\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Details.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\RolesAdmin\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\RolesAdmin\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\UsersAdmin\Create.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Create.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\UsersAdmin\Delete.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Delete.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\UsersAdmin\Details.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Details.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\UsersAdmin\Edit.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Edit.generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\UsersAdmin\Index.cshtml">
+      <Generator>RazorGenerator</Generator>
+      <LastGenOutput>Index.generated.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
@@ -274,17 +378,147 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SampleTemplate.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\About.generated.cs">
+    <Compile Include="Views\Account\ConfirmEmail.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>About.cshtml</DependentUpon>
+      <DependentUpon>ConfirmEmail.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\Contact.generated.cs">
+    <Compile Include="Views\Account\DisplayEmail.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Contact.cshtml</DependentUpon>
+      <DependentUpon>DisplayEmail.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\Index.generated.cs">
+    <Compile Include="Views\Account\ExternalLoginConfirmation.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExternalLoginConfirmation.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ExternalLoginFailure.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExternalLoginFailure.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ForgotPassword.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForgotPassword.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ForgotPasswordConfirmation.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForgotPasswordConfirmation.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Login.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Login.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\Register.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Register.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ResetPassword.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResetPassword.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\ResetPasswordConfirmation.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResetPasswordConfirmation.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\SendCode.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SendCode.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\VerifyCode.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VerifyCode.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Account\_ExternalLoginsListPartial.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_ExternalLoginsListPartial.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manage\AddPhoneNumber.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddPhoneNumber.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manage\ChangePassword.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChangePassword.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manage\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manage\ManageLogins.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ManageLogins.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manage\SetPassword.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetPassword.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Manage\VerifyPhoneNumber.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VerifyPhoneNumber.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RolesAdmin\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RolesAdmin\Delete.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RolesAdmin\Details.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RolesAdmin\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RolesAdmin\Index.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersAdmin\Create.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersAdmin\Delete.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersAdmin\Details.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersAdmin\Edit.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.cshtml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsersAdmin\Index.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Index.cshtml</DependentUpon>

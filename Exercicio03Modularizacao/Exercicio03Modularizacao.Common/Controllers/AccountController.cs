@@ -18,7 +18,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -148,7 +148,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Usuario { UserName = model.Email, Email = model.Email };
+                var user = new Usuario { UserName = model.Email, Email = model.Email, Id = Guid.NewGuid() };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -359,7 +359,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new Usuario { UserName = model.Email, Email = model.Email };
+                var user = new Usuario { UserName = model.Email, Email = model.Email, Id = Guid.NewGuid() };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

@@ -60,5 +60,7 @@ namespace Exercicio03Modularizacao.Domain.Models
             }
             return manager;
         }
+
+
     }
 }

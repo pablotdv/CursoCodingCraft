@@ -121,7 +121,6 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Filters\ClaimsAuthorizeAttribute.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
-    <Compile Include="Models\ApplicationDbInitializer.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
     <Compile Include="Models\ApplicationSignInManager.cs" />
     <Compile Include="Models\ApplicationUserManager.cs" />
