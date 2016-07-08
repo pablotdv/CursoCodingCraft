@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Exercicio03Modularizacao.Common.ViewModels.Account;
 using Exercicio03Modularizacao.Domain.Models;
 using System;
+using System.Security.Claims;
 
 namespace Exercicio03Modularizacao.Common.Controllers
 {
@@ -16,6 +17,7 @@ namespace Exercicio03Modularizacao.Common.Controllers
     {
         public AccountController()
         {
+            ClaimsPrincipal a;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)

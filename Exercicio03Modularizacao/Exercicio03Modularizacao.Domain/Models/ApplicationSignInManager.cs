@@ -13,9 +13,17 @@ namespace Exercicio03Modularizacao.Domain.Models
             base(userManager, authenticationManager)
         { }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(Usuario user)
+        public override async Task<ClaimsIdentity> CreateUserIdentityAsync(Usuario user)
         {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+            ClaimsIdentity claimIdentity = await user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
+
+            claimIdentity.AddClaim(new Claim(ClaimTypes.Country, "Brasil"));
+            claimIdentity.AddClaim(new Claim(ClaimTypes.Gender, "Masculino"));
+            claimIdentity.AddClaim(new Claim(ClaimTypes.Role, "Administrador"));
+
+            return claimIdentity;
+
+            //return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
 
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
