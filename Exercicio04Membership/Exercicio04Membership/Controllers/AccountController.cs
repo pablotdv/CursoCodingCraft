@@ -31,6 +31,11 @@ namespace Exercicio04Membership.Controllers
         {
             if(ModelState.IsValid && Membership.ValidateUser(model.Username, model.Password))
             {
+               var authCookie = FormsAuthentication.GetAuthCookie(model.Username, false);
+
+                Response.Cookies.Add(authCookie);
+                Response.Redirect(FormsAuthentication.GetRedirectUrl(model.Username, false));
+
                 return RedirectToLocal(returnUrl);
             }
 
