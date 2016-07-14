@@ -12,6 +12,7 @@ using System.Web.Http.Description;
 using Exercicio05WebAPI.Models;
 using System.Web;
 using System.IO;
+using System.Diagnostics;
 
 namespace Exercicio05WebAPI.Controllers
 {
@@ -75,7 +76,7 @@ namespace Exercicio05WebAPI.Controllers
         }
 
         // POST: api/Arquivo
-        
+
         public async Task<IHttpActionResult> PostArquivo()
         {
             if (!ModelState.IsValid)
@@ -84,35 +85,20 @@ namespace Exercicio05WebAPI.Controllers
             }
             var httpRequest = HttpContext.Current.Request;
 
-            var arquivo = new Arquivo() {
-                DiretorioId = new Guid(httpRequest.Form["DiretorioId"]),
-                Nome = httpRequest.Form["Nome"],
-                MimeType = httpRequest.Form["MimeType"],
-            };
-
-            arquivo.ArquivoId = Guid.NewGuid();
-
             string root = HttpContext.Current.Server.MapPath("~/Uploads");
 
             if (!Directory.Exists(root))
                 Directory.CreateDirectory(root);
 
-            if (!Request.Content.IsMimeMultipartContent("form-data"))
+            //await Upload1(root);
+            Upload2(root);
+
+            var arquivo = new Arquivo()
             {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.UnsupportedMediaType));
-            }
-
-            // Create a stream provider for setting up output streams
-            MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(root);
-
-            // Read the MIME multipart asynchronously content using the stream provider we just created.
-            await Request.Content.ReadAsMultipartAsync(streamProvider);
-
-            // Create response
-            var fileResult = new FileResult
-            {
-                FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
-                Submitter = streamProvider.FormData["submitter"]
+                ArquivoId = Guid.NewGuid(),
+                DiretorioId = new Guid(httpRequest.Form["DiretorioId"]),
+                Nome = httpRequest.Form["Nome"],
+                MimeType = httpRequest.Form["MimeType"]
             };
 
             db.Arquivos.Add(arquivo);
@@ -134,6 +120,56 @@ namespace Exercicio05WebAPI.Controllers
             }
 
             return CreatedAtRoute("DefaultApi", new { id = arquivo.ArquivoId }, arquivo);
+        }
+
+        public async void Upload2(string root)
+        {
+            // Check if the request contains multipart/form-data.
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+            }
+
+            var provider = new MultipartFormDataStreamProvider(root);
+
+            try
+            {
+                // Read the form data.
+                await Request.Content.ReadAsMultipartAsync(provider);
+
+                // This illustrates how to get the file names.
+                foreach (MultipartFileData file in provider.FileData)
+                {
+                    Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+                    Trace.WriteLine("Server file path: " + file.LocalFileName);
+                }
+
+            }
+            catch (System.Exception e)
+            {
+
+            }
+        }
+
+        private async Task Upload1(string root)
+        {
+            if (!Request.Content.IsMimeMultipartContent("form-data"))
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.UnsupportedMediaType));
+            }
+
+            // Create a stream provider for setting up output streams
+            MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(root);
+
+            // Read the MIME multipart asynchronously content using the stream provider we just created.
+            await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+            // Create response
+            var fileResult = new FileResult
+            {
+                FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
+                Submitter = streamProvider.FormData["submitter"]
+            };
         }
 
         // DELETE: api/Arquivo/5
