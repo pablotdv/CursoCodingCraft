@@ -13,6 +13,7 @@ using Exercicio05WebAPI.Models;
 
 namespace Exercicio05WebAPI.Controllers
 {
+    [Authorize]
     public class DiretorioController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

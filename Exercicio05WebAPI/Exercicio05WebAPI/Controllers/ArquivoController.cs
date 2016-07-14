@@ -10,9 +10,12 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Exercicio05WebAPI.Models;
+using System.Web;
+using System.IO;
 
 namespace Exercicio05WebAPI.Controllers
 {
+    [Authorize]
     public class ArquivoController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -20,14 +23,14 @@ namespace Exercicio05WebAPI.Controllers
         // GET: api/Arquivo
         public IQueryable<Arquivo> GetArquivoes()
         {
-            return db.Arquivoes;
+            return db.Arquivos;
         }
 
         // GET: api/Arquivo/5
         [ResponseType(typeof(Arquivo))]
         public async Task<IHttpActionResult> GetArquivo(Guid id)
         {
-            Arquivo arquivo = await db.Arquivoes.FindAsync(id);
+            Arquivo arquivo = await db.Arquivos.FindAsync(id);
             if (arquivo == null)
             {
                 return NotFound();
@@ -72,17 +75,47 @@ namespace Exercicio05WebAPI.Controllers
         }
 
         // POST: api/Arquivo
-        [ResponseType(typeof(Arquivo))]
-        public async Task<IHttpActionResult> PostArquivo(Arquivo arquivo)
+        
+        public async Task<IHttpActionResult> PostArquivo()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            var httpRequest = HttpContext.Current.Request;
+
+            var arquivo = new Arquivo() {
+                DiretorioId = new Guid(httpRequest.Form["DiretorioId"]),
+                Nome = httpRequest.Form["Nome"],
+                MimeType = httpRequest.Form["MimeType"],
+            };
 
             arquivo.ArquivoId = Guid.NewGuid();
 
-            db.Arquivoes.Add(arquivo);
+            string root = HttpContext.Current.Server.MapPath("~/Uploads");
+
+            if (!Directory.Exists(root))
+                Directory.CreateDirectory(root);
+
+            if (!Request.Content.IsMimeMultipartContent("form-data"))
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.UnsupportedMediaType));
+            }
+
+            // Create a stream provider for setting up output streams
+            MultipartFormDataStreamProvider streamProvider = new MultipartFormDataStreamProvider(root);
+
+            // Read the MIME multipart asynchronously content using the stream provider we just created.
+            await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+            // Create response
+            var fileResult = new FileResult
+            {
+                FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
+                Submitter = streamProvider.FormData["submitter"]
+            };
+
+            db.Arquivos.Add(arquivo);
 
             try
             {
@@ -107,13 +140,13 @@ namespace Exercicio05WebAPI.Controllers
         [ResponseType(typeof(Arquivo))]
         public async Task<IHttpActionResult> DeleteArquivo(Guid id)
         {
-            Arquivo arquivo = await db.Arquivoes.FindAsync(id);
+            Arquivo arquivo = await db.Arquivos.FindAsync(id);
             if (arquivo == null)
             {
                 return NotFound();
             }
 
-            db.Arquivoes.Remove(arquivo);
+            db.Arquivos.Remove(arquivo);
             await db.SaveChangesAsync();
 
             return Ok(arquivo);
@@ -130,7 +163,7 @@ namespace Exercicio05WebAPI.Controllers
 
         private bool ArquivoExists(Guid id)
         {
-            return db.Arquivoes.Count(e => e.ArquivoId == id) > 0;
+            return db.Arquivos.Count(e => e.ArquivoId == id) > 0;
         }
     }
 }

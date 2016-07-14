@@ -41,6 +41,6 @@ namespace Exercicio05WebAPI.Models
 
         public System.Data.Entity.DbSet<Exercicio05WebAPI.Models.Diretorio> Diretorios { get; set; }
 
-        public System.Data.Entity.DbSet<Exercicio05WebAPI.Models.Arquivo> Arquivoes { get; set; }
+        public System.Data.Entity.DbSet<Exercicio05WebAPI.Models.Arquivo> Arquivos { get; set; }
     }
 }
