@@ -4,6 +4,7 @@
     var tokenKey = 'accessToken';
 
     self.diretorios = ko.observableArray();
+    self.arquivos = ko.observableArray();
     self.error = ko.observable();
 
     self.result = ko.observable();
@@ -18,6 +19,10 @@
 
     self.diretorioNome = ko.observable();
     self.diretoriPai = ko.observable();
+
+    self.arquivoNome = ko.observable();
+    self.arquivoDiretorioId = ko.observable();
+    self.arquivo = ko.observable();
 
     function showError(jqXHR) {
         self.result(jqXHR.status + ': ' + jqXHR.statusText);
@@ -88,6 +93,8 @@
             self.user(data.userName);
             // Cache the access token in session storage.
             sessionStorage.setItem(tokenKey, data.access_token);
+            getAllArquivos();
+            getAllDiretorios();
         }).fail(showError);
     }
 
@@ -122,6 +129,32 @@
         }).fail(showError);
     }
 
+    self.postArquivo = function () {
+        self.result('');
+
+        var data = {
+            Nome: self.arquivoNome(),
+            DiretorioId: self.arquivoDiretorioId(),
+        };
+
+        var token = sessionStorage.getItem(tokenKey);
+        var headers = {};
+        if (token) {
+            headers.Authorization = 'Bearer ' + token;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/Arquivo',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            headers: headers
+        }).done(function (data) {
+            self.result(data.ArquivoId);
+            getAllArquivos();
+        }).fail(showError);
+    }
+
     function getAllDiretorios() {
         ajaxHelper('/api/Diretorio', 'GET')
             .done(function (data) {
@@ -129,7 +162,15 @@
             });
     }
 
+    function getAllArquivos() {
+        ajaxHelper('/api/Arquivo', 'GET')
+            .done(function (data) {
+                self.arquivos(data);
+            });
+    }
+
     getAllDiretorios();
+    getAllArquivos();
 }
 
 var app = new ViewModel();
