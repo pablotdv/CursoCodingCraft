@@ -18,8 +18,8 @@ namespace Exercicio01EF
                 .Include("~/Scripts/jquery.unobtrusive-ajax.js")
                 .Include("~/Scripts/jquery.validate-vsdoc.js")
                 .Include("~/Scripts/jquery.validate.js")
-                .Include("~/Scripts/jquery.validate.unobstrusive.js")
-                .Include("~/Scripts/globalize/globalize.js")
+                .Include("~/Scripts/jquery.validate.unobtrusive.js")
+                .Include("~/Scripts/globalize.js")
                 .Include("~/Scripts/jquery.validate.globalize.js");
             bundles.Add(bundle);
 
