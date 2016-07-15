@@ -27,6 +27,7 @@ namespace Exercicio05WebAPI
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                       "~/Scripts/knockout-{version}.js",
                       "~/Scripts/app.js"));
+            
         }
     }
 }

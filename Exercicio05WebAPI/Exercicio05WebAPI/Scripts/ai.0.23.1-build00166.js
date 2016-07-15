@@ -69,6 +69,8 @@ var Microsoft;
             _InternalMessageId[_InternalMessageId["USRACT_TelemetryInitializerFailed"] = 58] = "USRACT_TelemetryInitializerFailed";
             _InternalMessageId[_InternalMessageId["USRACT_TrackArgumentsNotSpecified"] = 59] = "USRACT_TrackArgumentsNotSpecified";
             _InternalMessageId[_InternalMessageId["USRACT_UrlTooLong"] = 60] = "USRACT_UrlTooLong";
+            _InternalMessageId[_InternalMessageId["USRACT_SessionStorageBufferFull"] = 61] = "USRACT_SessionStorageBufferFull";
+            _InternalMessageId[_InternalMessageId["USRACT_CannotAccessCookie"] = 62] = "USRACT_CannotAccessCookie";
         })(ApplicationInsights._InternalMessageId || (ApplicationInsights._InternalMessageId = {}));
         var _InternalMessageId = ApplicationInsights._InternalMessageId;
         var _InternalLogMessage = (function () {
@@ -326,12 +328,27 @@ var Microsoft;
                 }
                 return false;
             };
+            Util.canUseCookies = function () {
+                if (Util._canUseCookies === undefined) {
+                    Util._canUseCookies = false;
+                    try {
+                        Util._canUseCookies = Util.document.cookie !== undefined;
+                    }
+                    catch (e) {
+                        ApplicationInsights._InternalLogging.throwInternalNonUserActionable(ApplicationInsights.LoggingSeverity.WARNING, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.USRACT_CannotAccessCookie, "Cannot access document.cookie - " + Util.getExceptionName(e), { exception: Util.dump(e) }));
+                    }
+                    ;
+                }
+                return Util._canUseCookies;
+            };
             Util.setCookie = function (name, value, domain) {
                 var domainAttrib = "";
                 if (domain) {
                     domainAttrib = ";domain=" + domain;
                 }
-                Util.document.cookie = name + "=" + value + domainAttrib + ";path=/";
+                if (Util.canUseCookies()) {
+                    Util.document.cookie = name + "=" + value + domainAttrib + ";path=/";
+                }
             };
             Util.stringToBoolOrDefault = function (str) {
                 if (!str) {
@@ -340,6 +357,9 @@ var Microsoft;
                 return str.toString().toLowerCase() === "true";
             };
             Util.getCookie = function (name) {
+                if (!Util.canUseCookies()) {
+                    return;
+                }
                 var value = "";
                 if (name && name.length) {
                     var cookieName = name + "=";
@@ -356,7 +376,9 @@ var Microsoft;
                 return value;
             };
             Util.deleteCookie = function (name) {
-                Util.document.cookie = name + "=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+                if (Util.canUseCookies()) {
+                    Util.document.cookie = name + "=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+                }
             };
             Util.trim = function (str) {
                 if (typeof str !== "string")
@@ -461,6 +483,7 @@ var Microsoft;
                 return true;
             };
             Util.document = typeof document !== "undefined" ? document : {};
+            Util._canUseCookies = undefined;
             Util.NotSpecified = "not_specified";
             return Util;
         })();
@@ -803,7 +826,7 @@ var Microsoft;
                     }));
                 }
                 else {
-                    this.appInsights.trackAjax(xhr.ajaxData.id, xhr.ajaxData.getAbsoluteUrl(), xhr.ajaxData.getPathName(), xhr.ajaxData.ajaxTotalDuration, (+(xhr.ajaxData.status)) >= 200 && (+(xhr.ajaxData.status)) < 400, +xhr.ajaxData.status, xhr.ajaxData.method);
+                    this.appInsights.trackDependency(xhr.ajaxData.id, xhr.ajaxData.method, xhr.ajaxData.getAbsoluteUrl(), xhr.ajaxData.getPathName(), xhr.ajaxData.ajaxTotalDuration, (+(xhr.ajaxData.status)) >= 200 && (+(xhr.ajaxData.status)) < 400, +xhr.ajaxData.status);
                     xhr.ajaxData = null;
                 }
             };
@@ -846,6 +869,14 @@ var Microsoft;
         ApplicationInsights.HashCodeScoreGenerator = HashCodeScoreGenerator;
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
+var Microsoft;
+(function (Microsoft) {
+    var ApplicationInsights;
+    (function (ApplicationInsights) {
+        "use strict";
+    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
+})(Microsoft || (Microsoft = {}));
+/// <reference path="../JavaScriptSDK.Interfaces/Telemetry/ISerializable.ts" />
 /// <reference path="logging.ts" />
 /// <reference path="util.ts" />
 var Microsoft;
@@ -1633,6 +1664,7 @@ var Microsoft;
             DataLossAnalyzer.reset = function () {
                 if (DataLossAnalyzer.isEnabled()) {
                     ApplicationInsights.Util.setSessionStorage(DataLossAnalyzer.ITEMS_QUEUED_KEY, "0");
+                    ApplicationInsights.Util.setSessionStorage(DataLossAnalyzer.ISSUES_REPORTED_KEY, "0");
                     DataLossAnalyzer.itemsRestoredFromSessionBuffer = 0;
                 }
             };
@@ -1773,15 +1805,26 @@ var Microsoft;
         ApplicationInsights.ArraySendBuffer = ArraySendBuffer;
         var SessionStorageSendBuffer = (function () {
             function SessionStorageSendBuffer(config) {
+                this._bufferFullMessageSent = false;
                 this._config = config;
                 var bufferItems = this.getBuffer(SessionStorageSendBuffer.BUFFER_KEY);
                 var notDeliveredItems = this.getBuffer(SessionStorageSendBuffer.SENT_BUFFER_KEY);
                 this._buffer = bufferItems.concat(notDeliveredItems);
+                if (this._buffer.length > SessionStorageSendBuffer.MAX_BUFFER_SIZE) {
+                    this._buffer.length = SessionStorageSendBuffer.MAX_BUFFER_SIZE;
+                }
                 ApplicationInsights.DataLossAnalyzer.itemsRestoredFromSessionBuffer = this._buffer.length;
                 this.setBuffer(SessionStorageSendBuffer.BUFFER_KEY, this._buffer);
                 this.setBuffer(SessionStorageSendBuffer.SENT_BUFFER_KEY, []);
             }
             SessionStorageSendBuffer.prototype.enqueue = function (payload) {
+                if (this._buffer.length >= SessionStorageSendBuffer.MAX_BUFFER_SIZE) {
+                    if (!this._bufferFullMessageSent) {
+                        ApplicationInsights._InternalLogging.throwInternalUserActionable(ApplicationInsights.LoggingSeverity.WARNING, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.USRACT_SessionStorageBufferFull, "Maximum buffer size reached: " + this._buffer.length));
+                        this._bufferFullMessageSent = true;
+                    }
+                    return;
+                }
                 this._buffer.push(payload);
                 this.setBuffer(SessionStorageSendBuffer.BUFFER_KEY, this._buffer);
             };
@@ -1792,6 +1835,7 @@ var Microsoft;
                 this._buffer.length = 0;
                 this.setBuffer(SessionStorageSendBuffer.BUFFER_KEY, []);
                 this.setBuffer(SessionStorageSendBuffer.SENT_BUFFER_KEY, []);
+                this._bufferFullMessageSent = false;
             };
             SessionStorageSendBuffer.prototype.getItems = function () {
                 return this._buffer.slice(0);
@@ -1808,6 +1852,10 @@ var Microsoft;
             SessionStorageSendBuffer.prototype.markAsSent = function (payload) {
                 var sentElements = this.getBuffer(SessionStorageSendBuffer.SENT_BUFFER_KEY);
                 sentElements = sentElements.concat(payload);
+                if (sentElements.length > SessionStorageSendBuffer.MAX_BUFFER_SIZE) {
+                    ApplicationInsights._InternalLogging.throwInternalUserActionable(ApplicationInsights.LoggingSeverity.CRITICAL, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.USRACT_SessionStorageBufferFull, "Sent buffer reached its maximum size: " + sentElements.length));
+                    sentElements.length = SessionStorageSendBuffer.MAX_BUFFER_SIZE;
+                }
                 this._buffer = this.removePayloadsFromBuffer(payload, this._buffer);
                 this.setBuffer(SessionStorageSendBuffer.BUFFER_KEY, this._buffer);
                 this.setBuffer(SessionStorageSendBuffer.SENT_BUFFER_KEY, sentElements);
@@ -1860,6 +1908,7 @@ var Microsoft;
             };
             SessionStorageSendBuffer.BUFFER_KEY = "AI_buffer";
             SessionStorageSendBuffer.SENT_BUFFER_KEY = "AI_sentBuffer";
+            SessionStorageSendBuffer.MAX_BUFFER_SIZE = 2000;
             return SessionStorageSendBuffer;
         })();
         ApplicationInsights.SessionStorageSendBuffer = SessionStorageSendBuffer;
@@ -1993,7 +2042,8 @@ var Microsoft;
                 var xdr = new XDomainRequest();
                 xdr.onload = function () { return _this._xdrOnLoad(xdr, payload); };
                 xdr.onerror = function (event) { return _this._onError(payload, xdr.responseText || "", event); };
-                xdr.open('POST', this._config.endpointUrl());
+                var endpointUrl = this._config.endpointUrl().replace(/^(https?:)/, "");
+                xdr.open('POST', endpointUrl);
                 var batch = this._buffer.batchPayloads(payload);
                 xdr.send(batch);
                 this._buffer.markAsSent(payload);
@@ -2759,6 +2809,14 @@ var Microsoft;
         })(Telemetry = ApplicationInsights.Telemetry || (ApplicationInsights.Telemetry = {}));
     })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
 })(Microsoft || (Microsoft = {}));
+/// <reference path="./ISerializable.ts" />
+var Microsoft;
+(function (Microsoft) {
+    var ApplicationInsights;
+    (function (ApplicationInsights) {
+        "use strict";
+    })(ApplicationInsights = Microsoft.ApplicationInsights || (Microsoft.ApplicationInsights = {}));
+})(Microsoft || (Microsoft = {}));
 /// <reference path="./Contracts/Generated/Envelope.ts" />
 /// <reference path="./Context/IApplication.ts"/>
 /// <reference path="./Context/IDevice.ts"/>
@@ -2768,6 +2826,7 @@ var Microsoft;
 /// <reference path="./Context/ISample.ts"/>
 /// <reference path="./Context/IUser.ts"/>
 /// <reference path="./Context/ISession.ts"/>
+/// <reference path="./Telemetry/IEnvelope.ts"/>
 var Microsoft;
 (function (Microsoft) {
     var ApplicationInsights;
@@ -3262,9 +3321,10 @@ var AI;
     })(Microsoft.Telemetry.Domain);
     AI.RemoteDependencyData = RemoteDependencyData;
 })(AI || (AI = {}));
+/// <reference path="../../JavaScriptSDK.Interfaces/Telemetry/ISerializable.ts" />
 /// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/PageViewData.ts" />
-/// <reference path="./Common/DataSanitizer.ts"/>
 /// <reference path="../../JavaScriptSDK.Interfaces/Contracts/Generated/RemoteDependencyData.ts"/>
+/// <reference path="./Common/DataSanitizer.ts"/>
 var Microsoft;
 (function (Microsoft) {
     var ApplicationInsights;
@@ -3353,7 +3413,7 @@ var Microsoft;
     var ApplicationInsights;
     (function (ApplicationInsights) {
         "use strict";
-        ApplicationInsights.Version = "0.22.19";
+        ApplicationInsights.Version = "0.23.1";
         var AppInsights = (function () {
             function AppInsights(config) {
                 var _this = this;
@@ -3383,12 +3443,7 @@ var Microsoft;
                     cookieDomain: function () { return _this.config.cookieDomain; },
                     enableSessionStorageBuffer: function () { return _this.config.enableSessionStorageBuffer; }
                 };
-                var enableExperiment = new ApplicationInsights.SplitTest().isEnabled(this.config.instrumentationKey, 5);
-                this.config.enableSessionStorageBuffer = enableExperiment;
                 this.context = new ApplicationInsights.TelemetryContext(configGetters);
-                ApplicationInsights.DataLossAnalyzer.appInsights = this;
-                ApplicationInsights.DataLossAnalyzer.enabled = enableExperiment;
-                ApplicationInsights.DataLossAnalyzer.reportLostItems();
                 this._pageViewManager = new Microsoft.ApplicationInsights.Telemetry.PageViewManager(this, this.config.overridePageViewDuration);
                 this._eventTracking = new Timing("trackEvent");
                 this._eventTracking.action = function (name, url, duration, properties, measurements) {
@@ -3492,7 +3547,7 @@ var Microsoft;
                     ApplicationInsights._InternalLogging.throwInternalNonUserActionable(ApplicationInsights.LoggingSeverity.CRITICAL, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.NONUSRACT_TrackEventFailed, "trackEvent failed, event will not be collected: " + ApplicationInsights.Util.getExceptionName(e), { exception: ApplicationInsights.Util.dump(e) }));
                 }
             };
-            AppInsights.prototype.trackAjax = function (id, absoluteUrl, pathName, totalTime, success, resultCode, method) {
+            AppInsights.prototype.trackDependency = function (id, method, absoluteUrl, pathName, totalTime, success, resultCode) {
                 if (this.config.maxAjaxCallsPerView === -1 ||
                     this._trackAjaxAttempts < this.config.maxAjaxCallsPerView) {
                     var dependency = new ApplicationInsights.Telemetry.RemoteDependencyData(id, absoluteUrl, pathName, totalTime, success, resultCode, method);
@@ -3504,6 +3559,9 @@ var Microsoft;
                     ApplicationInsights._InternalLogging.throwInternalUserActionable(ApplicationInsights.LoggingSeverity.CRITICAL, new ApplicationInsights._InternalLogMessage(ApplicationInsights._InternalMessageId.USRACT_MaxAjaxPerPVExceeded, "Maximum ajax per page view limit reached, ajax monitoring is paused until the next trackPageView(). In order to increase the limit set the maxAjaxCallsPerView configuration parameter."));
                 }
                 ++this._trackAjaxAttempts;
+            };
+            AppInsights.prototype.trackAjax = function (id, absoluteUrl, pathName, totalTime, success, resultCode, method) {
+                this.trackDependency(id, null, absoluteUrl, pathName, totalTime, success, resultCode);
             };
             AppInsights.prototype.trackException = function (exception, handledAt, properties, measurements, severityLevel) {
                 try {
@@ -3730,7 +3788,7 @@ var Microsoft;
                 if (!config) {
                     config = {};
                 }
-                config.endpointUrl = config.endpointUrl || "//dc.services.visualstudio.com/v2/track";
+                config.endpointUrl = config.endpointUrl || "https://dc.services.visualstudio.com/v2/track";
                 config.sessionRenewalMs = 30 * 60 * 1000;
                 config.sessionExpirationMs = 24 * 60 * 60 * 1000;
                 config.maxBatchSizeInBytes = config.maxBatchSizeInBytes > 0 ? config.maxBatchSizeInBytes : 1000000;
@@ -3759,7 +3817,7 @@ var Microsoft;
                     false;
                 config.enableSessionStorageBuffer = (config.enableSessionStorageBuffer !== undefined && config.enableSessionStorageBuffer !== null) ?
                     ApplicationInsights.Util.stringToBoolOrDefault(config.enableSessionStorageBuffer) :
-                    false;
+                    true;
                 return config;
             };
             return Initialization;

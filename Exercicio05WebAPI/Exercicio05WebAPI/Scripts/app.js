@@ -134,7 +134,7 @@
 
         var data = {
             Nome: self.arquivoNome(),
-            DiretorioId: self.arquivoDiretorioId(),
+            DiretorioId: self.arquivoDiretorioId()
         };
 
         var token = sessionStorage.getItem(tokenKey);
@@ -147,7 +147,7 @@
             type: 'POST',
             url: '/api/Arquivo',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(data),
+            data: ko.toJSON(data),
             headers: headers
         }).done(function (data) {
             self.result(data.ArquivoId);

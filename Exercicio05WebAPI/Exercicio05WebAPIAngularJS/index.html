@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Exmplo com AngularJS</title>        
+    <script src="Scripts/jquery-3.0.0.js"></script>
+
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-animate.js"></script>
+    <script src="Scripts/angular-route.js"></script>
+
+    <script src="App/app.js"></script>
+
+    <script src="App/Services/loginService.js"></script>
+
+    <script src="App/Controllers/loginController.js"></script>
+</head>
+<body ng-app="app">
+    <div ng-controller="logincontroller">
+        <h1>The Security Information View</h1>
+        <table class="table table-bordered table-striped table-condensed">
+            <tr>
+                <td>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <td>Email:</td>
+                            <td>
+                                <input type="text" class="form-control"
+                                       ng-model="userRegistrationEmail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td>
+                                <input type="password" class="form-control"
+                                       ng-model="userRegistrationPassword" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Confirm Password:</td>
+                            <td>
+                                <input type="password" class="form-control"
+                                       ng-model="userRegistrationConfirmPassword" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" value="Register"
+                                       class="form-control btn btn-success"
+                                       ng-click="registerUser()" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+                <td></td>
+                <td>
+                    <table class="table table-bordered table-striped table-condensed">
+                        <tr>
+                            <td>Email:</td>
+                            <td>
+                                <input type="text" class="form-control"
+                                       ng-model="userLoginEmail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td>
+                                <input type="password"
+                                       class="form-control"
+                                       ng-model="userLoginPassword" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="button" value="Login" class="form-control btn btn-success"
+                                       ng-click="login()" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div> </div>
+    </div>
+
+</body>
+</html>
