@@ -8,6 +8,9 @@
 <div id="GraficoPaisIndicadorAno1" name="GraficoPaisIndicadorAno1"></div>
 <div id="GraficoPaisIndicadorAno2" name="GraficoPaisIndicadorAno2"></div>
 <div id="GraficoPaisIndicadorAno3" name="GraficoPaisIndicadorAno3"></div>
+<div id="GraficoPaisIndicadorAno4" name="GraficoPaisIndicadorAno4"></div>
+<div id="GraficoPaisIndicadorAno5" name="GraficoPaisIndicadorAno5"></div>
+<div id="GraficoPaisIndicadorAno6" name="GraficoPaisIndicadorAno6"></div>
 
 @section scripts {
     <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['orgchart']}]}"></script>
@@ -23,5 +26,9 @@
         GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'EN.ATM.CO2E.PC', 1900, 2020, 'CO2 emissions (metric tons per capita)', 'GraficoPaisIndicadorAno1');
         GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'SP.DYN.LE00.IN', 1900, 2020, 'Life expectancy at birth, total (years)', 'GraficoPaisIndicadorAno2');
         GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GNP.PCAP.CD', 1900, 2020, 'GNI per capita, Atlas method (current US$)', 'GraficoPaisIndicadorAno3');
+
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.DEFL.KD.ZG', 1994, 2002, 'Inflation, GDP deflator (annual %) FHC', 'GraficoPaisIndicadorAno4');
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.DEFL.KD.ZG', 2002, 2010, 'Inflation, GDP deflator (annual %) Lula', 'GraficoPaisIndicadorAno5');
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.DEFL.KD.ZG', 2010, 2018, 'Inflation, GDP deflator (annual %) Dilma', 'GraficoPaisIndicadorAno6');
     </script>
 }
