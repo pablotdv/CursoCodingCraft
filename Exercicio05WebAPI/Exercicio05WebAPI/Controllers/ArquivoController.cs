@@ -13,12 +13,17 @@ using Exercicio05WebAPI.Models;
 using System.Web;
 using System.IO;
 using System.Diagnostics;
+using Exercicio05WebAPI.Providers;
+using System.Net.Http.Headers;
+using Exercicio05WebAPI.Helpers;
 
 namespace Exercicio05WebAPI.Controllers
 {
     [Authorize]
     public class ArquivoController : ApiController
     {
+        private string exMessage = "Opps! exception happens";
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: api/Arquivo
@@ -27,17 +32,110 @@ namespace Exercicio05WebAPI.Controllers
             return db.Arquivos;
         }
 
+        [AllowAnonymous]
         // GET: api/Arquivo/5
-        [ResponseType(typeof(Arquivo))]
-        public async Task<IHttpActionResult> GetArquivo(Guid id)
+        public async Task<HttpResponseMessage> GetArquivo(Guid id)
+        {
+            return await Get2(id);
+
+            //return await Get1(id);
+        }
+
+        private async Task<HttpResponseMessage> Get2(Guid id)
         {
             Arquivo arquivo = await db.Arquivos.FindAsync(id);
             if (arquivo == null)
             {
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            return Ok(arquivo);
+            string root = HttpContext.Current.Server.MapPath("~/Uploads");
+
+            var fileName = Directory.GetFiles(root, id.ToString() + "*.*").FirstOrDefault();
+
+            FileInfo fileInfo = new FileInfo(fileName);
+
+            if (!fileInfo.Exists)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            Stream fileStream = fileInfo.ReadStream();
+            HttpResponseMessage response = new HttpResponseMessage { Content = new StreamContent(fileStream) };
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(arquivo.MimeType);
+            response.Content.Headers.ContentLength = fileInfo.Length;
+            return response;
+        }
+
+        private async Task<HttpResponseMessage> Get1(Guid id)
+        {
+            Arquivo arquivo = await db.Arquivos.FindAsync(id);
+            if (arquivo == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            HttpResponseMessage response = Request.CreateResponse();
+            FileMetaData metaData = new FileMetaData();
+            metaData.FileResponseMessage.IsExists = false;
+
+            try
+            {
+                string root = HttpContext.Current.Server.MapPath("~/Uploads");
+
+                var fileName = Directory.GetFiles(root, id.ToString() + "*.*").FirstOrDefault();
+
+                FileInfo fileInfo = new FileInfo(fileName);
+
+                if (!fileInfo.Exists)
+                {
+                    metaData.FileResponseMessage.IsExists = false;
+                    metaData.FileResponseMessage.Content = string.Format("{0} file is not found !", fileName);
+                    response = Request.CreateResponse(HttpStatusCode.NotFound, metaData, new MediaTypeHeaderValue("text/json"));
+                }
+                else
+                {
+                    response.Headers.AcceptRanges.Add("bytes");
+                    response.StatusCode = HttpStatusCode.OK;
+                    response.Content = new StreamContent(fileInfo.ReadStream());
+                    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                    response.Content.Headers.ContentDisposition.FileName = fileName;
+                    response.Content.Headers.ContentType = new MediaTypeHeaderValue(arquivo.MimeType);
+                    response.Content.Headers.ContentLength = fileInfo.Length;
+                }
+            }
+            catch (Exception exception)
+            {
+                // Log exception and return gracefully
+
+                metaData = new FileMetaData();
+                metaData.FileResponseMessage.Content = ProcessException(exception);
+                response = Request.CreateResponse(HttpStatusCode.InternalServerError, metaData, new MediaTypeHeaderValue("text/json"));
+            }
+
+            return response;
+        }
+
+        private string ProcessException(Exception exception)
+        {
+            if (exception == null)
+            {
+                return exMessage;
+            }
+            if (!string.IsNullOrWhiteSpace(exception.Message) && !string.IsNullOrWhiteSpace(exception.StackTrace))
+            {
+                return string.Concat(exMessage, " Exception : - Message : ", exception.Message, " ", "StackTrace : ", exception.StackTrace);
+            }
+            else if (!string.IsNullOrWhiteSpace(exception.Message) && string.IsNullOrWhiteSpace(exception.StackTrace))
+            {
+                return string.Concat(exMessage, " Exception : - Message : ", exception.Message);
+            }
+            else if (string.IsNullOrWhiteSpace(exception.Message) && !string.IsNullOrWhiteSpace(exception.StackTrace))
+            {
+                return string.Concat(exMessage, " Exception : - StackTrace : ", exception.StackTrace);
+            }
+            else
+            {
+                return exMessage;
+            }
         }
 
         // PUT: api/Arquivo/5
@@ -77,11 +175,11 @@ namespace Exercicio05WebAPI.Controllers
 
         // POST: api/Arquivo
 
-        public async Task<IHttpActionResult> PostArquivo()
+        public async Task<HttpResponseMessage> PostArquivo()
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
             var httpRequest = HttpContext.Current.Request;
 
@@ -91,35 +189,60 @@ namespace Exercicio05WebAPI.Controllers
                 Directory.CreateDirectory(root);
 
             //await Upload1(root);
-            Upload2(root);
+            var file = await Upload3(root);
 
-            var arquivo = new Arquivo()
+            if (file == null)
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+
+            List<Arquivo> arquivos = new List<Arquivo>();
+
+            foreach (var f in file.FileData)
             {
-                ArquivoId = Guid.NewGuid(),
-                DiretorioId = new Guid(httpRequest.Form["DiretorioId"]),
-                Nome = httpRequest.Form["Nome"],
-                MimeType = httpRequest.Form["MimeType"]
+                FileInfo fileInfo = new FileInfo(f.LocalFileName);
+                Guid arquivoId = Guid.Parse(fileInfo.Name.Replace(fileInfo.Extension, ""));
+                var arquivo = new Arquivo()
+                {
+                    ArquivoId = arquivoId,
+                    DiretorioId = new Guid(httpRequest.Form["DiretorioId"]),
+                    Nome = httpRequest.Form["Nome"],
+                    MimeType = f.Headers.ContentType.MediaType
+                };
+
+                arquivos.Add(arquivo);
+            }
+
+            db.Arquivos.AddRange(arquivos);
+       
+            await db.SaveChangesAsync();
+           
+            return Request.CreateResponse(HttpStatusCode.OK, arquivos);
+        }
+
+        public async Task<FileUploadResult> Upload3(string uploadPath)
+        {
+            var streamProvider = new UploadMultipartFormProvider(uploadPath);
+
+            // Read the MIME multipart asynchronously 
+            await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+            string _localFileName = streamProvider
+                .FileData.Select(multiPartData => multiPartData.LocalFileName).FirstOrDefault();
+
+            string contentType = MimeMapping.GetMimeMapping(_localFileName);
+            
+            return new FileUploadResult
+            {
+                FileData = streamProvider.FileData,
+                FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
+                Names = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName),
+                ContentTypes = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType),
+                Description = streamProvider.FormData["description"],
+                CreatedTimestamp = DateTime.UtcNow,
+                UpdatedTimestamp = DateTime.UtcNow,
+                DownloadLink = "TODO, will implement when file is persisited"
             };
 
-            db.Arquivos.Add(arquivo);
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (ArquivoExists(arquivo.ArquivoId))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = arquivo.ArquivoId }, arquivo);
         }
 
         public async void Upload2(string root)

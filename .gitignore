@@ -240,3 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Exercicio05WebAPI/Exercicio05WebAPI/Uploads

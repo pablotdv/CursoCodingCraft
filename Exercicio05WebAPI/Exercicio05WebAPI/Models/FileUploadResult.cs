@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 
 namespace Exercicio05WebAPI.Models
@@ -14,5 +16,6 @@ namespace Exercicio05WebAPI.Models
         public string DownloadLink { get; set; }
         public IEnumerable<string> ContentTypes { get; set; }
         public IEnumerable<string> Names { get; set; }
+        public Collection<MultipartFileData> FileData { get; internal set; }
     }
 }

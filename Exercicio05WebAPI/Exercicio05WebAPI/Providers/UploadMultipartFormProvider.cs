@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,12 +17,19 @@ namespace Exercicio05WebAPI.Providers
             if (headers != null &&
                 headers.ContentDisposition != null)
             {
-                return headers
+                string fileName = headers
                     .ContentDisposition
                     .FileName.TrimEnd('"').TrimStart('"');
+
+                return Guid.NewGuid().ToString() + new FileInfo(fileName).Extension;
             }
 
             return base.GetLocalFileName(headers);
+        }
+
+        public override Stream GetStream(HttpContent parent, HttpContentHeaders headers)
+        {
+            return base.GetStream(parent, headers);
         }
     }
 }
