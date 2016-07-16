@@ -12,6 +12,11 @@
 <div id="GraficoPaisIndicadorAno5" name="GraficoPaisIndicadorAno5"></div>
 <div id="GraficoPaisIndicadorAno6" name="GraficoPaisIndicadorAno6"></div>
 
+
+<div id="GraficoPaisIndicadorAno7" name="GraficoPaisIndicadorAno7"></div>
+<div id="GraficoPaisIndicadorAno8" name="GraficoPaisIndicadorAno8"></div>
+<div id="GraficoPaisIndicadorAno9" name="GraficoPaisIndicadorAno9"></div>
+
 @section scripts {
     <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['orgchart']}]}"></script>
     <script src="~/Scripts/graficos.js"></script>
@@ -30,5 +35,10 @@
         GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.DEFL.KD.ZG', 1994, 2002, 'Inflation, GDP deflator (annual %) FHC', 'GraficoPaisIndicadorAno4');
         GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.DEFL.KD.ZG', 2002, 2010, 'Inflation, GDP deflator (annual %) Lula', 'GraficoPaisIndicadorAno5');
         GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.DEFL.KD.ZG', 2010, 2018, 'Inflation, GDP deflator (annual %) Dilma', 'GraficoPaisIndicadorAno6');
+
+
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'FP.CPI.TOTL.ZG', 1994, 2002, 'Inflation, consumer prices (annual %) FHC', 'GraficoPaisIndicadorAno7');
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'FP.CPI.TOTL.ZG', 2002, 2010, 'Inflation, consumer prices (annual %) Lula', 'GraficoPaisIndicadorAno8');
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'FP.CPI.TOTL.ZG', 2010, 2018, 'Inflation, consumer prices (annual %) Dilma', 'GraficoPaisIndicadorAno9');
     </script>
 }
