@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Graficos";
+}
+
+<h2>Graficos</h2>
+
+<div id="GraficoPaisIndicadorAno" name="GraficoPaisIndicadorAno"></div>
+
+@section scripts {
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['orgchart']}]}"></script>
+    <script src="~/Scripts/graficos.js"></script>
+    <script type="text/javascript">
+        var pais = $("#Limite").val();
+        var dataInicio = $("#DataInicio").val();
+        var dataFim = $("#DataFim").val();
+        var cliente = $("#Cliente").val();
+        var dominio = $("#Dominio").val();
+        var bloqueados = $("#Bloqueados").is(":checked");
+
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.PCAP.CD', 1900, 2020, 'GraficoPaisIndicadorAno');
+    </script>
+}
