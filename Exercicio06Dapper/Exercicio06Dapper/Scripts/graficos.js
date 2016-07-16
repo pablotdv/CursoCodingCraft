@@ -1,4 +1,4 @@
-﻿function GraficoPaisIndicadorAno(url, indicador, primeiroAno, segundoAno, container) {
+﻿function GraficoPaisIndicadorAno(url, indicador, primeiroAno, segundoAno, title, container) {
     // Load the Visualization API and the piechart package.    
     google.load('visualization', '1.0', { 'packages': ['corechart'] });
 
@@ -16,18 +16,19 @@
             data: jData,
             async: true,
             beforeSend: function () {
-                $("#" + container).html('Carregando gráfico de indicadores por país e ano...');
+                $("#" + container).html('Carregando gráfico ('+title+')...');
             },
             success: function (jsonData) {
                 // Create our data table out of JSON data loaded from server.
                 var data = new google.visualization.DataTable(jsonData);
 
                 var options = {
-                    'title': 'GDP (current US$)',
+                    'title': title,
                     bar: { groupWidth: "95%" },
                     animation: { "startup": true },
                     'height': 300,
                     'width': '100%',
+                    colors: ['#a52714', '#097138']
                 };
 
                 // Instantiate and draw our chart, passing in some options

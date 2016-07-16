@@ -5,7 +5,9 @@
 
 <h2>Graficos</h2>
 
-<div id="GraficoPaisIndicadorAno" name="GraficoPaisIndicadorAno"></div>
+<div id="GraficoPaisIndicadorAno1" name="GraficoPaisIndicadorAno1"></div>
+<div id="GraficoPaisIndicadorAno2" name="GraficoPaisIndicadorAno2"></div>
+<div id="GraficoPaisIndicadorAno3" name="GraficoPaisIndicadorAno3"></div>
 
 @section scripts {
     <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['orgchart']}]}"></script>
@@ -18,6 +20,8 @@
         var dominio = $("#Dominio").val();
         var bloqueados = $("#Bloqueados").is(":checked");
 
-        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GDP.PCAP.CD', 1900, 2020, 'GraficoPaisIndicadorAno');
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'EN.ATM.CO2E.PC', 1900, 2020, 'CO2 emissions (metric tons per capita)', 'GraficoPaisIndicadorAno1');
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'SP.DYN.LE00.IN', 1900, 2020, 'Life expectancy at birth, total (years)', 'GraficoPaisIndicadorAno2');
+        GraficoPaisIndicadorAno('@Url.Action("GraficoPaisIndicadorAno")', 'NY.GNP.PCAP.CD', 1900, 2020, 'GNI per capita, Atlas method (current US$)', 'GraficoPaisIndicadorAno3');
     </script>
 }
