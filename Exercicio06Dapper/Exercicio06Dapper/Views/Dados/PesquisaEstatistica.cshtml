@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Exercicio06Dapper.Models.PesquisaAnalitica>
+
+@{
+    ViewBag.Title = "PesquisaAnalitica";
+}
+
+<h2>PesquisaAnalitica</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Indicador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesvioPadrao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Minimo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Maximo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Media)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Indicador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesvioPadrao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Minimo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Maximo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Media)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

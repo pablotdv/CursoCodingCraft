@@ -18,27 +18,26 @@ namespace Exercicio05WebAPI.Models
             this.videoName = videoName;
         }
 
-        public async Task WriteToStream(Stream outputStream, HttpContent content, TransportContext context)
+        public async void WriteToStream(Stream outputStream, HttpContent content, TransportContext context)
         {
-            string videoFileName = "TestData\\Videos\\" + videoName + ".mp4";
             try
             {
                 var buffer = new byte[65536];
 
-                using (var video = File.Open(videoFileName, FileMode.Open, FileAccess.Read))
+                using (var media = File.Open(videoName, FileMode.Open, FileAccess.Read))
                 {
-                    var length = (int)video.Length;
+                    var length = (int)media.Length;
                     var bytesRead = 1;
 
                     while (length > 0 && bytesRead > 0)
                     {
-                        bytesRead = video.Read(buffer, 0, Math.Min(length, buffer.Length));
+                        bytesRead = media.Read(buffer, 0, Math.Min(length, buffer.Length));
                         await outputStream.WriteAsync(buffer, 0, bytesRead);
                         length -= bytesRead;
                     }
                 }
             }
-            catch (Exception ex)
+            catch (HttpException ex)
             {
                 return;
             }

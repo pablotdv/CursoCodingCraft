@@ -54,9 +54,10 @@ namespace Exercicio05WebAPI.Controllers
             var video = new VideoStream(fileName);
 
             var response = Request.CreateResponse();
-            Func<Stream, HttpContent, TransportContext, Task> func = video.WriteToStream;
 
-            response.Content = new PushStreamContent(func, new MediaTypeHeaderValue(arquivo.MimeType));
+            Action<Stream, HttpContent, TransportContext> a = video.WriteToStream;
+
+            response.Content = new PushStreamContent(a, new MediaTypeHeaderValue(arquivo.MimeType));
 
             return response;
 

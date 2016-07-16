@@ -1,0 +1,10 @@
+INSERT INTO [ex06].[Indicadores]
+           ([Codigo]
+           ,[Nome]
+           ,[Nota]
+           ,[Organizacao])
+SELECT [INDICATOR_CODE]
+      ,[INDICATOR_NAME]
+      ,[SOURCE_NOTE]
+      ,[SOURCE_ORGANIZATION]
+  FROM [WorldBank].[dbo].[Indicators]
