@@ -36,7 +36,31 @@ namespace Exercicio05WebAPI.Controllers
         // GET: api/Arquivo/5
         public async Task<HttpResponseMessage> GetArquivo(Guid id)
         {
-            return await Get2(id);
+            Arquivo arquivo = await db.Arquivos.FindAsync(id);
+            if (arquivo == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/Uploads");
+
+            var fileName = Directory.GetFiles(root, id.ToString() + "*.*").FirstOrDefault();
+
+            FileInfo fileInfo = new FileInfo(fileName);
+
+            if (!fileInfo.Exists)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var video = new VideoStream(fileName);
+
+            var response = Request.CreateResponse();
+            Func<Stream, HttpContent, TransportContext, Task> func = video.WriteToStream;
+
+            response.Content = new PushStreamContent(func, new MediaTypeHeaderValue(arquivo.MimeType));
+
+            return response;
+
+            //return await Get2(id);
 
             //return await Get1(id);
         }
