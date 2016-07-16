@@ -22,7 +22,13 @@ namespace Exercicio06Dapper.Controllers
                 return View(dados);
             }               
         }
+        
+        public ActionResult PesquisaPaisAno()
+        {
+            return View("Index");
+        }
 
+        [HttpPost]
         public ActionResult PesquisaPaisAno(string pais, int primeiroAno, int segundoAno)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoMundialContext"].ToString()))
@@ -36,6 +42,12 @@ namespace Exercicio06Dapper.Controllers
             }
         }
 
+        public ActionResult PesquisaEstatistica()
+        {
+            return View("PesquisaEstatistica", new List<PesquisaEstatistica>());
+        }
+
+        [HttpPost]
         public ActionResult PesquisaEstatistica(string pais, int primeiroAno, int segundoAno)
         {
             using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoMundialContext"].ToString()))
@@ -51,9 +63,9 @@ namespace Exercicio06Dapper.Controllers
 
                 CommandDefinition command = new CommandDefinition(sql, new { Pais = pais, PrimeiroAno = primeiroAno, SegundoAno = segundoAno });
 
-                var dados = conn.Query<PesquisaAnalitica>(command);
+                var dados = conn.Query<PesquisaEstatistica>(command);
 
-                return View(dados);
+                return View("PesquisaEstatistica", dados);
             }
         }
     }

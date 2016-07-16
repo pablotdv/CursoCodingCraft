@@ -149,7 +149,7 @@
     <Compile Include="Models\Dados.cs" />
     <Compile Include="Models\Indicador.cs" />
     <Compile Include="Models\Pais.cs" />
-    <Compile Include="Models\PesquisaAnalitica.cs" />
+    <Compile Include="Models\PesquisaEstatistica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

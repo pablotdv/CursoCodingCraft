@@ -1,14 +1,35 @@
-﻿@model IEnumerable<Exercicio06Dapper.Models.PesquisaAnalitica>
+﻿@model IEnumerable<Exercicio06Dapper.Models.PesquisaEstatistica>
 
 @{
-    ViewBag.Title = "PesquisaAnalitica";
+    ViewBag.Title = "PesquisaEstatistica";
 }
 
-<h2>PesquisaAnalitica</h2>
+<h2>PesquisaEstatistica</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@using (Html.BeginForm("PesquisaEstatistica", "Dados"))
+{
+    <div class="row form-group">
+        <div class="col-md-4">
+            <label>Pais</label>
+            <input type="text" id="pais" name="pais" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Primeiro ano</label>
+            <input type="text" id="primeiroAno" name="primeiroAno" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <label>Segundo ano</label>
+            <input type="text" id="segundoAno" name="segundoAno" class="form-control" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="btn-group">
+            <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+        </div>
+    </div>
+}
+
 <table class="table">
     <tr>
         <th>

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Exercicio06Dapper.Models
 {
-    public class PesquisaAnalitica
+    public class PesquisaEstatistica
     {
         public string Indicador { get; set; }
 
