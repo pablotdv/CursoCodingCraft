@@ -120,6 +120,18 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.EntityFramework, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.EntityFramework.1.0.1\lib\net45\PagedList.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web.DynamicData" />
@@ -178,6 +190,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -269,6 +282,8 @@
     <Content Include="CodeTemplates\Scaffolders\Portugues.RazorView\Excluir.cs.t4" />
     <Content Include="CodeTemplates\Scaffolders\Portugues.RazorView\Index.cs.t4" />
     <Content Include="CodeTemplates\Scaffolders\Portugues.RazorView\_CriarOuEditar.cs.t4" />
+    <Content Include="CodeTemplates\Scaffolders\Portugues.ViewModel\Portugues.ViewModel.ps1" />
+    <Content Include="CodeTemplates\Scaffolders\Portugues.ViewModel\Portugues.ViewModelTemplate.cs.t4" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
