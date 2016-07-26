@@ -1,7 +1,6 @@
-﻿using IdentitySample.Models;
+﻿using Exercicio10Cep.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using System;
 
-namespace IdentitySample.Controllers
+namespace Exercicio10Cep.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RolesAdminController : Controller

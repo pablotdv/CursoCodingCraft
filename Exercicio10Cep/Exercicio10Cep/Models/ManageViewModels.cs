@@ -3,7 +3,7 @@ using Microsoft.Owin.Security;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace IdentitySample.Models
+namespace Exercicio10Cep.Models
 {
     public class IndexViewModel
     {

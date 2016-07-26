@@ -2,11 +2,11 @@
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
-using IdentitySample.Models;
+using Exercicio10Cep.Models;
 using Owin;
 using System;
 
-namespace IdentitySample
+namespace Exercicio10Cep
 {
     public partial class Startup
     {
