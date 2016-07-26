@@ -9,6 +9,11 @@ namespace Exercicio10Cep.Models
     [DisplayColumn("Nome")]
     public class Pais : Entidade
     {
+        public Pais()
+        {
+            PaisId = Guid.NewGuid();
+        }
+
         [Key]
         public Guid PaisId { get; set; }
 

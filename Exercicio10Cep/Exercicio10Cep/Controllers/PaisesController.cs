@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using Exercicio10Cep.Models;
+using System.Linq;
 
 namespace Exercicio10Cep.Controllers
 {
@@ -14,6 +15,7 @@ namespace Exercicio10Cep.Controllers
         // GET: Paises
         public async Task<ActionResult> Index()
         {
+            
             return View(await db.Paises.ToListAsync());
         }
 

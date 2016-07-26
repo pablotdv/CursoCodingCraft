@@ -371,6 +371,11 @@
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Paises2\Create.cshtml" />
+    <Content Include="Views\Paises2\Delete.cshtml" />
+    <Content Include="Views\Paises2\Details.cshtml" />
+    <Content Include="Views\Paises2\Edit.cshtml" />
+    <Content Include="Views\Paises2\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -392,10 +397,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BairrosController.cs" />
     <Compile Include="Controllers\CidadesController.cs" />
+    <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LogradourosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Paises2Controller.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
