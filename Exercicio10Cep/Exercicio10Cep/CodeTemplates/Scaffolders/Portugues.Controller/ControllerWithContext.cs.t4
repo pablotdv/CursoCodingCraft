@@ -15,6 +15,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using PagedList.EntityFramework;
+using <#= Model.DefaultNamespace #>.ViewModels;
 <# if(!string.IsNullOrEmpty(Model.ModelTypeNamespace)) { #>
 using <#= Model.ModelTypeNamespace #>;
 <# } #>
@@ -41,7 +42,7 @@ namespace <#= Model.ControllerNamespace #>
         //
         // GET: /<#= routingName #>/
 
-        public async Task<ViewResult> Indice(<#= modelName +"ViewModel"#>  viewModel)
+        public async Task<ViewResult> Indice(<#= modelName#>ViewModel viewModel)
         {
 <#
     var propertiesToInclude = relatedEntities.Select(relation => relation.LazyLoadingProperty).Where(x => x != null);
@@ -49,7 +50,11 @@ namespace <#= Model.ControllerNamespace #>
         ? String.Join("", propertiesToInclude.Select(x => String.Format(".Include(\"{0}\")", x.Name)))
         : String.Join("", propertiesToInclude.Select(x => String.Format(".Include({0} => {0}.{1})", modelVariable, x.Name)));
 #>
-            return View(await context.<#= modelNamePlural #><#= includeExpressions #>.ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina));
+			var query = context.<#= modelNamePlural #><#= includeExpressions #>.AsQueryable();
+
+			//TODO: parâmetros de pesquisa
+
+            return View(await query.ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina));
         }
 
         //

@@ -117,3 +117,9 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
 #		Scaffold Views -ViewScaffolder $ViewScaffolder -Controller $controllerNameWithoutSuffix -ModelType $foundModelType.FullName -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteFilesExceptController
 #	}
 #}
+
+$controllerNameWithoutSuffix = [System.Text.RegularExpressions.Regex]::Replace($ControllerName, "Controller$", "", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+
+Scaffold Portugues.ViewModel $controllerNameWithoutSuffix -ModelType $foundModelType.FullName -Force:$overwriteFilesExceptController
+
+Scaffold Portugues.RazorView -ViewName:Indice -Force:$overwriteFilesExceptController
