@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace Exercicio10Cep.Models
 {
@@ -11,11 +9,6 @@ namespace Exercicio10Cep.Models
     [DisplayColumn("Nome")]
     public class Pais : Entidade
     {
-        public Pais()
-        {
-            Estados = new HashSet<Estado>();
-        }
-
         [Key]
         public Guid PaisId { get; set; }
 
