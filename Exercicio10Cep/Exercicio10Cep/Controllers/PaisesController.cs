@@ -5,6 +5,7 @@ using System.Net;
 using System.Web.Mvc;
 using Exercicio10Cep.Models;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Exercicio10Cep.Controllers
 {
@@ -15,7 +16,7 @@ namespace Exercicio10Cep.Controllers
         // GET: Paises
         public async Task<ActionResult> Index()
         {
-            
+
             return View(await db.Paises.ToListAsync());
         }
 
@@ -51,9 +52,11 @@ namespace Exercicio10Cep.Controllers
             {
                 pais = new Pais();
                 if (pais.Estados == null)
-                    pais.Estados = new List<Estado>();
-
-                pais.Estados.Add(new Estado() { Sigla = "RS", Nome = "Rio Grande do Sul" });
+                {
+                    pais.Estados = new List<Estado> {
+                        new Estado() { Sigla = "RS", Nome = "Rio Grande do Sul" }
+                    };
+                }
 
                 pais.PaisId = Guid.NewGuid();
                 db.Paises.Add(pais);
