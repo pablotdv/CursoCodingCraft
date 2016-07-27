@@ -1,6 +1,6 @@
 ﻿using Owin;
 
-namespace IdentitySample
+namespace Exercicio10Cep
 {
     public partial class Startup
     {

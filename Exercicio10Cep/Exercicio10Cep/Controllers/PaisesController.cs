@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Exercicio10Cep.Models;
-using IdentitySample.Models;
+using System.Linq;
 
 namespace Exercicio10Cep.Controllers
 {
@@ -19,6 +15,7 @@ namespace Exercicio10Cep.Controllers
         // GET: Paises
         public async Task<ActionResult> Index()
         {
+            
             return View(await db.Paises.ToListAsync());
         }
 

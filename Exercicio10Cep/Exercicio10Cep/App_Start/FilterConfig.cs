@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace IdentitySample
+namespace Exercicio10Cep
 {
     public class FilterConfig
     {

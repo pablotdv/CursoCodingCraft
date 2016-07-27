@@ -1,4 +1,4 @@
-[T4Scaffolding.Scaffolder(Description = "Adds ASP.NET MVC views for Create/Read/Update/Delete/Index scenarios")][CmdletBinding()]
+[T4Scaffolding.Scaffolder(Description = "Adds ASP.NET MVC views for Create/Read/Update/Delete/Indice scenarios")][CmdletBinding()]
 param(        
 	[parameter(Mandatory = $true, ValueFromPipelineByPropertyName = $true, Position = 0)][string]$Controller,
 	[string]$ModelType,
@@ -16,25 +16,25 @@ param(
 	[switch]$Force = $false
 )
 
-if($ViewName -eq "Index" -or !$ViewName) {
-	@("Index") | %{
+if($ViewName -eq "Indice" -or !$ViewName) {
+	@("Indice") | %{
 		Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
 	}
 
 	if ($Template -eq "bootstrap" -or !$Template) {
-		@("Index_bootstrap") | %{
+		@("Indice_bootstrap") | %{
 			Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
 		}
 	}
 
 	if ($Template -eq "foundation" -or !$Template) {
-		@("Index_foundation") | %{
+		@("Indice_foundation") | %{
 			Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
 		}
 	}
 
 	if ($Template -eq "Ink" -or !$Template) {
-		@("Index_Ink") | %{
+		@("Indice_Ink") | %{
 			Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
 		}
 	}
