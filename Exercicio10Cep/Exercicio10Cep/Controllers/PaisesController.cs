@@ -52,6 +52,12 @@ namespace Exercicio10Cep.Controllers
         {
             if (ModelState.IsValid)
             {
+                pais = new Pais();
+                if (pais.Estados == null)
+                    pais.Estados = new List<Estado>();
+
+                pais.Estados.Add(new Estado() { Sigla = "RS", Nome = "Rio Grande do Sul" });
+
                 pais.PaisId = Guid.NewGuid();
                 db.Paises.Add(pais);
                 await db.SaveChangesAsync();

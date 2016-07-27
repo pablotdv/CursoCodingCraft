@@ -11,6 +11,11 @@ namespace Exercicio10Cep.Models
     [DisplayColumn("Nome")]
     public class Pais : Entidade
     {
+        public Pais()
+        {
+            Estados = new HashSet<Estado>();
+        }
+
         [Key]
         public Guid PaisId { get; set; }
 
