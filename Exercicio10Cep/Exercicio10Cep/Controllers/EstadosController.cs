@@ -15,6 +15,9 @@ namespace Exercicio10Cep.Controllers
         public async Task<ActionResult> Index()
         {
             var estados = db.Estados.Include(e => e.Pais);
+
+            
+
             return View(await estados.ToListAsync());
         }
 
