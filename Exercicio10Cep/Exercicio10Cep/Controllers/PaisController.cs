@@ -14,6 +14,7 @@ using Exercicio10Cep.Models;
 
 namespace Exercicio10Cep.Controllers
 {   
+    [Authorize]
     public class PaisController : Controller
     {
 		private const string _PESQUISA_KEY = "7a3f5caf-5e91-4610-bd54-e000f43faf4e"; 
@@ -37,7 +38,7 @@ namespace Exercicio10Cep.Controllers
 		{
 			await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
 
-			var query = context.Pais.Include(pais => pais.Estados).AsQueryable();
+			var query = context.Paises.Include(pais => pais.Estados).AsQueryable();
 
 			//TODO: parâmetros de pesquisa
 
@@ -54,7 +55,7 @@ namespace Exercicio10Cep.Controllers
 
         public ViewResult Detalhes(System.Guid id)
         {
-            Pais pais = context.Pais.Single(x => x.PaisId == id);
+            Pais pais = context.Paises.Single(x => x.PaisId == id);
             return View(pais);
         }
 
@@ -75,7 +76,7 @@ namespace Exercicio10Cep.Controllers
             if (ModelState.IsValid)
             {
                 pais.PaisId = Guid.NewGuid();
-                context.Pais.Add(pais);
+                context.Paises.Add(pais);
                 context.SaveChanges();
                 return RedirectToAction("Index");  
             }
@@ -88,7 +89,7 @@ namespace Exercicio10Cep.Controllers
  
         public ActionResult Editar(System.Guid id)
         {
-            Pais pais = context.Pais.Single(x => x.PaisId == id);
+            Pais pais = context.Paises.Single(x => x.PaisId == id);
             return View(pais);
         }
 
@@ -112,7 +113,7 @@ namespace Exercicio10Cep.Controllers
  
         public ActionResult Excluir(System.Guid id)
         {
-            Pais pais = context.Pais.Single(x => x.PaisId == id);
+            Pais pais = context.Paises.Single(x => x.PaisId == id);
             return View(pais);
         }
 
@@ -122,8 +123,8 @@ namespace Exercicio10Cep.Controllers
         [HttpPost, ActionName("Exluir")]
         public ActionResult ExcluirConfirmacao(System.Guid id)
         {
-            Pais pais = context.Pais.Single(x => x.PaisId == id);
-            context.Pais.Remove(pais);
+            Pais pais = context.Paises.Single(x => x.PaisId == id);
+            context.Paises.Remove(pais);
             context.SaveChanges();
             return RedirectToAction("Index");
         }

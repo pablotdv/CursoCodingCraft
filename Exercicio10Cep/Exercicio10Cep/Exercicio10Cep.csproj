@@ -378,6 +378,8 @@
     <Content Include="Views\Paises2\Edit.cshtml" />
     <Content Include="Views\Paises2\Index.cshtml" />
     <Content Include="Views\Pais\Indice.cshtml" />
+    <Content Include="Views\Pais\_Pesquisa.cshtml" />
+    <Content Include="Views\Pais\_ParametrosPesquisa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

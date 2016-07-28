@@ -13,13 +13,11 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="EnvDTE" #>
-
 <# 
 	var viewDataType = (CodeType) Model.ViewDataType; 
 	var modelType = (CodeType)Model.ModelType; 
     var modelName = modelType.Name; 
 #>
-
 @using <#= Model.DefaultNamespace #>.ViewModels;
 @model <#= modelName #>ViewModel
 @{
@@ -31,9 +29,6 @@
 <p>
     @Html.ActionLink("Criar novo", "Criar")
 </p>
-
-@Html.Partial("_ParametrosPesquisa", Model)
-
 
 <div id="pesquisa">
     @Html.Partial("_Pesquisa", Model)

@@ -14,8 +14,8 @@ param(
 	[switch]$Force = $false
 )
 
-#, "_ParametrosPesquisa", "_Pesquisa", "Excluir", "Editar", "Detalhes", "Criar", "_CriarOuEditar"
+#, "", "", "Excluir", "Editar", "Detalhes", "Criar", "_CriarOuEditar"
 
-@("Indice") | %{
+@("Indice", "_Pesquisa", "_ParametrosPesquisa") | %{
 	Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
 }

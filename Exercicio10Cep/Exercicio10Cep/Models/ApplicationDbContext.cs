@@ -37,7 +37,5 @@ namespace Exercicio10Cep.Models
         public System.Data.Entity.DbSet<Exercicio10Cep.Models.Logradouro> Logradouros { get; set; }
 
         public DbSet<PesquisaModel> PesquisaModels { get; set; }
-
-        public DbSet<Exercicio10Cep.Models.Pais> Pais { get; set; }
     }
 }

@@ -12,70 +12,30 @@
 <#@ import namespace="System.Data.Objects.DataClasses" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
-<# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
-<# if(viewDataType != null) { #>
-@model IEnumerable<<#= viewDataType.FullName #>>
-
-<# } #>
-@{
-    ViewBag.Title = "<#= Model.ViewName #>";
-<# if (!String.IsNullOrEmpty(Model.Layout)) { #>
-    Layout = "<#= Model.Layout #>";
-<# } #>
-}
-
-<h2><#= Model.ViewName #></h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th></th>
-<#
-List<ModelProperty> properties = GetModelProperties(Model.ViewDataType, true);
-foreach (ModelProperty property in properties) {
-    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+<#@ import namespace="EnvDTE" #>
+<# 
+	var viewDataType = (CodeType)Model.ViewDataType; 
+	var modelType = (CodeType)Model.ModelType; 
+    var modelName = modelType.Name; 
 #>
-        <th>
-            <#= property.Name #>
-        </th>
-<#
-    }
+@using <#= Model.DefaultNamespace #>.ViewModels;
+@model <#= modelName #>ViewModel
+@using (Ajax.BeginForm("Pesquisa", "<#= Model.ControllerName #>", new AjaxOptions()
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "pesquisa"
+}))
+{
+    <div class="form-group">
+        <!-- Parâmetros de pesquisa-->
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-default" id="submit" name="submit">Pesquisar</button>
+        </div>
+    </div>
 }
-#>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-<# if (!String.IsNullOrEmpty(Model.PrimaryKeyName)) { #>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.<#= Model.PrimaryKeyName #> }) |
-            @Html.ActionLink("Details", "Details", new { id=item.<#= Model.PrimaryKeyName #> }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.<#= Model.PrimaryKeyName #> })
-        </td>
-<# } else { #>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-<# } #>
-<#  
-foreach (ModelProperty property in properties) {
-    if (!property.IsPrimaryKey && !property.IsForeignKey) {
-#>
-        <td>
-			@<#= property.ValueExpression.Replace("Model.", "item.") #>
-        </td>
-<#
-    }
-}
-#>
-    </tr>
-}
-
-</table>
 
 
 <#+
