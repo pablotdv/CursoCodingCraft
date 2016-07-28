@@ -409,9 +409,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PesquisaModelStore.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationUserClaim.cs" />
     <Compile Include="Models\ApplicationUserLogin.cs" />
@@ -424,8 +426,10 @@
     <Compile Include="Models\Logradouro.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Pais.cs" />
+    <Compile Include="Models\PesquisaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\IPagedListViewModel.cs" />
     <Compile Include="ViewModels\PagedListViewModel.cs" />
   </ItemGroup>
   <ItemGroup />

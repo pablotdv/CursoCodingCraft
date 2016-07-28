@@ -1,8 +1,9 @@
-﻿using PagedList;
+﻿using Newtonsoft.Json;
+using PagedList;
 
 namespace Exercicio10Cep.ViewModels
 {
-    public class PagedListViewModel<T>
+    public class PagedListViewModel<T> : IPagedListViewModel
     {
         public PagedListViewModel()
         {
@@ -14,6 +15,7 @@ namespace Exercicio10Cep.ViewModels
 
         public int TamanhoPagina { get; set; }
 
+        [JsonIgnore]
         public IPagedList<T> Resultados { get; set; }
     }
 }

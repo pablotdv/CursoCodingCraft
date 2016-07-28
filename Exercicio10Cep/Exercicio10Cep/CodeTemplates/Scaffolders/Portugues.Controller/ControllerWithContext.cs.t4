@@ -37,13 +37,24 @@ namespace <#= Model.ControllerNamespace #>
 #>
     public class <#= Model.ControllerName #> : Controller
     {
+		private const string _PESQUISA_KEY = "<#=Guid.NewGuid()#>"; 
+		
         private <#= ((CodeType)Model.DbContextType).Name #> context = new <#= ((CodeType)Model.DbContextType).Name #>();
 
         //
         // GET: /<#= routingName #>/
 
-        public async Task<ViewResult> Indice(<#= modelName#>ViewModel viewModel)
+        public async Task<ViewResult> Indice()
         {
+
+			var viewModel = JsonConvert.DeserializeObject<<#= modelName#>ViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
+
+            return await Pesquisa(viewModel ?? new <#= modelName#>ViewModel());
+
+        }
+
+		public async Task<ViewResult> Pesquisa(<#= modelName#>ViewModel viewModel)
+		{
 <#
     var propertiesToInclude = relatedEntities.Select(relation => relation.LazyLoadingProperty).Where(x => x != null);
     var includeExpressions = isObjectContext 
@@ -55,7 +66,7 @@ namespace <#= Model.ControllerNamespace #>
 			//TODO: parâmetros de pesquisa
 
             return View(await query.ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina));
-        }
+		}
 
         //
         // GET: /<#= routingName #>/Detalhes/5
