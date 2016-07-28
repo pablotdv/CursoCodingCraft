@@ -12,32 +12,71 @@
 <#@ import namespace="System.Data.Objects.DataClasses" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
-<#@ import namespace="EnvDTE" #>
+<# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
+<# if(viewDataType != null) { #>
+@model IEnumerable<<#= viewDataType.FullName #>>
 
-<# 
-	var viewDataType = (CodeType) Model.ViewDataType; 
-	var modelType = (CodeType)Model.ModelType; 
-    var modelName = modelType.Name; 
-#>
-
-@using <#= Model.DefaultNamespace #>.ViewModels;
-@model <#= modelName #>ViewModel
+<# } #>
 @{
-    ViewBag.Title = "<#= Model.ControllerName #>";
+    ViewBag.Title = "<#= Model.ViewName #>";
+<# if (!String.IsNullOrEmpty(Model.Layout)) { #>
+    Layout = "<#= Model.Layout #>";
+<# } #>
 }
 
-<h2>Listagem de <#= Model.ControllerName #></h2>
+<h2><#= Model.ViewName #></h2>
 
 <p>
-    @Html.ActionLink("Criar novo", "Criar")
+    @Html.ActionLink("Create New", "Create")
 </p>
+<table>
+    <tr>
+        <th></th>
+<#
+List<ModelProperty> properties = GetModelProperties(Model.ViewDataType, true);
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+        <th>
+            <#= property.Name #>
+        </th>
+<#
+    }
+}
+#>
+    </tr>
 
-@Html.Partial("_ParametrosPesquisa", Model)
+@foreach (var item in Model) {
+    <tr>
+<# if (!String.IsNullOrEmpty(Model.PrimaryKeyName)) { #>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.<#= Model.PrimaryKeyName #> }) |
+            @Html.ActionLink("Details", "Details", new { id=item.<#= Model.PrimaryKeyName #> }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.<#= Model.PrimaryKeyName #> })
+        </td>
+<# } else { #>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+<# } #>
+<#  
+foreach (ModelProperty property in properties) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+        <td>
+			@<#= property.ValueExpression.Replace("Model.", "item.") #>
+        </td>
+<#
+    }
+}
+#>
+    </tr>
+}
 
+</table>
 
-<div id="pesquisa">
-    @Html.Partial("_Pesquisa", Model)
-</div>
 
 <#+
 // Describes the information about a property on the model

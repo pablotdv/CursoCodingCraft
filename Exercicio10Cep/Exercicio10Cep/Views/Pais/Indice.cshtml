@@ -1,27 +1,21 @@
+
+
+@using Exercicio10Cep.ViewModels;
+@model PaisViewModel
 @{
-    ViewBag.Title = "Indice";
+    ViewBag.Title = "Pais";
 }
 
-<h2>Indice</h2>
+<h2>Listagem de Pais</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar novo", "Criar")
 </p>
-<table>
-    <tr>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-}
+@Html.Partial("_ParametrosPesquisa", Model)
 
-</table>
 
+<div id="pesquisa">
+    @Html.Partial("_Pesquisa", Model)
+</div>
 

@@ -16,7 +16,7 @@ namespace Exercicio10Cep.Controllers
 {   
     public class PaisController : Controller
     {
-		private const string _PESQUISA_KEY = "b988ab86-fa53-4013-8581-3f5e7798b7fc"; 
+		private const string _PESQUISA_KEY = "7a3f5caf-5e91-4610-bd54-e000f43faf4e"; 
 		
         private ApplicationDbContext context = new ApplicationDbContext();
 

@@ -12,32 +12,79 @@
 <#@ import namespace="System.Data.Objects.DataClasses" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
-<#@ import namespace="EnvDTE" #>
 
-<# 
-	var viewDataType = (CodeType) Model.ViewDataType; 
-	var modelType = (CodeType)Model.ModelType; 
-    var modelName = modelType.Name; 
-#>
+@using Syns.Web.ViewModels
+@model EstadoIndiceViewModel
 
-@using <#= Model.DefaultNamespace #>.ViewModels;
-@model <#= modelName #>ViewModel
-@{
-    ViewBag.Title = "<#= Model.ControllerName #>";
-}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Pesquisa - @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("Pesquisa", "Estado", new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.Replace,
+            UpdateTargetId = "pesquisa"
+        }))
+        {
+            <div class="form-group">
+                <div class="col-md-4">
+                    <label>Descrição</label>
+                    @Html.TextBoxFor(model => model.Descricao, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <button type="submit" class="btn btn-default" id="submit" name="submit">Pesquisar</button>
+                </div>
+            </div>
+        }
 
-<h2>Listagem de <#= Model.ControllerName #></h2>
-
-<p>
-    @Html.ActionLink("Criar novo", "Criar")
-</p>
-
-@Html.Partial("_ParametrosPesquisa", Model)
 
 
-<div id="pesquisa">
-    @Html.Partial("_Pesquisa", Model)
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="pesquisa">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Descrição
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model.Resultados)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Editar", "Editar", new { id = item.EstadoId }) |
+                                    @Html.ActionLink("Detalhes", "Detalhes", new { id = item.EstadoId }) |
+                                    @Html.ActionLink("Excluir", "Excluir", new { id = item.EstadoId })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
+
+@Html.PagedListPager(Model.Resultados, page => Url.Action("Pesquisa",
+    new EstadoIndiceViewModel()
+    {
+        Pagina = page,
+        Descricao = Model.Descricao
+    }),
+    PagedListRenderOptionsCustom.Custom)
+
 
 <#+
 // Describes the information about a property on the model

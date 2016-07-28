@@ -12,32 +12,42 @@
 <#@ import namespace="System.Data.Objects.DataClasses" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
-<#@ import namespace="EnvDTE" #>
+<# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
+<# if(viewDataType != null) { #>
+@model <#= viewDataType.FullName #>
 
-<# 
-	var viewDataType = (CodeType) Model.ViewDataType; 
-	var modelType = (CodeType)Model.ModelType; 
-    var modelName = modelType.Name; 
-#>
-
-@using <#= Model.DefaultNamespace #>.ViewModels;
-@model <#= modelName #>ViewModel
+<# } #>
 @{
-    ViewBag.Title = "<#= Model.ControllerName #>";
+    ViewBag.Title = "<#= Model.ViewName #>";
+<# if (!String.IsNullOrEmpty(Model.Layout)) { #>
+    Layout = "<#= Model.Layout #>";
+<# } #>
 }
 
-<h2>Listagem de <#= Model.ControllerName #></h2>
+<h2><#= Model.ViewName #></h2>
 
-<p>
-    @Html.ActionLink("Criar novo", "Criar")
-</p>
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend><#= Model.ViewDataTypeName ?? String.Empty #></legend>
+<#
+foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, true)) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+#>
 
-@Html.Partial("_ParametrosPesquisa", Model)
+    <div class="display-label"><#= property.Name #></div>
+    <div class="display-field">@<#= property.ValueExpression #></div>
+<#
+    }
+}
+#>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
 
-
-<div id="pesquisa">
-    @Html.Partial("_Pesquisa", Model)
-</div>
 
 <#+
 // Describes the information about a property on the model

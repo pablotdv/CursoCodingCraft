@@ -38,6 +38,8 @@ if ($Area) {
 if ($foundModelType) { $relatedEntities = [Array](Get-RelatedEntities $foundModelType.FullName -Project $project) }
 if (!$relatedEntities) { $relatedEntities = @() }
 
+$defaultNamespace = (Get-Project $Project).Properties.Item("DefaultNamespace").Value
+
 # Render the T4 template, adding the output to the Visual Studio project
 $outputPath = Join-Path $outputFolderName $ViewName
 Add-ProjectItemViaTemplate $outputPath -Template $Template -Model @{
@@ -51,4 +53,7 @@ Add-ProjectItemViaTemplate $outputPath -Template $Template -Model @{
 	ViewDataType = [MarshalByRefObject]$foundModelType;
 	ViewDataTypeName = $foundModelType.Name;
 	RelatedEntities = $relatedEntities;
+	ModelType = [MarshalByRefObject]$foundModelType;
+	DefaultNamespace = $defaultNamespace; 
+	ControllerName = $Controller;
 } -SuccessMessage "Added $ViewName view at '{0}'" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$Force

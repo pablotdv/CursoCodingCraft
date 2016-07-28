@@ -12,33 +12,46 @@
 <#@ import namespace="System.Data.Objects.DataClasses" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
-<#@ import namespace="EnvDTE" #>
+<# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
+<# if(viewDataType != null) { #>
+@model <#= viewDataType.FullName #>
 
-<# 
-	var viewDataType = (CodeType) Model.ViewDataType; 
-	var modelType = (CodeType)Model.ModelType; 
-    var modelName = modelType.Name; 
+<# } #>
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<#
+foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, false)) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey && !property.IsReadOnly) {
 #>
-
-@using <#= Model.DefaultNamespace #>.ViewModels;
-@model <#= modelName #>ViewModel
-@{
-    ViewBag.Title = "<#= Model.ControllerName #>";
-}
-
-<h2>Listagem de <#= Model.ControllerName #></h2>
-
-<p>
-    @Html.ActionLink("Criar novo", "Criar")
-</p>
-
-@Html.Partial("_ParametrosPesquisa", Model)
-
-
-<div id="pesquisa">
-    @Html.Partial("_Pesquisa", Model)
+<div class="editor-label">
+    @Html.LabelFor(model => model.<#= property.Name #>)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.<#= property.Name #>)
+    @Html.ValidationMessageFor(model => model.<#= property.Name #>)
 </div>
 
+<#
+    }
+}
+#>
+<#
+foreach (RelatedEntityInfo relation in ParentRelations) {
+#>
+<div class="editor-label">
+    <#= relation.RelationName #>
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.<#= relation.RelationProperty.Name #>, ((IEnumerable<<#= relation.RelatedEntityType.FullName #>>)ViewBag.Possible<#= relation.RelationNamePlural #>).Select(option => new SelectListItem {
+        Text = <#= GetValueExpression("option", relation.RelatedEntityType) #>, 
+        Value = option.<#= relation.RelatedEntityPrimaryKeyName #>.ToString(),
+        Selected = (Model != null) && (option.<#= relation.RelatedEntityPrimaryKeyName #> == Model.<#= relation.RelationProperty.Name #>)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.<#= relation.RelationProperty.Name #>)
+</div>
+<#
+}
+#>
 <#+
 // Describes the information about a property on the model
 class ModelProperty {
