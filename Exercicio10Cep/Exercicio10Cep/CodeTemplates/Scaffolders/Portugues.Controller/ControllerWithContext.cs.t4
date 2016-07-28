@@ -15,6 +15,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Threading.Tasks;
 using PagedList.EntityFramework;
+using Newtonsoft.Json;
+using <#= Model.DefaultNamespace #>.Helpers;
 using <#= Model.DefaultNamespace #>.ViewModels;
 <# if(!string.IsNullOrEmpty(Model.ModelTypeNamespace)) { #>
 using <#= Model.ModelTypeNamespace #>;
@@ -43,8 +45,7 @@ namespace <#= Model.ControllerNamespace #>
 
         //
         // GET: /<#= routingName #>/
-
-        public async Task<ViewResult> Indice()
+        public async Task<ActionResult> Indice()
         {
 
 			var viewModel = JsonConvert.DeserializeObject<<#= modelName#>ViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
@@ -53,7 +54,9 @@ namespace <#= Model.ControllerNamespace #>
 
         }
 
-		public async Task<ViewResult> Pesquisa(<#= modelName#>ViewModel viewModel)
+		//
+        // GET: /<#= routingName #>/Pesquisa
+		public async Task<ActionResult> Pesquisa(<#= modelName#>ViewModel viewModel)
 		{
 <#
     var propertiesToInclude = relatedEntities.Select(relation => relation.LazyLoadingProperty).Where(x => x != null);
@@ -61,11 +64,18 @@ namespace <#= Model.ControllerNamespace #>
         ? String.Join("", propertiesToInclude.Select(x => String.Format(".Include(\"{0}\")", x.Name)))
         : String.Join("", propertiesToInclude.Select(x => String.Format(".Include({0} => {0}.{1})", modelVariable, x.Name)));
 #>
+			await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
+
 			var query = context.<#= modelNamePlural #><#= includeExpressions #>.AsQueryable();
 
 			//TODO: parâmetros de pesquisa
 
-            return View(await query.ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina));
+            viewModel.Resultados = await query.ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
+
+            if (Request.IsAjaxRequest())
+                return PartialView("_Pesquisa", viewModel);
+
+            return View("Indice", viewModel);
 		}
 
         //

@@ -122,4 +122,4 @@ $controllerNameWithoutSuffix = [System.Text.RegularExpressions.Regex]::Replace($
 
 Scaffold Portugues.ViewModel $controllerNameWithoutSuffix -ModelType $foundModelType.FullName -Force:$overwriteFilesExceptController
 
-Scaffold Portugues.RazorView $controllerNameWithoutSuffix -ViewName:Indice -Force:$overwriteFilesExceptController
+Scaffold Portugues.RazorView $controllerNameWithoutSuffix -Force:$overwriteFilesExceptController
