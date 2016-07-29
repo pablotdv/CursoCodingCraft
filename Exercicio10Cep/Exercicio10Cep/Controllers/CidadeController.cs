@@ -17,7 +17,7 @@ namespace Exercicio10Cep.Controllers
 {
     public class CidadeController : Controller
     {
-        private const string _PESQUISA_KEY = "c96f023c-3e0b-4ba2-87fb-d5bcc2361485";
+        private const string _PESQUISA_KEY = "f217633a-21e7-471f-aa6a-4e0ac0d58182";
 
         private ApplicationDbContext context = new ApplicationDbContext();
 
@@ -153,9 +153,9 @@ namespace Exercicio10Cep.Controllers
         //
         // POST: /Cidade/Excluir/5
 
-        [HttpPost, ActionName("Exluir")]
+        [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExcluirConfirmar(System.Guid id)
+        public async Task<ActionResult> ExcluirConfirmacao(System.Guid id)
         {
             Cidade cidade = await context.Cidades.FindAsync(id);
             context.Cidades.Remove(cidade);

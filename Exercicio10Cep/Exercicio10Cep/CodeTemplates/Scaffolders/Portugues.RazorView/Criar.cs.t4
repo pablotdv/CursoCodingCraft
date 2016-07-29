@@ -37,7 +37,7 @@
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-arrow-left fa-fw"></i> Voltar</a>
+                            <a href="@Url.Action("Indice")" class="btn btn-default"><i class="fa fa-arrow-left fa-fw"></i> Voltar</a>
                             <button type="submit" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Salvar</button>
                         </div>
                     </div>

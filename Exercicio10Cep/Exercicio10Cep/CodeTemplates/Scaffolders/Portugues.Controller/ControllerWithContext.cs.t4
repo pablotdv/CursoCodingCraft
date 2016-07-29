@@ -204,7 +204,7 @@ namespace <#= Model.ControllerNamespace #>
         //
         // POST: /<#= routingName #>/Excluir/5
 
-        [HttpPost, ActionName("Exluir")]
+        [HttpPost, ActionName("Excluir")]
 		[ValidateAntiForgeryToken]
         public async Task<ActionResult> ExcluirConfirmacao(<#= primaryKeyProperty.Type.AsString #> id)
         {
