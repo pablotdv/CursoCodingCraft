@@ -7,7 +7,7 @@ using Exercicio10Cep.Models;
 namespace Exercicio10Cep.ViewModels
 { 
 
-    public class PaisViewModel : PagedListViewModel<Pais>
+    public class BairroViewModel : PagedListViewModel<Bairro>
     {
 		//TODO: adicionar filtros de pesquisa
 	}

@@ -15,30 +15,30 @@ using Exercicio10Cep.Models;
 
 namespace Exercicio10Cep.Controllers
 {
-    public class PaisController : Controller
+    public class EstadoController : Controller
     {
-        private const string _PESQUISA_KEY = "2fb46b2c-ccd0-4b82-9a5f-976d34660041";
+        private const string _PESQUISA_KEY = "5f1d4c03-7e27-4a9f-b29c-a57cf7ee6850";
 
         private ApplicationDbContext context = new ApplicationDbContext();
 
         //
-        // GET: /Pais/
+        // GET: /Estado/
         public async Task<ActionResult> Indice()
         {
 
-            var viewModel = JsonConvert.DeserializeObject<PaisViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
+            var viewModel = JsonConvert.DeserializeObject<EstadoViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
 
-            return await Pesquisa(viewModel ?? new PaisViewModel());
+            return await Pesquisa(viewModel ?? new EstadoViewModel());
 
         }
 
         //
-        // GET: /Pais/Pesquisa
-        public async Task<ActionResult> Pesquisa(PaisViewModel viewModel)
+        // GET: /Estado/Pesquisa
+        public async Task<ActionResult> Pesquisa(EstadoViewModel viewModel)
         {
             await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
 
-            var query = context.Pais.Include(pais => pais.Estados).AsQueryable();
+            var query = context.Estadoes.Include(estado => estado.Pais).Include(estado => estado.Cidades).AsQueryable();
 
             //TODO: parâmetros de pesquisa
 
@@ -51,7 +51,7 @@ namespace Exercicio10Cep.Controllers
         }
 
         //
-        // GET: /Pais/Detalhes/5
+        // GET: /Estado/Detalhes/5
 
         public async Task<ActionResult> Detalhes(System.Guid id)
         {
@@ -59,42 +59,45 @@ namespace Exercicio10Cep.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pais pais = await context.Pais.FindAsync(id);
-            if (pais == null)
+            Estado estado = await context.Estadoes.FindAsync(id);
+            if (estado == null)
             {
                 return HttpNotFound();
             }
-            return View(pais);
+            ViewBag.Pais = new SelectList(await context.Pais.ToListAsync(), "PaisId", "Nome");
+            return View(estado);
         }
 
         //
-        // GET: /Pais/Criar
+        // GET: /Estado/Criar
 
         public async Task<ActionResult> Criar()
         {
+            ViewBag.Pais = new SelectList(await context.Pais.ToListAsync(), "PaisId", "Nome");
             return View();
         }
 
         //
-        // POST: /Pais/Criar
+        // POST: /Estado/Criar
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Criar(Pais pais)
+        public async Task<ActionResult> Criar(Estado estado)
         {
             if (ModelState.IsValid)
             {
-                pais.PaisId = Guid.NewGuid();
-                context.Pais.Add(pais);
+                estado.EstadoId = Guid.NewGuid();
+                context.Estadoes.Add(estado);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Indice");
             }
 
-            return View(pais);
+            ViewBag.Pais = new SelectList(await context.Pais.ToListAsync(), "PaisId", "Nome");
+            return View(estado);
         }
 
         //
-        // GET: /Pais/Editar/5
+        // GET: /Estado/Editar/5
 
         public async Task<ActionResult> Editar(System.Guid id)
         {
@@ -102,32 +105,34 @@ namespace Exercicio10Cep.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pais pais = await context.Pais.FindAsync(id);
-            if (pais == null)
+            Estado estado = await context.Estadoes.FindAsync(id);
+            if (estado == null)
             {
                 return HttpNotFound();
             }
-            return View(pais);
+            ViewBag.Pais = new SelectList(await context.Pais.ToListAsync(), "PaisId", "Nome");
+            return View(estado);
         }
 
         //
-        // POST: /Pais/Editar/5
+        // POST: /Estado/Editar/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Editar(Pais pais)
+        public async Task<ActionResult> Editar(Estado estado)
         {
             if (ModelState.IsValid)
             {
-                context.Entry(pais).State = EntityState.Modified;
+                context.Entry(estado).State = EntityState.Modified;
                 await context.SaveChangesAsync();
                 return RedirectToAction("Indice");
             }
-            return View(pais);
+            ViewBag.Pais = new SelectList(await context.Pais.ToListAsync(), "PaisId", "Nome");
+            return View(estado);
         }
 
         //
-        // GET: /Pais/Excluir/5
+        // GET: /Estado/Excluir/5
 
         public async Task<ActionResult> Excluir(System.Guid id)
         {
@@ -135,24 +140,25 @@ namespace Exercicio10Cep.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pais pais = await context.Pais.FindAsync(id);
-            if (pais == null)
+            Estado estado = await context.Estadoes.FindAsync(id);
+            if (estado == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Pais = new SelectList(await context.Pais.ToListAsync(), "PaisId", "Nome");
 
-            return View(pais);
+            return View(estado);
         }
 
         //
-        // POST: /Pais/Excluir/5
+        // POST: /Estado/Excluir/5
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExcluirConfirmacao(System.Guid id)
         {
-            Pais pais = await context.Pais.FindAsync(id);
-            context.Pais.Remove(pais);
+            Estado estado = await context.Estadoes.FindAsync(id);
+            context.Estadoes.Remove(estado);
             await context.SaveChangesAsync();
             return RedirectToAction("Indice");
         }

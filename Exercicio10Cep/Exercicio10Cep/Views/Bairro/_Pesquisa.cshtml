@@ -1,5 +1,5 @@
 @using Exercicio10Cep.ViewModels;
-@model PaisViewModel
+@model BairroViewModel
 
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -26,10 +26,16 @@
 										Nome
 									</th>
 									<th>
-										Sigla
+										NomeAbreviado
 									</th>
 									<th>
-										Estados
+										NomeFonetizado
+									</th>
+									<th>
+										Cidade
+									</th>
+									<th>
+										Logradouros
 									</th>
                                 
                             </tr>
@@ -39,9 +45,9 @@
 							@foreach (var item in Model.Resultados) {
 								<tr>
 								<td>
-									@Html.ActionLink("Editar", "Editar", new { id=item.PaisId }) |
-									@Html.ActionLink("Detalhes", "Detalhes", new { id=item.PaisId }) |
-									@Html.ActionLink("Excluir", "Excluir", new { id=item.PaisId })
+									@Html.ActionLink("Editar", "Editar", new { id=item.BairroId }) |
+									@Html.ActionLink("Detalhes", "Detalhes", new { id=item.BairroId }) |
+									@Html.ActionLink("Excluir", "Excluir", new { id=item.BairroId })
 								</td>
 								<td>
 									@String.Format("{0:g}", item.UltimaModificacao)
@@ -53,10 +59,16 @@
 									@item.Nome
 								</td>
 								<td>
-									@item.Sigla
+									@item.NomeAbreviado
 								</td>
 								<td>
-									@(item.Estados == null ? "None" : item.Estados.Count.ToString())
+									@item.NomeFonetizado
+								</td>
+								<td>
+									@(item.Cidade == null ? "None" : item.Cidade.Nome)
+								</td>
+								<td>
+									@(item.Logradouros == null ? "None" : item.Logradouros.Count.ToString())
 								</td>
 							</tr>
 						}                            
@@ -70,7 +82,7 @@
 </div>
 
 @Html.PagedListPager(Model.Resultados, page => Url.Action("Pesquisa",
-    new PaisViewModel()
+    new BairroViewModel()
     {
         Pagina = page,
         //Parametros de pesquisa

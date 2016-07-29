@@ -17,7 +17,7 @@ namespace Exercicio10Cep.Controllers
 {
     public class CidadeController : Controller
     {
-        private const string _PESQUISA_KEY = "f217633a-21e7-471f-aa6a-4e0ac0d58182";
+        private const string _PESQUISA_KEY = "1510a7b5-1d5f-4448-b70c-074dea541d1d";
 
         private ApplicationDbContext context = new ApplicationDbContext();
 
@@ -64,7 +64,7 @@ namespace Exercicio10Cep.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
+            ViewBag.Estadoes = new SelectList(await context.Estadoes.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
 
@@ -73,7 +73,7 @@ namespace Exercicio10Cep.Controllers
 
         public async Task<ActionResult> Criar()
         {
-            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
+            ViewBag.Estadoes = new SelectList(await context.Estadoes.ToListAsync(), "EstadoId", "Nome");
             return View();
         }
 
@@ -92,7 +92,7 @@ namespace Exercicio10Cep.Controllers
                 return RedirectToAction("Indice");
             }
 
-            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
+            ViewBag.Estadoes = new SelectList(await context.Estadoes.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
 
@@ -110,7 +110,7 @@ namespace Exercicio10Cep.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
+            ViewBag.Estadoes = new SelectList(await context.Estadoes.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
 
@@ -127,7 +127,7 @@ namespace Exercicio10Cep.Controllers
                 await context.SaveChangesAsync();
                 return RedirectToAction("Indice");
             }
-            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
+            ViewBag.Estadoes = new SelectList(await context.Estadoes.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
 
@@ -145,7 +145,7 @@ namespace Exercicio10Cep.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
+            ViewBag.Estadoes = new SelectList(await context.Estadoes.ToListAsync(), "EstadoId", "Nome");
 
             return View(cidade);
         }

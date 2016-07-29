@@ -9,6 +9,8 @@ namespace Exercicio10Cep.Models
     public class Exercicio10CepContext : DbContext
     {
         public DbSet<Exercicio10Cep.Models.Cidade> Cidades { get; set; }
+
+        public DbSet<Exercicio10Cep.Models.Pais> Pais { get; set; }
         // You can add custom code to this file. Changes will not be overwritten.
         // 
         // If you want Entity Framework to drop and regenerate your database

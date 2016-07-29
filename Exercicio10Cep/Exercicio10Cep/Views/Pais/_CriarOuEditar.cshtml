@@ -1,0 +1,25 @@
+@model Exercicio10Cep.Models.Pais
+<div class="row">
+	<div class="col-md-4 col-xs-6">
+        @Html.LabelFor(model => model.UltimaModificacao, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.UltimaModificacao, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.UltimaModificacao, "", new { @class = "text-danger" })
+    </div>
+	<div class="col-md-4 col-xs-6">
+        @Html.LabelFor(model => model.DataCriacao, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.DataCriacao, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.DataCriacao, "", new { @class = "text-danger" })
+    </div>
+	<div class="col-md-4 col-xs-6">
+        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+    </div>
+	<div class="col-md-4 col-xs-6">
+        @Html.LabelFor(model => model.Sigla, htmlAttributes: new { @class = "control-label" })
+        @Html.EditorFor(model => model.Sigla, new { htmlAttributes = new { @class = "form-control", @autofocus = "" } })
+        @Html.ValidationMessageFor(model => model.Sigla, "", new { @class = "text-danger" })
+    </div>
+
+</div> <!-- ./row -->
+

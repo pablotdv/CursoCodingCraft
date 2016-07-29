@@ -15,34 +15,34 @@ using Exercicio10Cep.Models;
 
 namespace Exercicio10Cep.Controllers
 {
-    public class PaisController : Controller
+    public class LogradouroController : Controller
     {
-        private const string _PESQUISA_KEY = "2fb46b2c-ccd0-4b82-9a5f-976d34660041";
+        private const string _PESQUISA_KEY = "1f234a84-c359-454f-a304-a4edfaffc280";
 
         private ApplicationDbContext context = new ApplicationDbContext();
 
         //
-        // GET: /Pais/
+        // GET: /Logradouro/
         public async Task<ActionResult> Indice()
         {
 
-            var viewModel = JsonConvert.DeserializeObject<PaisViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
+            var viewModel = JsonConvert.DeserializeObject<LogradouroViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
 
-            return await Pesquisa(viewModel ?? new PaisViewModel());
+            return await Pesquisa(viewModel ?? new LogradouroViewModel());
 
         }
 
         //
-        // GET: /Pais/Pesquisa
-        public async Task<ActionResult> Pesquisa(PaisViewModel viewModel)
+        // GET: /Logradouro/Pesquisa
+        public async Task<ActionResult> Pesquisa(LogradouroViewModel viewModel)
         {
             await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
 
-            var query = context.Pais.Include(pais => pais.Estados).AsQueryable();
+            var query = context.Logradouroes.AsQueryable();
 
             //TODO: parâmetros de pesquisa
 
-            viewModel.Resultados = await query.OrderBy(a => a.Nome).ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
+            viewModel.Resultados = await query.OrderBy(a => a.Descricao).ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
 
             if (Request.IsAjaxRequest())
                 return PartialView("_Pesquisa", viewModel);
@@ -51,7 +51,7 @@ namespace Exercicio10Cep.Controllers
         }
 
         //
-        // GET: /Pais/Detalhes/5
+        // GET: /Logradouro/Detalhes/5
 
         public async Task<ActionResult> Detalhes(System.Guid id)
         {
@@ -59,42 +59,45 @@ namespace Exercicio10Cep.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pais pais = await context.Pais.FindAsync(id);
-            if (pais == null)
+            Logradouro logradouro = await context.Logradouroes.FindAsync(id);
+            if (logradouro == null)
             {
                 return HttpNotFound();
             }
-            return View(pais);
+            ViewBag.Bairroes = new SelectList(await context.Bairroes.ToListAsync(), "BairroId", "Nome");
+            return View(logradouro);
         }
 
         //
-        // GET: /Pais/Criar
+        // GET: /Logradouro/Criar
 
         public async Task<ActionResult> Criar()
         {
+            ViewBag.Bairroes = new SelectList(await context.Bairroes.ToListAsync(), "BairroId", "Nome");
             return View();
         }
 
         //
-        // POST: /Pais/Criar
+        // POST: /Logradouro/Criar
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Criar(Pais pais)
+        public async Task<ActionResult> Criar(Logradouro logradouro)
         {
             if (ModelState.IsValid)
             {
-                pais.PaisId = Guid.NewGuid();
-                context.Pais.Add(pais);
+                logradouro.LogradouroId = Guid.NewGuid();
+                context.Logradouroes.Add(logradouro);
                 await context.SaveChangesAsync();
                 return RedirectToAction("Indice");
             }
 
-            return View(pais);
+            ViewBag.Bairroes = new SelectList(await context.Bairroes.ToListAsync(), "BairroId", "Nome");
+            return View(logradouro);
         }
 
         //
-        // GET: /Pais/Editar/5
+        // GET: /Logradouro/Editar/5
 
         public async Task<ActionResult> Editar(System.Guid id)
         {
@@ -102,32 +105,34 @@ namespace Exercicio10Cep.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pais pais = await context.Pais.FindAsync(id);
-            if (pais == null)
+            Logradouro logradouro = await context.Logradouroes.FindAsync(id);
+            if (logradouro == null)
             {
                 return HttpNotFound();
             }
-            return View(pais);
+            ViewBag.Bairroes = new SelectList(await context.Bairroes.ToListAsync(), "BairroId", "Nome");
+            return View(logradouro);
         }
 
         //
-        // POST: /Pais/Editar/5
+        // POST: /Logradouro/Editar/5
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Editar(Pais pais)
+        public async Task<ActionResult> Editar(Logradouro logradouro)
         {
             if (ModelState.IsValid)
             {
-                context.Entry(pais).State = EntityState.Modified;
+                context.Entry(logradouro).State = EntityState.Modified;
                 await context.SaveChangesAsync();
                 return RedirectToAction("Indice");
             }
-            return View(pais);
+            ViewBag.Bairroes = new SelectList(await context.Bairroes.ToListAsync(), "BairroId", "Nome");
+            return View(logradouro);
         }
 
         //
-        // GET: /Pais/Excluir/5
+        // GET: /Logradouro/Excluir/5
 
         public async Task<ActionResult> Excluir(System.Guid id)
         {
@@ -135,24 +140,25 @@ namespace Exercicio10Cep.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Pais pais = await context.Pais.FindAsync(id);
-            if (pais == null)
+            Logradouro logradouro = await context.Logradouroes.FindAsync(id);
+            if (logradouro == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Bairroes = new SelectList(await context.Bairroes.ToListAsync(), "BairroId", "Nome");
 
-            return View(pais);
+            return View(logradouro);
         }
 
         //
-        // POST: /Pais/Excluir/5
+        // POST: /Logradouro/Excluir/5
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExcluirConfirmacao(System.Guid id)
         {
-            Pais pais = await context.Pais.FindAsync(id);
-            context.Pais.Remove(pais);
+            Logradouro logradouro = await context.Logradouroes.FindAsync(id);
+            context.Logradouroes.Remove(logradouro);
             await context.SaveChangesAsync();
             return RedirectToAction("Indice");
         }
