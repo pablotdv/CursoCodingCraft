@@ -380,6 +380,9 @@
     <Content Include="Views\Pais\Indice.cshtml" />
     <Content Include="Views\Pais\_Pesquisa.cshtml" />
     <Content Include="Views\Pais\_ParametrosPesquisa.cshtml" />
+    <Content Include="Views\Cidade\Indice.cshtml" />
+    <Content Include="Views\Cidade\_Pesquisa.cshtml" />
+    <Content Include="Views\Cidade\_ParametrosPesquisa.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -400,6 +403,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BairrosController.cs" />
+    <Compile Include="Controllers\CidadeController.cs" />
     <Compile Include="Controllers\CidadesController.cs" />
     <Compile Include="Controllers\Controller.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
@@ -435,6 +439,7 @@
     <Compile Include="Models\PesquisaModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CidadeViewModel.cs" />
     <Compile Include="ViewModels\IPagedListViewModel.cs" />
     <Compile Include="ViewModels\PagedListViewModel.cs" />
     <Compile Include="ViewModels\PaisViewModel.cs" />

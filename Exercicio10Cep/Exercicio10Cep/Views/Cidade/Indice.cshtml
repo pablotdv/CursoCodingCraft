@@ -1,0 +1,16 @@
+@using Exercicio10Cep.ViewModels;
+@model CidadeViewModel
+@{
+    ViewBag.Title = "Cidade";
+}
+
+<h2>Listagem de Cidade</h2>
+
+<p>
+    @Html.ActionLink("Criar novo", "Criar")
+</p>
+
+<div id="pesquisa">
+    @Html.Partial("_Pesquisa", Model)
+</div>
+
