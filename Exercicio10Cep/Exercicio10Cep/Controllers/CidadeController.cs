@@ -72,7 +72,7 @@ namespace Exercicio10Cep.Controllers
         // POST: /Cidade/Criar
 
         [HttpPost]
-        public ActionResult Criar(Cidade cidade)
+        public ActionResult Criar([Bind()] Cidade cidade)
         {
             if (ModelState.IsValid)
             {

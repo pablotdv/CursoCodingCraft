@@ -1,23 +1,6 @@
-﻿<#@ Template Language="C#" HostSpecific="True" Inherits="DynamicTransform" #>
-<#@ Output extension="cshtml" #>
-<#@ assembly name="System.ComponentModel.DataAnnotations" #>
-<#@ assembly name="System.Core" #>
-<#@ assembly name="System.Data.Entity" #>
-<#@ assembly name="System.Data.Linq" #>
-<#@ import namespace="System" #>
-<#@ import namespace="System.Collections" #>
-<#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="System.ComponentModel.DataAnnotations" #>
-<#@ import namespace="System.Data.Linq.Mapping" #>
-<#@ import namespace="System.Data.Objects.DataClasses" #>
-<#@ import namespace="System.Linq" #>
-<#@ import namespace="System.Reflection" #>
-<# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
-<# if(viewDataType != null) { #>
-@model <#= viewDataType.FullName #>
-<# } #>
+@model Exercicio10Cep.Models.Cidade
 @{
-    ViewBag.Title = "<#= Model.ControllerName #>";
+    ViewBag.Title = "Cidade";
 }
 
 <div class="row">
@@ -46,4 +29,3 @@
         </div>
     </div>
 </div>
-<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

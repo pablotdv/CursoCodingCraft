@@ -14,70 +14,45 @@
 <#@ import namespace="System.Reflection" #>
 <# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
 <# if(viewDataType != null) { #>
-@model IEnumerable<<#= viewDataType.FullName #>>
+@model <#= viewDataType.FullName #>
 
 <# } #>
-@{
-    ViewBag.Title = "<#= Model.ViewName #>";
-<# if (!String.IsNullOrEmpty(Model.Layout)) { #>
-    Layout = "<#= Model.Layout #>";
-<# } #>
-}
+@* This partial view defines form fields that will appear when creating and editing entities *@
 
-<h2><#= Model.ViewName #></h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th></th>
 <#
-List<ModelProperty> properties = GetModelProperties(Model.ViewDataType, true);
-foreach (ModelProperty property in properties) {
-    if (!property.IsPrimaryKey && !property.IsForeignKey) {
+foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, false)) {
+    if (!property.IsPrimaryKey && !property.IsForeignKey && !property.IsReadOnly) {
 #>
-        <th>
-            <#= property.Name #>
-        </th>
+<div class="editor-label">
+    @Html.LabelFor(model => model.<#= property.Name #>)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.<#= property.Name #>)
+    @Html.ValidationMessageFor(model => model.<#= property.Name #>)
+</div>
+
 <#
     }
 }
 #>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-<# if (!String.IsNullOrEmpty(Model.PrimaryKeyName)) { #>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.<#= Model.PrimaryKeyName #> }) |
-            @Html.ActionLink("Details", "Details", new { id=item.<#= Model.PrimaryKeyName #> }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.<#= Model.PrimaryKeyName #> })
-        </td>
-<# } else { #>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-<# } #>
-<#  
-foreach (ModelProperty property in properties) {
-    if (!property.IsPrimaryKey && !property.IsForeignKey) {
-#>
-        <td>
-			@<#= property.ValueExpression.Replace("Model.", "item.") #>
-        </td>
 <#
-    }
+foreach (RelatedEntityInfo relation in ParentRelations) {
+#>
+<div class="editor-label">
+    <#= relation.RelationName #>
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.<#= relation.RelationProperty.Name #>, 
+		((IEnumerable<<#= relation.RelatedEntityType.FullName #>>)ViewBag.Possible<#= relation.RelationNamePlural #>).Select(option => new SelectListItem {
+        Text = <#= GetValueExpression("option", relation.RelatedEntityType) #>, 
+        Value = option.<#= relation.RelatedEntityPrimaryKeyName #>.ToString(),
+        Selected = (Model != null) && (option.<#= relation.RelatedEntityPrimaryKeyName #> == Model.<#= relation.RelationProperty.Name #>)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.<#= relation.RelationProperty.Name #>)
+</div>
+<#
 }
 #>
-    </tr>
-}
-
-</table>
-
-
 <#+
 // Describes the information about a property on the model
 class ModelProperty {

@@ -16,6 +16,7 @@ param(
 
 #, "", "", "Excluir", "Editar", "Detalhes", "Criar", "_CriarOuEditar"
 
-@("Indice", "_Pesquisa", "_ParametrosPesquisa") | %{
+#"Indice", "_Pesquisa", "_ParametrosPesquisa",
+@("_CriarOuEditar", "Criar") | %{
 	Scaffold $ViewScaffolder -Controller $Controller -ViewName $_ -ModelType $ModelType -Template $_ -Area $Area -Layout $Layout -SectionNames $SectionNames -PrimarySectionName $PrimarySectionName -ReferenceScriptLibraries:$ReferenceScriptLibraries -Project $Project -CodeLanguage $CodeLanguage -OverrideTemplateFolders $TemplateFolders -Force:$Force
 }
