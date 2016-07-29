@@ -8,8 +8,6 @@ param(
 	[switch]$Force = $false
 )
 
-Write-Host "Entrou"
-
 # Interpret the "Force" and "ForceMode" options
 $overwriteViewModel = $Force -and ((!$ForceMode) -or ($ForceMode -eq "ViewModelOnly"))
 $overwriteFilesExceptViewModel = $Force -and ((!$ForceMode) -or ($ForceMode -eq "PreserveViewModel"))

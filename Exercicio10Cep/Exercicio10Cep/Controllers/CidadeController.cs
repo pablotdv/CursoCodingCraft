@@ -8,17 +8,17 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using PagedList.EntityFramework;
 using Newtonsoft.Json;
+using System.Net;
 using Exercicio10Cep.Helpers;
 using Exercicio10Cep.ViewModels;
 using Exercicio10Cep.Models;
 
 namespace Exercicio10Cep.Controllers
-{   
-    [Authorize]
+{
     public class CidadeController : Controller
     {
-		private const string _PESQUISA_KEY = "b9b4c886-460c-491f-9b83-4d626c2a372b"; 
-		
+        private const string _PESQUISA_KEY = "c96f023c-3e0b-4ba2-87fb-d5bcc2361485";
+
         private ApplicationDbContext context = new ApplicationDbContext();
 
         //
@@ -26,73 +26,91 @@ namespace Exercicio10Cep.Controllers
         public async Task<ActionResult> Indice()
         {
 
-			var viewModel = JsonConvert.DeserializeObject<CidadeViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
+            var viewModel = JsonConvert.DeserializeObject<CidadeViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
 
             return await Pesquisa(viewModel ?? new CidadeViewModel());
 
         }
 
-		//
+        //
         // GET: /Cidade/Pesquisa
-		public async Task<ActionResult> Pesquisa(CidadeViewModel viewModel)
-		{
-			await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
+        public async Task<ActionResult> Pesquisa(CidadeViewModel viewModel)
+        {
+            await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
 
-			var query = context.Cidades.Include(cidade => cidade.Estado).Include(cidade => cidade.Bairros).AsQueryable();
+            var query = context.Cidades.Include(cidade => cidade.Estado).Include(cidade => cidade.Bairros).AsQueryable();
 
-			//TODO: parâmetros de pesquisa
+            //TODO: parâmetros de pesquisa
 
-            viewModel.Resultados = await query.OrderBy(a=>a.Estado.Sigla).ThenBy(a=>a.Nome).ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
+            viewModel.Resultados = await query.OrderBy(a => a.Nome).ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
 
             if (Request.IsAjaxRequest())
                 return PartialView("_Pesquisa", viewModel);
 
             return View("Indice", viewModel);
-		}
+        }
 
         //
         // GET: /Cidade/Detalhes/5
 
-        public ViewResult Detalhes(System.Guid id)
+        public async Task<ActionResult> Detalhes(System.Guid id)
         {
-            Cidade cidade = context.Cidades.Single(x => x.CidadeId == id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cidade cidade = await context.Cidades.FindAsync(id);
+            if (cidade == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
 
         //
         // GET: /Cidade/Criar
 
-        public ActionResult Criar()
+        public async Task<ActionResult> Criar()
         {
-            ViewBag.PossibleEstadoes = context.Estados;
+            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
             return View();
-        } 
+        }
 
         //
         // POST: /Cidade/Criar
 
         [HttpPost]
-        public ActionResult Criar([Bind()] Cidade cidade)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Criar(Cidade cidade)
         {
             if (ModelState.IsValid)
             {
                 cidade.CidadeId = Guid.NewGuid();
                 context.Cidades.Add(cidade);
-                context.SaveChanges();
-                return RedirectToAction("Index");  
+                await context.SaveChangesAsync();
+                return RedirectToAction("Indice");
             }
 
-            ViewBag.PossibleEstadoes = context.Estados;
+            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
-        
+
         //
         // GET: /Cidade/Editar/5
- 
-        public ActionResult Editar(System.Guid id)
+
+        public async Task<ActionResult> Editar(System.Guid id)
         {
-            Cidade cidade = context.Cidades.Single(x => x.CidadeId == id);
-            ViewBag.PossibleEstadoes = context.Estados;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cidade cidade = await context.Cidades.FindAsync(id);
+            if (cidade == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
 
@@ -100,24 +118,35 @@ namespace Exercicio10Cep.Controllers
         // POST: /Cidade/Editar/5
 
         [HttpPost]
-        public ActionResult Editar(Cidade cidade)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Editar(Cidade cidade)
         {
             if (ModelState.IsValid)
             {
                 context.Entry(cidade).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                await context.SaveChangesAsync();
+                return RedirectToAction("Indice");
             }
-            ViewBag.PossibleEstadoes = context.Estados;
+            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
             return View(cidade);
         }
 
         //
         // GET: /Cidade/Excluir/5
- 
-        public ActionResult Excluir(System.Guid id)
+
+        public async Task<ActionResult> Excluir(System.Guid id)
         {
-            Cidade cidade = context.Cidades.Single(x => x.CidadeId == id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Cidade cidade = await context.Cidades.FindAsync(id);
+            if (cidade == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Estadoes = new SelectList(await context.Estados.ToListAsync(), "EstadoId", "Nome");
+
             return View(cidade);
         }
 
@@ -125,17 +154,19 @@ namespace Exercicio10Cep.Controllers
         // POST: /Cidade/Excluir/5
 
         [HttpPost, ActionName("Exluir")]
-        public ActionResult ExcluirConfirmacao(System.Guid id)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ExcluirConfirmar(System.Guid id)
         {
-            Cidade cidade = context.Cidades.Single(x => x.CidadeId == id);
+            Cidade cidade = await context.Cidades.FindAsync(id);
             context.Cidades.Remove(cidade);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            await context.SaveChangesAsync();
+            return RedirectToAction("Indice");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
+            if (disposing)
+            {
                 context.Dispose();
             }
             base.Dispose(disposing);

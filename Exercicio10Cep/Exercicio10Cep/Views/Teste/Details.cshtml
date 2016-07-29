@@ -1,0 +1,35 @@
+@model Exercicio10Cep.Models.Cidade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Cidade</legend>
+
+    <div class="display-label">UltimaModificacao</div>
+    <div class="display-field">@String.Format("{0:g}", Model.UltimaModificacao)</div>
+
+    <div class="display-label">DataCriacao</div>
+    <div class="display-field">@String.Format("{0:g}", Model.DataCriacao)</div>
+
+    <div class="display-label">Nome</div>
+    <div class="display-field">@Model.Nome</div>
+
+    <div class="display-label">Cep</div>
+    <div class="display-field">@Model.Cep</div>
+
+    <div class="display-label">Estado</div>
+    <div class="display-field">@(Model.Estado == null ? "None" : Model.Estado.Nome)</div>
+
+    <div class="display-label">Bairros</div>
+    <div class="display-field">@(Model.Bairros == null ? "None" : Model.Bairros.Count.ToString())</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.CidadeId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+

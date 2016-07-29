@@ -1,0 +1,47 @@
+@model Exercicio10Cep.Models.Cidade
+
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.UltimaModificacao)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.UltimaModificacao)
+    @Html.ValidationMessageFor(model => model.UltimaModificacao)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.DataCriacao)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.DataCriacao)
+    @Html.ValidationMessageFor(model => model.DataCriacao)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Nome)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Nome)
+    @Html.ValidationMessageFor(model => model.Nome)
+</div>
+
+<div class="editor-label">
+    @Html.LabelFor(model => model.Cep)
+</div>
+<div class="editor-field">
+    @Html.EditorFor(model => model.Cep)
+    @Html.ValidationMessageFor(model => model.Cep)
+</div>
+
+<div class="editor-label">
+    Estado
+</div>
+<div class="editor-field">
+    @Html.DropDownListFor(model => model.EstadoId, ((IEnumerable<Exercicio10Cep.Models.Estado>)ViewBag.PossibleEstadoes).Select(option => new SelectListItem {
+        Text = (option == null ? "None" : option.Nome), 
+        Value = option.EstadoId.ToString(),
+        Selected = (Model != null) && (option.EstadoId == Model.EstadoId)
+    }), "Choose...")
+    @Html.ValidationMessageFor(model => model.EstadoId)
+</div>

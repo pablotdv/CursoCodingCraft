@@ -1,0 +1,38 @@
+@model Exercicio10Cep.Models.Cidade
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Cidade</legend>
+
+    <div class="display-label">UltimaModificacao</div>
+    <div class="display-field">@String.Format("{0:g}", Model.UltimaModificacao)</div>
+
+    <div class="display-label">DataCriacao</div>
+    <div class="display-field">@String.Format("{0:g}", Model.DataCriacao)</div>
+
+    <div class="display-label">Nome</div>
+    <div class="display-field">@Model.Nome</div>
+
+    <div class="display-label">Cep</div>
+    <div class="display-field">@Model.Cep</div>
+
+    <div class="display-label">Estado</div>
+    <div class="display-field">@(Model.Estado == null ? "None" : Model.Estado.Nome)</div>
+
+    <div class="display-label">Bairros</div>
+    <div class="display-field">@(Model.Bairros == null ? "None" : Model.Bairros.Count.ToString())</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+

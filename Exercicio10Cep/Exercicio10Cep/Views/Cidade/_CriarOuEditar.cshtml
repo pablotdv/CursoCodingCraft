@@ -1,7 +1,4 @@
 @model Exercicio10Cep.Models.Cidade
-
-@Html.HiddenFor(a => a.CidadeId)
-
 <div class="row">
 	<div class="col-md-4 col-xs-6">
         @Html.LabelFor(model => model.UltimaModificacao, htmlAttributes: new { @class = "control-label" })
@@ -24,17 +21,13 @@
         @Html.ValidationMessageFor(model => model.Cep, "", new { @class = "text-danger" })
     </div>
 
-
 	<div class="col-md-4 col-xs-6">
         @Html.LabelFor(model => model.EstadoId, htmlAttributes: new { @class = "control-label" })
         @Html.DropDownListFor(model => model.EstadoId, 
-			((IEnumerable<Exercicio10Cep.Models.Estado>)ViewBag.PossibleEstadoes)
-			.Select(option => new SelectListItem {
-				Text = (option == null ? "None" : option.Nome), 
-				Value = option.EstadoId.ToString(),
-				Selected = (Model != null) && (option.EstadoId == Model.EstadoId)
-			}), "Selecione um EstadoId...",
+			(SelectList)ViewBag.Estadoes, 
+			"Selecione um EstadoId...",
 			new { @class = "form-control selectpicker", @autofocus = "" })
         @Html.ValidationMessageFor(model => model.EstadoId, "", new { @class = "text-danger" })
     </div>
 </div> <!-- ./row -->
+

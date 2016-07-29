@@ -12,13 +12,12 @@
 <#@ import namespace="System.Data.Objects.DataClasses" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
-<# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; #>
+<# var viewDataType = (EnvDTE.CodeType) Model.ViewDataType; 
+   var relatedEntities = ((IEnumerable)Model.RelatedEntities).OfType<RelatedEntityInfo>();
+#>
 <# if(viewDataType != null) { #>
 @model <#= viewDataType.FullName #>
 <# } #>
-
-@Html.HiddenFor(a => a.CidadeId)
-
 <div class="row">
 <#
 foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, false)) {
@@ -34,19 +33,14 @@ foreach (ModelProperty property in GetModelProperties(Model.ViewDataType, false)
 }
 #>
 
-
 <#
 foreach (RelatedEntityInfo relation in ParentRelations) {
 #>
 	<div class="col-md-4 col-xs-6">
         @Html.LabelFor(model => model.<#= relation.RelationProperty.Name #>, htmlAttributes: new { @class = "control-label" })
         @Html.DropDownListFor(model => model.<#= relation.RelationProperty.Name #>, 
-			((IEnumerable<<#= relation.RelatedEntityType.FullName #>>)ViewBag.Possible<#= relation.RelationNamePlural #>)
-			.Select(option => new SelectListItem {
-				Text = <#= GetValueExpression("option", relation.RelatedEntityType) #>, 
-				Value = option.<#= relation.RelatedEntityPrimaryKeyName #>.ToString(),
-				Selected = (Model != null) && (option.<#= relation.RelatedEntityPrimaryKeyName #> == Model.<#= relation.RelationProperty.Name #>)
-			}), "Selecione um <#= relation.RelationProperty.Name #>...",
+			(SelectList)ViewBag.<#= relation.RelationNamePlural #>, 
+			"Selecione um <#= relation.RelationProperty.Name #>...",
 			new { @class = "form-control selectpicker", @autofocus = "" })
         @Html.ValidationMessageFor(model => model.<#= relation.RelationProperty.Name #>, "", new { @class = "text-danger" })
     </div>

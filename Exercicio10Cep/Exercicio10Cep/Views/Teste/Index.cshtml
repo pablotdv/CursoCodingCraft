@@ -1,0 +1,65 @@
+@model IEnumerable<Exercicio10Cep.Models.Cidade>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            UltimaModificacao
+        </th>
+        <th>
+            DataCriacao
+        </th>
+        <th>
+            Nome
+        </th>
+        <th>
+            Cep
+        </th>
+        <th>
+            Estado
+        </th>
+        <th>
+            Bairros
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CidadeId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CidadeId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CidadeId })
+        </td>
+        <td>
+			@String.Format("{0:g}", item.UltimaModificacao)
+        </td>
+        <td>
+			@String.Format("{0:g}", item.DataCriacao)
+        </td>
+        <td>
+			@item.Nome
+        </td>
+        <td>
+			@item.Cep
+        </td>
+        <td>
+			@(item.Estado == null ? "None" : item.Estado.Nome)
+        </td>
+        <td>
+			@(item.Bairros == null ? "None" : item.Bairros.Count.ToString())
+        </td>
+    </tr>
+}
+
+</table>
+
+

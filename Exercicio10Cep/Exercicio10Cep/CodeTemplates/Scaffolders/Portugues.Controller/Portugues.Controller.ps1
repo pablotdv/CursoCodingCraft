@@ -108,7 +108,7 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
 	DbContextType = [MarshalByRefObject]$foundDbContextType;
 	Repository = $repositoryName; 
 	ModelTypePluralized = [string]$modelTypePluralized; 
-	RelatedEntities = $relatedEntities;
+	RelatedEntities = $relatedEntities;	
 } -SuccessMessage "Added controller {0}" -TemplateFolders $TemplateFolders -Project $Project -CodeLanguage $CodeLanguage -Force:$overwriteController
 
 #if (!$NoChildItems) {
@@ -118,8 +118,3 @@ Add-ProjectItemViaTemplate $outputPath -Template $templateName -Model @{
 #	}
 #}
 
-$controllerNameWithoutSuffix = [System.Text.RegularExpressions.Regex]::Replace($ControllerName, "Controller$", "", [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
-
-Scaffold Portugues.ViewModel $controllerNameWithoutSuffix -ModelType $foundModelType.FullName -Force:$overwriteFilesExceptController
-
-Scaffold Portugues.RazorViews $controllerNameWithoutSuffix -ModelType $foundModelType.FullName -Force:$overwriteFilesExceptController
