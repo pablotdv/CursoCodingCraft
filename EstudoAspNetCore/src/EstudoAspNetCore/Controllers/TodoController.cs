@@ -54,7 +54,7 @@ namespace EstudoAspNetCore.Controllers
                 return BadRequest();
             }
 
-            var todo = TodoItems.Find(id);
+            var todo = TodoItems.Find(id.ToString());
             if (todo == null)
             {
                 return NotFound();
