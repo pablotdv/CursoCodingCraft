@@ -14,3 +14,6 @@
     @Html.Partial("_Pesquisa", Model)
 </div>
 
+<a class="btn btn-default" id="editar" title="Editar" href="@Url.Action("Editar", new { id=item.<#= Model.PrimaryKeyName #>})"><i class="glyphicon glyphicon-edit glyphicon-align-left"></i></a>
+<a class="btn btn-default" id="detalhes" title="Detalhes" href="@Url.Action("Detalhes", new {id=item.<#= Model.PrimaryKeyName #>})"><i class="glyphicon glyphicon-eye-open glyphicon-align-right"></i></a>
+<a class="btn btn-default" id="Deletar" title="Excluir" href="@Url.Action("Excluir", new { id=item.<#= Model.PrimaryKeyName #> })"><i class="glyphicon glyphicon-trash glyphicon-align-right"></i></a>
