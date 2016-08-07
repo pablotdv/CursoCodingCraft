@@ -16,6 +16,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using PagedList.EntityFramework;
 using Newtonsoft.Json;
+using System.Net;
 using <#= Model.DefaultNamespace #>.Helpers;
 using <#= Model.DefaultNamespace #>.ViewModels;
 <# if(!string.IsNullOrEmpty(Model.ModelTypeNamespace)) { #>
@@ -70,7 +71,7 @@ namespace <#= Model.ControllerNamespace #>
 
 			//TODO: parâmetros de pesquisa
 
-            viewModel.Resultados = await query.ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
+            viewModel.Resultados = await query.OrderBy(a=>a.).ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
 
             if (Request.IsAjaxRequest())
                 return PartialView("_Pesquisa", viewModel);
@@ -81,19 +82,30 @@ namespace <#= Model.ControllerNamespace #>
         //
         // GET: /<#= routingName #>/Detalhes/5
 
-        public ViewResult Detalhes(<#= primaryKeyProperty.Type.AsString #> id)
+        public async Task<ActionResult> Detalhes(<#= primaryKeyProperty.Type.AsString #> id)
         {
-            <#= modelName #> <#= modelVariable #> = context.<#= modelNamePlural #>.Single(x => x.<#= primaryKeyProperty.Name #> == id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            <#= modelName #> <#= modelVariable #> = await context.<#= modelNamePlural #>.FindAsync(id);
+            if (<#= modelVariable #> == null)
+            {
+                return HttpNotFound();
+            }            
+<# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
+            ViewBag.<#= relatedEntity.RelationNamePlural #> = new SelectList(await context.<#= relatedEntity.RelatedEntityTypeNamePlural #>.ToListAsync(), "<#= relatedEntity.RelatedEntityPrimaryKeyName #>", _);
+<# } #>
             return View(<#= modelVariable #>);
         }
 
         //
         // GET: /<#= routingName #>/Criar
 
-        public ActionResult Criar()
+        public async Task<ActionResult> Criar()
         {
 <# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-            ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = context.<#= relatedEntity.RelatedEntityTypeNamePlural #>;
+            ViewBag.<#= relatedEntity.RelationNamePlural #> = new SelectList(await context.<#= relatedEntity.RelatedEntityTypeNamePlural #>.ToListAsync(), "<#= relatedEntity.RelatedEntityPrimaryKeyName #>", _);
 <# } #>
             return View();
         } 
@@ -102,7 +114,8 @@ namespace <#= Model.ControllerNamespace #>
         // POST: /<#= routingName #>/Criar
 
         [HttpPost]
-        public ActionResult Criar(<#= modelName #> <#= modelVariable #>)
+		[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Criar(<#= modelName #> <#= modelVariable #>)
         {
             if (ModelState.IsValid)
             {
@@ -114,12 +127,12 @@ namespace <#= Model.ControllerNamespace #>
 <# } else { #>
                 context.<#= modelNamePlural #>.Add(<#= modelVariable #>);
 <# } #>
-                context.SaveChanges();
-                return RedirectToAction("Index");  
+                await context.SaveChangesAsync();
+                return RedirectToAction("Indice");  
             }
 
 <# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-            ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = context.<#= relatedEntity.RelatedEntityTypeNamePlural #>;
+            ViewBag.<#= relatedEntity.RelationNamePlural #> = new SelectList(await context.<#= relatedEntity.RelatedEntityTypeNamePlural #>.ToListAsync(), "<#= relatedEntity.RelatedEntityPrimaryKeyName #>", _);
 <# } #>
             return View(<#= modelVariable #>);
         }
@@ -127,11 +140,19 @@ namespace <#= Model.ControllerNamespace #>
         //
         // GET: /<#= routingName #>/Editar/5
  
-        public ActionResult Editar(<#= primaryKeyProperty.Type.AsString #> id)
+        public async Task<ActionResult> Editar(<#= primaryKeyProperty.Type.AsString #> id)
         {
-            <#= modelName #> <#= modelVariable #> = context.<#= modelNamePlural #>.Single(x => x.<#= primaryKeyProperty.Name #> == id);
+			if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            <#= modelName #> <#= modelVariable #> = await context.<#= modelNamePlural #>.FindAsync(id);
+            if (<#= modelVariable #> == null)
+            {
+                return HttpNotFound();
+            }            
 <# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-            ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = context.<#= relatedEntity.RelatedEntityTypeNamePlural #>;
+            ViewBag.<#= relatedEntity.RelationNamePlural #> = new SelectList(await context.<#= relatedEntity.RelatedEntityTypeNamePlural #>.ToListAsync(), "<#= relatedEntity.RelatedEntityPrimaryKeyName #>", _);
 <# } #>
             return View(<#= modelVariable #>);
         }
@@ -140,7 +161,8 @@ namespace <#= Model.ControllerNamespace #>
         // POST: /<#= routingName #>/Editar/5
 
         [HttpPost]
-        public ActionResult Editar(<#= modelName #> <#= modelVariable #>)
+		[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Editar(<#= modelName #> <#= modelVariable #>)
         {
             if (ModelState.IsValid)
             {
@@ -150,11 +172,11 @@ namespace <#= Model.ControllerNamespace #>
 <# } else { #>
                 context.Entry(<#= modelVariable #>).State = EntityState.Modified;
 <# } #>
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                await context.SaveChangesAsync();
+                return RedirectToAction("Indice");
             }
 <# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
-            ViewBag.Possible<#= relatedEntity.RelationNamePlural #> = context.<#= relatedEntity.RelatedEntityTypeNamePlural #>;
+            ViewBag.<#= relatedEntity.RelationNamePlural #> = new SelectList(await context.<#= relatedEntity.RelatedEntityTypeNamePlural #>.ToListAsync(), "<#= relatedEntity.RelatedEntityPrimaryKeyName #>", _);
 <# } #>
             return View(<#= modelVariable #>);
         }
@@ -162,26 +184,38 @@ namespace <#= Model.ControllerNamespace #>
         //
         // GET: /<#= routingName #>/Excluir/5
  
-        public ActionResult Excluir(<#= primaryKeyProperty.Type.AsString #> id)
+        public async Task<ActionResult> Excluir(<#= primaryKeyProperty.Type.AsString #> id)
         {
-            <#= modelName #> <#= modelVariable #> = context.<#= modelNamePlural #>.Single(x => x.<#= primaryKeyProperty.Name #> == id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            <#= modelName #> <#= modelVariable #> = await context.<#= modelNamePlural #>.FindAsync(id);
+            if (<#= modelVariable #> == null)
+            {
+                return HttpNotFound();
+            }        
+<# foreach(var relatedEntity in relatedEntities.Where(x => x.RelationType == RelationType.Parent)) { #>
+            ViewBag.<#= relatedEntity.RelationNamePlural #> = new SelectList(await context.<#= relatedEntity.RelatedEntityTypeNamePlural #>.ToListAsync(), "<#= relatedEntity.RelatedEntityPrimaryKeyName #>", _);
+<# } #>    
             return View(<#= modelVariable #>);
         }
 
         //
         // POST: /<#= routingName #>/Excluir/5
 
-        [HttpPost, ActionName("Exluir")]
-        public ActionResult ExcluirConfirmacao(<#= primaryKeyProperty.Type.AsString #> id)
+        [HttpPost, ActionName("Excluir")]
+		[ValidateAntiForgeryToken]
+        public async Task<ActionResult> ExcluirConfirmacao(<#= primaryKeyProperty.Type.AsString #> id)
         {
-            <#= modelName #> <#= modelVariable #> = context.<#= modelNamePlural #>.Single(x => x.<#= primaryKeyProperty.Name #> == id);
+            <#= modelName #> <#= modelVariable #> = await context.<#= modelNamePlural #>.FindAsync(id);
 <# if(isObjectContext) { #>
             context.<#= modelNamePlural #>.DeleteObject(<#= modelVariable #>);
 <# } else { #>
             context.<#= modelNamePlural #>.Remove(<#= modelVariable #>);
 <# } #>
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            await context.SaveChangesAsync();
+            return RedirectToAction("Indice");
         }
 
         protected override void Dispose(bool disposing)
@@ -193,3 +227,4 @@ namespace <#= Model.ControllerNamespace #>
         }
     }
 }
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

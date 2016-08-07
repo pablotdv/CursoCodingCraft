@@ -9,6 +9,6 @@ namespace Exercicio10Cep.ViewModels
 
     public class PaisViewModel : PagedListViewModel<Pais>
     {
-		public string Nome { get; set; }
+		//TODO: adicionar filtros de pesquisa
 	}
 }

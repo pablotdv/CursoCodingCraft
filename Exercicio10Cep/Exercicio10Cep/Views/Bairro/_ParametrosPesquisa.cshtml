@@ -1,0 +1,19 @@
+@using Exercicio10Cep.ViewModels;
+@model BairroViewModel
+@using (Ajax.BeginForm("Pesquisa", "Bairro", new AjaxOptions()
+{
+    HttpMethod = "GET",
+    InsertionMode = InsertionMode.Replace,
+    UpdateTargetId = "pesquisa"
+}))
+{
+    <div class="form-group">
+        <!-- Parâmetros de pesquisa-->
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <button type="submit" class="btn btn-default" id="submit" name="submit">Pesquisar</button>
+        </div>
+    </div>
+}
+

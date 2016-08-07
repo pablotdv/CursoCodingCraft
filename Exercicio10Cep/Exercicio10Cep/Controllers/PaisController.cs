@@ -8,17 +8,17 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using PagedList.EntityFramework;
 using Newtonsoft.Json;
+using System.Net;
 using Exercicio10Cep.Helpers;
 using Exercicio10Cep.ViewModels;
 using Exercicio10Cep.Models;
 
 namespace Exercicio10Cep.Controllers
-{   
-    [Authorize]
+{
     public class PaisController : Controller
     {
-		private const string _PESQUISA_KEY = "7a3f5caf-5e91-4610-bd54-e000f43faf4e"; 
-		
+        private const string _PESQUISA_KEY = "2fb46b2c-ccd0-4b82-9a5f-976d34660041";
+
         private ApplicationDbContext context = new ApplicationDbContext();
 
         //
@@ -26,70 +26,87 @@ namespace Exercicio10Cep.Controllers
         public async Task<ActionResult> Indice()
         {
 
-			var viewModel = JsonConvert.DeserializeObject<PaisViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
+            var viewModel = JsonConvert.DeserializeObject<PaisViewModel>(await PesquisaModelStore.GetAsync(Guid.Parse(_PESQUISA_KEY)));
 
             return await Pesquisa(viewModel ?? new PaisViewModel());
 
         }
 
-		//
+        //
         // GET: /Pais/Pesquisa
-		public async Task<ActionResult> Pesquisa(PaisViewModel viewModel)
-		{
-			await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
+        public async Task<ActionResult> Pesquisa(PaisViewModel viewModel)
+        {
+            await PesquisaModelStore.AddAsync(Guid.Parse(_PESQUISA_KEY), viewModel);
 
-			var query = context.Paises.Include(pais => pais.Estados).AsQueryable();
+            var query = context.Pais.Include(pais => pais.Estados).AsQueryable();
 
-			//TODO: parâmetros de pesquisa
+            //TODO: parâmetros de pesquisa
 
-            viewModel.Resultados = await query.ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
+            viewModel.Resultados = await query.OrderBy(a => a.Nome).ToPagedListAsync(viewModel.Pagina, viewModel.TamanhoPagina);
 
             if (Request.IsAjaxRequest())
                 return PartialView("_Pesquisa", viewModel);
 
             return View("Indice", viewModel);
-		}
+        }
 
         //
         // GET: /Pais/Detalhes/5
 
-        public ViewResult Detalhes(System.Guid id)
+        public async Task<ActionResult> Detalhes(System.Guid id)
         {
-            Pais pais = context.Paises.Single(x => x.PaisId == id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pais pais = await context.Pais.FindAsync(id);
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
             return View(pais);
         }
 
         //
         // GET: /Pais/Criar
 
-        public ActionResult Criar()
+        public async Task<ActionResult> Criar()
         {
             return View();
-        } 
+        }
 
         //
         // POST: /Pais/Criar
 
         [HttpPost]
-        public ActionResult Criar(Pais pais)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Criar(Pais pais)
         {
             if (ModelState.IsValid)
             {
                 pais.PaisId = Guid.NewGuid();
-                context.Paises.Add(pais);
-                context.SaveChanges();
-                return RedirectToAction("Index");  
+                context.Pais.Add(pais);
+                await context.SaveChangesAsync();
+                return RedirectToAction("Indice");
             }
 
             return View(pais);
         }
-        
+
         //
         // GET: /Pais/Editar/5
- 
-        public ActionResult Editar(System.Guid id)
+
+        public async Task<ActionResult> Editar(System.Guid id)
         {
-            Pais pais = context.Paises.Single(x => x.PaisId == id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pais pais = await context.Pais.FindAsync(id);
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
             return View(pais);
         }
 
@@ -97,41 +114,53 @@ namespace Exercicio10Cep.Controllers
         // POST: /Pais/Editar/5
 
         [HttpPost]
-        public ActionResult Editar(Pais pais)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Editar(Pais pais)
         {
             if (ModelState.IsValid)
             {
                 context.Entry(pais).State = EntityState.Modified;
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                await context.SaveChangesAsync();
+                return RedirectToAction("Indice");
             }
             return View(pais);
         }
 
         //
         // GET: /Pais/Excluir/5
- 
-        public ActionResult Excluir(System.Guid id)
+
+        public async Task<ActionResult> Excluir(System.Guid id)
         {
-            Pais pais = context.Paises.Single(x => x.PaisId == id);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pais pais = await context.Pais.FindAsync(id);
+            if (pais == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(pais);
         }
 
         //
         // POST: /Pais/Excluir/5
 
-        [HttpPost, ActionName("Exluir")]
-        public ActionResult ExcluirConfirmacao(System.Guid id)
+        [HttpPost, ActionName("Excluir")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ExcluirConfirmacao(System.Guid id)
         {
-            Pais pais = context.Paises.Single(x => x.PaisId == id);
-            context.Paises.Remove(pais);
-            context.SaveChanges();
-            return RedirectToAction("Index");
+            Pais pais = await context.Pais.FindAsync(id);
+            context.Pais.Remove(pais);
+            await context.SaveChangesAsync();
+            return RedirectToAction("Indice");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
+            if (disposing)
+            {
                 context.Dispose();
             }
             base.Dispose(disposing);

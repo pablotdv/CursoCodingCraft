@@ -9,11 +9,11 @@ namespace Exercicio10Cep.Models
     [DisplayColumn("Nome")]
     public class Cidade : Entidade
     {
-        [Key]
+        [Key]        
         public Guid CidadeId { get; set; }
-        
+
         public Guid EstadoId { get; set; }
-        
+
         [Required]
         [StringLength(200)]
         public String Nome { get; set; }

@@ -39,9 +39,9 @@
 							@foreach (var item in Model.Resultados) {
 								<tr>
 								<td>
-									@Html.ActionLink("Edit", "Edit", new { id=item.PaisId }) |
-									@Html.ActionLink("Details", "Details", new { id=item.PaisId }) |
-									@Html.ActionLink("Delete", "Delete", new { id=item.PaisId })
+									@Html.ActionLink("Editar", "Editar", new { id=item.PaisId }) |
+									@Html.ActionLink("Detalhes", "Detalhes", new { id=item.PaisId }) |
+									@Html.ActionLink("Excluir", "Excluir", new { id=item.PaisId })
 								</td>
 								<td>
 									@String.Format("{0:g}", item.UltimaModificacao)

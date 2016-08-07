@@ -1,0 +1,86 @@
+@using Exercicio10Cep.ViewModels;
+@model EstadoViewModel
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Pesquisa - @ViewBag.Title
+    </div>
+    <div class="panel-body">
+        
+		@Html.Partial("_ParametrosPesquisa", Model)
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="pesquisa">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+									<th>
+										UltimaModificacao
+									</th>
+									<th>
+										DataCriacao
+									</th>
+									<th>
+										Nome
+									</th>
+									<th>
+										Sigla
+									</th>
+									<th>
+										Pais
+									</th>
+									<th>
+										Cidades
+									</th>
+                                
+                            </tr>
+                        </thead>
+
+                        <tbody>
+							@foreach (var item in Model.Resultados) {
+								<tr>
+								<td>
+									@Html.ActionLink("Editar", "Editar", new { id=item.EstadoId }) |
+									@Html.ActionLink("Detalhes", "Detalhes", new { id=item.EstadoId }) |
+									@Html.ActionLink("Excluir", "Excluir", new { id=item.EstadoId })
+								</td>
+								<td>
+									@String.Format("{0:g}", item.UltimaModificacao)
+								</td>
+								<td>
+									@String.Format("{0:g}", item.DataCriacao)
+								</td>
+								<td>
+									@item.Nome
+								</td>
+								<td>
+									@item.Sigla
+								</td>
+								<td>
+									@(item.Pais == null ? "None" : item.Pais.Nome)
+								</td>
+								<td>
+									@(item.Cidades == null ? "None" : item.Cidades.Count.ToString())
+								</td>
+							</tr>
+						}                            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.PagedListPager(Model.Resultados, page => Url.Action("Pesquisa",
+    new EstadoViewModel()
+    {
+        Pagina = page,
+        //Parametros de pesquisa
+    }),
+    PagedListRenderOptionsCustom.Custom)
+
+
